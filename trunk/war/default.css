@@ -1,0 +1,155 @@
+@charset "utf-8";
+/* CSS Document */
+
+#container{
+    /*width: 1400px;*/
+    width:auto;
+    height: 700px;
+}
+* {
+	margin: 0;
+	padding: 0;
+        font-size: 14px;
+}
+
+h1{
+    color: #0089d9;
+    text-shadow: 0 -1px 1px #ffffff;
+}
+
+h3{
+    color: #0089d9;
+}
+a {
+	color: #000000;
+}
+
+a:hover {
+	color: #fae160;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #f8bf23;
+	text-decoration: none;
+}
+
+body {
+	background-color:#ffffff;
+	color: #333;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+}
+
+#header {
+	background: url(images/bgheader.jpg);
+        min-width: 981px;
+        width: 100%;
+        z-index: 300;
+}
+
+#menu {
+	background: url(images/bgmenu.jpg);
+}
+
+#nav_sub{
+	background: url(images/bgedit.png);
+	height:45px;
+}
+
+#nav_sub_right{
+    margin-right: 100px;
+}
+
+#nav_sub_left{
+    margin-left: 10px;
+    float: left;
+}
+
+.logo{
+    width: auto; 
+    margin-top: 2px; 
+    margin-right: 10px;
+    float: left;
+}
+
+.button{
+    height: 45px;
+    width: 40px; 
+    float: right;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+#browse{
+    height: 45px;
+    width: 40px; 
+    float: right;
+    margin-top: 10px;
+    margin-right: 250px;
+}
+
+.btimport1{
+    background: url(images/btimport1.png) no-repeat;
+}
+
+.btex1{
+    background: url(images/btex1.png) no-repeat;
+}
+
+.btdel1{
+    background: url(images/btdel1.png) no-repeat;
+}
+
+#content1{
+    height:400px;
+}
+
+#content2 {
+    width: 400px;
+    margin: 10px 400px;
+    height: 400px;
+}
+
+#content3 {
+    width: 900px;
+    margin: 10px 200px;
+    height: 600px;
+}
+
+#content{
+    width: 900px;
+    height: 400px;
+    margin: 10px 200px;
+}
+
+#content_left {
+    height: auto;
+    width: auto;
+    float: left;
+}
+
+#content_right {
+    height: auto;
+    width: auto;
+    float: right;
+}
+
+#content_left1 { /*xep lich*/
+    height: auto;
+    width: 200px;
+    float: left;
+}
+#content_right1 { /*xep lich*/
+    height: auto;
+    width: 700px;
+    float: right;
+}
+#footer {
+	background-color:#0089d9;
+	color:#FFFFFF;
+	margin-top: 40px;
+	height:60px;;
+	font-size: 12px;
+	text-align:center;
+    }
