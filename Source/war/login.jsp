@@ -1,5 +1,17 @@
+<%@page import="com.google.appengine.api.users.UserServiceFactory"%>
+<%@page import="com.google.appengine.api.users.UserService"%>
 <%@ page contentType="text/html; charset=utf-8" language="java" errorPage="" %>
+<%@taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
+<%
+UserService userService = UserServiceFactory.getUserService();
 
+ String login = "";
+ if (request.getUserPrincipal() == null){
+ 	
+     login = userService.createLoginURL("/index.jsp");
+                             
+}
+%>
 <html>
     <head>
         <title>Trang chủ</title>
@@ -13,21 +25,24 @@
             <jsp:include page="module/header_login.jsp" />
 
             <div id="con_login" align="center">
-                <form styleId="login" method="post" action="project.jsp">
-                    <div class="login" align="left">
+                <html:errors/>
+                <html:form styleId="login" method="post" action="/LogIn.do">
+                    <div class="login" align="center">
                 	Người dùng:
-                        <input type="text" name="username"><br>
+                        <html:text property="username"></html:text>
                     </div>
                     <br>
-                    <div class="login" align="left">
-                        Mật Khẩu:
-                        <input type="password" name="pwd">
+                    <div class="login" align="center">
+                    Mật khẩu:
+                        <html:password property="password"></html:password>
                     </div>
                     <br>
-                    <div class="login" align="left">
-                    <input type="submit"  value="Đăng nhập" style="height: 25px; width: 100px">
+                    <div class="login" align="center">
+                        <html:submit property="submit" value="Đăng nhập" style="height: 25px; width: 100px" ></html:submit>
                     </div>
-                <form>
+                </html:form>
+                
+               <a href="<%=login%>">Đăng nhập bằng tài khoản google</a>
             </div>
 
         </div> <!-- end content-->
