@@ -10,9 +10,11 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
+import sp.util.Constant;
+
 /**
  * PersistenceManagerFactory class.
- * @author Thuy
+ * @author 
  *
  */
 public final class PMF {
@@ -226,7 +228,24 @@ public final class PMF {
         return true;
     }
     
-    
+    @SuppressWarnings("unchecked")
+	public static List<?> getObjectList(Class<?> className, int page){
+    	PersistenceManager pm = getPMF();
+        Query query = pm.newQuery(className);
+        query.setRange((Constant.RECORD * (page - 1)), Constant.RECORD * page);
+        List<Object> results = null;
+        List<Object> detachedList = null;
+        try {
+            detachedList = (List<Object>) query.execute();
+            results = (List<Object>) pm.detachCopyAll(detachedList);
+
+        } finally {
+            query.closeAll();
+            pm.close();
+        }
+        return results;
+        
+    }
     
     
 }
