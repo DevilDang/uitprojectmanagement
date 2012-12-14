@@ -22,12 +22,7 @@ public class User implements Serializable {
 	 */
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    private Long idUser;
-	/**
-	 * nameUser
-	 */
-	@Persistent
-	private String nameUser;
+    private String email;
 	
 	/**
 	 * password
@@ -38,23 +33,19 @@ public class User implements Serializable {
 	/**
 	 * idPermision
 	 */
+	@Persistent
 	private int idPermision;	
 	/**
 	 * statusLogin
 	 */
+	@Persistent
 	private boolean statusLogin;
 	
-	public Long getIdUser() {
-		return idUser;
+	public String getEmail() {
+		return email;
 	}
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
-	}
-	public String getNameUser() {
-		return nameUser;
-	}
-	public void setNameUser(String nameUser) {
-		this.nameUser = nameUser;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getPassword() {
 		return password;
