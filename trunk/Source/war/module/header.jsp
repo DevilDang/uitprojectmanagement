@@ -1,4 +1,13 @@
+<%@page import="com.google.appengine.api.users.UserServiceFactory"%>
+<%@page import="com.google.appengine.api.users.UserService"%>
 <%@ page contentType="text/html; charset=utf-8" language="java" errorPage="" %>
+<%
+	UserService userService = UserServiceFactory.getUserService();
+String logout = "";
+if (request.getUserPrincipal() != null) {	
+    		 logout =  userService.createLogoutURL("/login.jsp") ;                          
+}
+%>
 <div id="header">
     <div id="banner">
         <div align="center"><img src="images/banner.jpg" alt="tkb banner" />
@@ -13,7 +22,7 @@
             <li><a href="group.jsp">Nhóm</a></li>
             <li><a href="account.jsp">Tài Khoản</a></li>
             <li><a href="report.jsp">Báo Cáo</a></li>            
-            <li><a href="login.jsp">Đăng Xuất</a></li>
+            <li><a href="<%=logout %>">Đăng Xuất</a></li>
         </ul>
     </div> <!--end menu-->
 
