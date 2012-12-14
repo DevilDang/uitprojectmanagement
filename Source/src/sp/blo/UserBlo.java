@@ -10,7 +10,7 @@ public class UserBlo {
 	 * checkUser
 	 * @param id
 	 * @return int
-	 */
+	 *//*
 	public static int checkUser(String id) {
 		User user = new User();
 		if (userDao.checkExistUser(id)) {
@@ -27,7 +27,7 @@ public class UserBlo {
 		}
 		// user ko ton tai
 		return 0;
-	}
+	}*/
 	
 	public static int checkRole(String value){
 		return 1;
