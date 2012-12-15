@@ -1,4 +1,4 @@
-package sp.action;
+package sp.action.file;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;

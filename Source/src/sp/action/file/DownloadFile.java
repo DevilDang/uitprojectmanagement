@@ -1,5 +1,5 @@
 
-package sp.action;
+package sp.action.file;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
