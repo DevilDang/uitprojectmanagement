@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+<struts-config>
+  <form-beans>
+   <form-bean name="organization" type="sp.form.OrganizationForm" />
+  </form-beans>
+  <global-forwards>
+  </global-forwards>
+  <action-mappings>
+      
+    <!-- insert/update organization -->
+    <action 
+    input="/organization.jsp" 
+    path="/updateOrg" 
+    type="sp.action.organization.UpdateOrg" 
+    name="organization"
+    validate="true">
+    	<forward name="success" path="/displayOrgList.do" redirect="true" />
+    	<forward name="failure" path="organization.jsp" redirect="true" />
+    </action>
+    
+    <!-- dislay 1 page organization -->
+    <action 
+    path="/displayOrgList" 
+    type="sp.action.organization.DislayOrganizationList" >
+    	<forward name="success" path="organization.jsp" redirect="true" />
+    </action>
+    
+    <!-- dislay 1 record Organization -->
+    <action 
+    path="/displayOrg" 
+    type="sp.action.organization.DislayOrganization" >
+    	<forward name="success" path="organization.jsp" redirect="true" />
+    </action>
+    
+    <!-- change Mode : update -> insert -->
+    <action 
+    path="/changeMode" 
+    type="sp.action.organization.ChangeMode" >
+    <forward name="success" path="organization.jsp" redirect="true" />
+    </action>
+    
+     <!-- delete organization -->
+    <action 
+    path="/deleteOrganization" 
+    type="sp.action.organization.DeleteOrganization" >
+    <forward name="success" path="/displayOrgList.do" redirect="true" />
+    </action>
+    
+  </action-mappings>
+  
+</struts-config>
