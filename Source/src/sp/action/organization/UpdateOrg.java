@@ -17,13 +17,15 @@ public class UpdateOrg extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		System.out.println("123");
 		// get form after check validate
 		OrganizationForm orgForm = (OrganizationForm) form;
 
-		// update or insert org into DB
+		//get form
 		Organization org = orgForm.getOrganization();
+		
+		// update or insert org into DB
 		OrganizationBlo.saveOrganization(org);
+		
 		
 		//forward page result
 		return mapping.findForward(Constant.SUCCESS);

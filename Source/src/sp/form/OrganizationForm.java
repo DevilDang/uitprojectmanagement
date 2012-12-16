@@ -14,7 +14,8 @@ public class OrganizationForm extends ValidatorForm implements Serializable {
 	private String addOrg;
 	private String websiteOrg;
 	private String numberOrg;
-	
+	//check box
+	private boolean flagCheck;
 	
 	public Long getIdOrg() {
 		return idOrg;
@@ -53,7 +54,7 @@ public class OrganizationForm extends ValidatorForm implements Serializable {
 	public Organization getOrganization(){
 		Organization org = new Organization();
 		org.setIdOrg(this.idOrg);
-		org.setNumberOrg(this.nameOrg);
+		org.setNameOrg(this.nameOrg);
 		org.setAddOrg(this.addOrg);
 		org.setNumberOrg(this.numberOrg);
 		org.setWebsiteOrg(this.websiteOrg);
