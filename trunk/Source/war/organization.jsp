@@ -1,4 +1,8 @@
-<%@ page contentType="text/html; charset=utf-8" language="java" errorPage="" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+  pageEncoding="UTF-8"%>
+<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
+<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
+<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <html>
     <head>
         <title>Quản Lý Đối Tác</title>
@@ -24,12 +28,16 @@
                     <h3 align="center"> Quản lý danh sách </h3><br>
                     <form name="danhsachmonhoc" id ="danhsachmonhoc" method="post" action="">
                     	 
-                        <p>&nbsp;</p>
+                        <p>Số lượng:
+                        <logic:present name="org_total_number">
+                        <bean:write name="org_total_number"/>
+                        </logic:present>
+                        </p>
                         <p><br>
                         </p>
                         <div id="table">
                             <table id="table_danhsach_monhoc" cellspacing="0" cellpadding="0" border="1">                               
-                                <thead>
+                               <thead>
                                     <tr align="center">
                                         <td width="20"><input type="checkbox" name="checkall" id="checkall" onClick="checkUncheckAll(this);"/></td>
                                         <td width="70"><b>Mã Đối Tác</b></td>
@@ -38,18 +46,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                 <logic:present name="org_list">
+      <logic:iterate id="element" name="org_list" > 
                                 	 <tr align="center">
-                                        <td width="20"><input type="checkbox" name="checkall" id="checkall" onClick="checkUncheckAll(this);"/></td>
-                                        <td width="70"><b><a href="#">CNTT</a></b></td>
-                                        <td width="130"><b>Trường Công Nghệ Thông Tin</b></td>
-                                        <td width="130"><b>www.uit.edu.vn</b></td>                               
-                                    </tr>                               
+                                        <td width="20">
+                                        <input type="checkbox" name="checkall" id="checkall"  onClick="checkUncheckAll(this);"/> </td>
+                                        <td width="70"><b><a href="/displayOrg.do?id=<bean:write name="element"  property="idOrg"/>"><bean:write name="element"  property="idOrg"/></a></b></td>
+                                        <td width="130"><b><bean:write name="element"  property="nameOrg"/></b></td>
+                                        <td width="130"><b><bean:write name="element"  property="addOrg"/></b></td>                               
+                                    </tr>  
+                                    </logic:iterate>
+      </logic:present>                             
                                 </tbody>
                             </table>
                         </div>
                         <div id="phantrang" class="chose3" align="center">
                             <select name ="PAGE" id="select_page" onchange="ajax_load_page_danhsachmonhoc()">
-                                <option value="0" >1</option>
+                                <logic:present name="org_page_list">
+                               <logic:iterate id="element" name="org_page_list" >
+                                <option value="<bean:write name="element"/>"><bean:write name="element" /></option>
+                                </logic:iterate>
+                                </logic:present>
                             </select>
 
                         </div>
@@ -63,38 +80,47 @@
 
                     </div>
                 </div> <!--end content left-->
-                <form name="form1" method="post" action="" id="form_monhoc">
+                <html:form action="/updateOrg.do" method="get">
                     <div id="content_right">
-                        <h3 align="center"> Chỉnh sửa </h3><br>
+                    
+                        <h3 align="center"><!-- <a href="/changeMode.do?mode=2"> -->Chỉnh sửa </a> / <a href="/changeMode.do?mode=1">Thêm mới </a></h3><br>
                         <table id="table_monhoc" class="table_right" cellspacing="5" cellpadding="0" border="0">
                             <thead>
 
                             </thead>
+                            <logic:present name="flagOrg">
+                            <logic:equal name="flagOrg" value="2">
                             <tr>
                                 <td width="100">Mã Đối tác: </td>
-                                <td width="300">                    	                       	
-                                    <input name="mamon" type="text" id="mamon">                       
+                                <td width="300"> 
+                                  <bean:write name="organization" property="idOrg"/>                                                  
                                 </td>
                             </tr>
+                            </logic:equal>
+                            </logic:present>
+                            
                             <tr>
                                 <td>Tên đối tác: </td>
-                                <td><input type="text" name="tenmon" id="tenmon" >
+                                <td>
+                                <html:text property="nameOrg" />  
                                 </td>
                             </tr>
   							 <tr>
                                 <td width="100">Địa Chỉ: </td>
                                 <td width="300">                    	                       	
-                                    <input name="mamon" type="text" id="mamon">                       
+                                     <html:text property="addOrg" />                       
                                 </td>
                             </tr>
                             <tr>
                                 <td>Website: </td>
-                                <td><input type="text" name="tenmon" id="tenmon" >
+                                <td>
+                                <html:text property="websiteOrg" />  
                                 </td>
                             </tr>
                             <tr>
                                 <td>Số Điện thoại: </td>
-                                <td><input type="text" name="tenmon" id="tenmon" >
+                                <td>
+                                <html:text property="numberOrg" />  
                                 </td>
                             </tr>
                         </table>
@@ -107,16 +133,15 @@
                                 <td width="40"> </td>
                                 <td width="150" align="left">
                                     <div id="bt_submit">
-                                        <input type ="button" id="submit" value="OK" style="height: 25px; width: 100px" onClick="ajax_capnhatmonhoc()">
-                                        <input type ="hidden" name ="KEY" value="THEM_MONHOC">
-                                        <input type ="hidden" name="PAGE" value="0">
+                                        <input type ="submit"  value="OK" style="height: 25px; width: 100px" />
+                                 <!--        <input type ="hidden" name ="KEY" value="THEM_MONHOC">
+                                        <input type ="hidden" name="PAGE" value="0"> -->
                                     </div>
                                 </td>
                             </tr>
                         </table>           
                     </div><!--end content right-->
-                </form>
-
+</html:form>
             </div>
 
             <jsp:include page="module/footer.jsp" />
