@@ -73,7 +73,7 @@ public final class PMF {
      * @return List<Object>
      */
     @SuppressWarnings("unchecked")
-	public static List<Object> getList(Class<?> className) {
+	public static List<?> getList(Class<?> className) {
         PersistenceManager pm = getPMF();
         List<Object> tempList = new ArrayList<Object>();
         List<Object> resultList = new ArrayList<Object>();
@@ -185,6 +185,27 @@ public final class PMF {
     }
     
     /**
+     * get object
+     * @param className object type
+     * @param key primary key of object
+     * @return Object
+     */
+    public static Object getObject(Class<?> className, Long key) {
+        PersistenceManager pm = getPMF();
+        Object result = null; 
+        try {
+
+            result = pm.getObjectById(className, key);
+        } catch (JDOObjectNotFoundException e) {
+            return null;
+        } finally {
+            pm.close();
+        }
+        return result;
+    }
+    
+    
+    /**
      * insert object
      * @param obj Object
      * @return boolean
@@ -208,7 +229,7 @@ public final class PMF {
      * @param key primary key of object
      * @return Object
      */
-    public static boolean deleteObject(Class<?> className, String key) {
+    public static boolean deleteObject(Class<?> className, Long key) {
         PersistenceManager pm = getPMF();
         Object obj = null;
         try {
@@ -228,11 +249,14 @@ public final class PMF {
         return true;
     }
     
+    /*
+     * get so luong record theo tung page
+     */
     @SuppressWarnings("unchecked")
 	public static List<?> getObjectList(Class<?> className, int page){
     	PersistenceManager pm = getPMF();
         Query query = pm.newQuery(className);
-        query.setRange((Constant.RECORD * (page - 1)), Constant.RECORD * page);
+        query.setRange(Constant.RECORD * (page - 1), Constant.RECORD * page);
         List<Object> results = null;
         List<Object> detachedList = null;
         try {
@@ -247,5 +271,28 @@ public final class PMF {
         
     }
     
-    
+    /*
+     * tinh tong so luong record co trong 1 table
+     */
+    @SuppressWarnings("unchecked")
+	public static int countNumberAll(Class<?> className){
+    	int number = 0;
+    	PersistenceManager pm = getPMF();
+        List<Object> tempList = new ArrayList<Object>();
+        Query query = pm.newQuery(className);
+        try {
+        	
+        	tempList = (List<Object>) query.execute();
+        	if (tempList != null){
+        	number = tempList.size();
+        	}
+        } catch (JDOObjectNotFoundException e) {
+            return 0;
+        } finally {
+        	query.closeAll();
+            pm.close();    
+        }
+        return number;
+    	
+    }
 }

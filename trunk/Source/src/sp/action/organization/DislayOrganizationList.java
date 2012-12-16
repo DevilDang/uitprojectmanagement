@@ -12,7 +12,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import sp.blo.OrganizationBlo;
-import sp.dto.Organization;
 import sp.form.OrganizationForm;
 import sp.util.Constant;
 
@@ -20,10 +19,13 @@ public class DislayOrganizationList extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		//get pagenumber
-		String pageNumber = request.getParameter("page");
+		
 		HttpSession se = request.getSession();
-		int page = 0;
+		//get pagenumber
+		//String pageNumber = request.getParameter("page");
+		String pageNumber = (String)se.getAttribute(Constant.ORG_PAGE_NUMBER);
+		int total = 0;
+		int page = 1;
 		if (pageNumber != null){
 			page = Integer.parseInt(pageNumber);
 		}
@@ -31,8 +33,16 @@ public class DislayOrganizationList extends Action {
 		//get data from DB depend on pageNumber
 		List<OrganizationForm> formList = OrganizationBlo.getOrganizationList(page);
 		
+		//get total number record
+		total = OrganizationBlo.countOrganizationAll();
+		
+		//total number of page
+		List<String> pageList = OrganizationBlo.countOrganizationAll(total);
+		
 		//save into session
 		se.setAttribute(Constant.ORGANIZATION_LIST, formList);
+		se.setAttribute(Constant.ORG_PAGE_LIST, pageList);
+		se.setAttribute(Constant.ORG_TOTAL_NUMBER, String.valueOf(total));
 		
 		//forward page result
 		return mapping.findForward(Constant.SUCCESS);
