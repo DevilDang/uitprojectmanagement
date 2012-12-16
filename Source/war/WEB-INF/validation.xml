@@ -41,6 +41,29 @@
             </field>
         </form>
 
+<!-- Organization -->
+        <form name="organization">
+            <field
+                property="nameOrg"
+                depends="required">
+                    <arg key="organization.nameOrg"/>
+            </field>
+            <field
+                property="addOrg"
+                depends="required">
+                    <arg key="organization.addOrg"/>
+            </field>
+            <field
+                property="numberOrg"
+                depends="required, mask">
+                    <arg key="organization.numberOrg"/>
+                    <var>
+                    <var-name>mask
+                    </var-name>
+                    <var-value>[0-9]</var-value>
+                    </var>
+            </field>
+        </form>
     </formset>
 
     <!-- An example formset for another locale -->
