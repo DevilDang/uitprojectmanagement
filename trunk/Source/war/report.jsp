@@ -112,13 +112,24 @@
                                 </td>
                             </tr>
                             <tr>
+                            <!--  form name="uploadImage" action="<%=blobstoreService.createUploadUrl("/uploadImage.vn")%>" method="post" enctype="multipart/form-data" id="uploadForm"-->
+                            
                                 <td>Tập tin : </td>
                                 <td><!-- <input type="file" name="tenmon" id="tenmon" > -->
-                                <form name="uploadImage" action="<%=blobstoreService.createUploadUrl("/uploadImage.vn")%>" method="post"
-      enctype="multipart/form-data" id="uploadForm">
-      <input type="file" name="myFile" class="buttonBG" id="myFile">
-      <input id="uploadAction" type="submit" value="Upload Hình" class="buttonBG">
-    </form>
+                                
+							      
+							      <input type="file" name="myFile" class="buttonBG" id="myFile">
+							      
+    							
+                                </td>
+                             
+                                
+                            </tr>
+                            <!--  form-->
+                            <tr>
+                            <td></td>
+                            <td align="right">
+                                 <input id="uploadAction" type="submit" value="Upload Hình" class="buttonBG">
                                 </td>
                             </tr>
                             <tr>
