@@ -10,12 +10,6 @@
     <forward name="Welcome" path="/home.vn"/>
   </global-forwards>
   <action-mappings>
-    <action path="/uploadFile" type="sp.action.UploadFile" scope="session" validate="false">
-    <forward name="success" path="uploadPic.jsp" redirect="true" />
-    </action>
-    <action path="/downloadFile" type="sp.action.DownloadFile" scope="session" validate="false">
-    <forward name="success" path="uploadPic.jsp" redirect="true" />
-    </action>
     
     <!-- Po - action xử lý chứng thực đăng nhập vào ứng dụng -->
      <action input="/login.jsp" name="UserForm" path="/LogIn" type="sp.action.LogIn" scope="session">
@@ -25,12 +19,15 @@
      <!-- Po - action xử lý chứng thực đăng nhập vào ứng dụng -->
      
     <!-- upload File -->
-    <action path="/uploadFile" type="sp.action.UploadFile"  validate="false">
-    	<forward name="success" path="uploadPic.jsp" redirect="true" />
+    <action path="/uploadFile" type="sp.action.file.UploadFile"  >
+    	<forward name="success" path="/transferFile.do" redirect="true" />
+    </action>
+    
+    <action path="/transferFile"  forward="uploadPic.jsp" >
     </action>
     
     <!-- download File -->
-    <action path="/downloadFile" type="sp.action.DownloadFile"  validate="false">
+    <action path="/downloadFile" type="sp.action.file.DownloadFile"  validate="false">
     	<forward name="success" path="uploadPic.jsp" redirect="true" />
     </action>
     
