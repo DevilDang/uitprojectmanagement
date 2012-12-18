@@ -3052,6 +3052,18 @@ function validate_form_doimatkhau()
     }
     return flag;
 }
+
+//--- Po -- xóa các thông báo lỗi khi nhấn button reset
+function xoa_errors()
+{
+	var ul = document.getElementById("errors");
+	while(ul.firstChild)
+    {
+		 ul.removeChild(ul.firstChild);
+    }
+}
+//--- Po -- xóa các thông báo lỗi khi nhấn button reset
+
 //------
 //----- các scripts doimatkhau.jsp
 //------
