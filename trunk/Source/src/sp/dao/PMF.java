@@ -272,6 +272,35 @@ public final class PMF {
     }
     
     /*
+     * get so luong record theo tung page, filter
+     */
+    @SuppressWarnings("unchecked")
+	public static List<?> getObjectList(Class<?> className, String filter, int page){
+    	PersistenceManager pm = getPMF();
+        Query query = pm.newQuery(className);
+        
+        //set filter
+        query.setFilter(filter);
+        
+        //set range data
+        query.setRange(Constant.RECORD * (page - 1), Constant.RECORD * page);
+      
+        List<Object> results = null;
+        List<Object> detachedList = null;
+        try {
+            detachedList = (List<Object>) query.execute();
+            results = (List<Object>) pm.detachCopyAll(detachedList);
+
+        } finally {
+            query.closeAll();
+            pm.close();
+        }
+        return results;
+        
+    }
+    
+    
+    /*
      * tinh tong so luong record co trong 1 table
      */
     @SuppressWarnings("unchecked")
@@ -295,4 +324,5 @@ public final class PMF {
         return number;
     	
     }
+    
 }
