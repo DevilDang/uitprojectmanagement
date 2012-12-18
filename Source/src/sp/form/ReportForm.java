@@ -1,0 +1,169 @@
+package sp.form;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import org.apache.struts.validator.ValidatorForm;
+
+import sp.dto.Report;
+
+public class ReportForm extends ValidatorForm implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Long id;
+	private Long idProject;
+	private Long idReq;
+	private Long idTask;
+	private Long idGroup;
+	private String idUser;
+//	private String nameUser;// hien thi nameUser
+	private Date createDate;
+	private String comment;
+	private int status;
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+	/**
+	 * @return the idProject
+	 */
+	public Long getIdProject() {
+		return idProject;
+	}
+	/**
+	 * @param idProject the idProject to set
+	 */
+	public void setIdProject(Long idProject) {
+		this.idProject = idProject;
+	}
+	/**
+	 * @return the idReq
+	 */
+	public Long getIdReq() {
+		return idReq;
+	}
+	/**
+	 * @param idReq the idReq to set
+	 */
+	public void setIdReq(Long idReq) {
+		this.idReq = idReq;
+	}
+	/**
+	 * @return the idTask
+	 */
+	public Long getIdTask() {
+		return idTask;
+	}
+	/**
+	 * @param idTask the idTask to set
+	 */
+	public void setIdTask(Long idTask) {
+		this.idTask = idTask;
+	}
+	
+	/**
+	 * @return the idGroup
+	 */
+	public Long getIdGroup() {
+		return idGroup;
+	}
+	/**
+	 * @param idGroup the idGroup to set
+	 */
+	public void setIdGroup(Long idGroup) {
+		this.idGroup = idGroup;
+	}
+	/**
+	 * @return the idUser
+	 */
+	public String getIdUser() {
+		return idUser;
+	}
+	/**
+	 * @param idUser the idUser to set
+	 */
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
+	}
+	/**
+	 * @return the createDate
+	 */
+	public Date getCreateDate() {
+		return createDate;
+	}
+	/**
+	 * @param createDate the createDate to set
+	 */
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+	/**
+	 * @return the comment
+	 */
+	public String getComment() {
+		return comment;
+	}
+	/**
+	 * @param comment the comment to set
+	 */
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	/**
+	 * @return the status
+	 */
+	public int getStatus() {
+		return status;
+	}
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
+	/*
+	 * transfer Form -> DTO
+	 */
+	public Report getReport(){
+		
+		Report report = new Report();
+		report.setId(this.id);
+		report.setIdProject(this.idProject);
+		report.setIdReq(this.idReq);
+		report.setIdTask(this.idTask);
+		report.setIdGroup(this.idGroup);
+		report.setIdUser(this.idUser);
+		report.setComment(this.comment);
+		report.setCreateDate(this.createDate);
+		report.setStatus(this.status);
+		return report;
+	}
+	
+	/*
+	 * transfer DTO-> form
+	 */
+	public void eidtForm(Report report){
+		this.id = report.getId();
+		this.idProject = report.getIdProject();
+		this.idReq = report.getIdReq();
+		this.idTask = report.getIdTask();
+		this.idGroup = report.getIdGroup();
+		this.idUser = report.getIdUser();
+		this.comment = report.getComment();
+		this.createDate = report.getCreateDate();
+		this.status = report.getStatus();
+	}
+
+}
