@@ -2,13 +2,50 @@
 <!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd">
 <struts-config>
   <form-beans>
-   <form-bean name="organization" type="sp.form.OrganizationForm" />
+   <form-bean name="report" type="sp.form.ReportForm" />
   </form-beans>
   <global-forwards>
   </global-forwards>
   <action-mappings>
+    <action 
+    path="/displayOrgList" 
+    type="sp.action.organization.DislayOrganizationList" >
+    	<forward name="success" path="organization.jsp" redirect="true" />
+    </action>
     
+    <!-- upload File -->
+    <action path="/uploadFile" type="sp.action.report.UploadFile"  >
+    	<forward name="success" path="/transferFile.do" redirect="true" />
+    </action>
     
+    <action path="/transferFile" type="sp.action.report.TransferUploadFile"  >
+    	<forward name="success" path="report.jsp" redirect="true" />
+    </action>
+    
+    <!-- download File -->
+    <action path="/downloadFile" type="sp.action.report.DownloadFile" >
+    	<forward name="success" path="report.jsp" redirect="true" />
+    </action>
+    
+    <!-- display Report  -->
+    <action 
+        input="/organization.jsp" 
+        path="/displayReport" 
+        type="sp.action.report.TransferUploadFile"  
+        name="organization"
+        validate="true" >
+    	<forward name="success" path="report.jsp" redirect="true" />
+    </action>
+    
+     <!-- changeMode : update -> insert -->
+    <action path="/changeMode" type="sp.action.report.ChangeMode"  >
+    	<forward name="success" path="report.jsp" redirect="true" />
+    </action>
+    
+    <!-- updateReport -->
+    <action path="/updateReport" type="sp.action.report.UpdateReport"  >
+    	<forward name="success" path="report.jsp" redirect="true" />
+    </action>
   </action-mappings>
   
 </struts-config>
