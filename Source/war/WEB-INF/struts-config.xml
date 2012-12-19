@@ -26,11 +26,6 @@
      
     <!-- <action path="/promotionInfoWeekly" type="ebiz.action.mail.PromotionWeekly"-->
 
-    <!-- upload File -->
-    <action path="/uploadFile" type="sp.action.file.UploadFile">
-    	<forward name="success" path="/transferFile.do" redirect="true" />
-    </action>
-    
   </action-mappings>
   <message-resources parameter="ApplicationResource"/>
   <!-- ========================= Validator plugin ================================= -->
