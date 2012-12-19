@@ -13,7 +13,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import sp.blo.ReportBlo;
-import sp.dto.Report;
 import sp.form.ReportForm;
 import sp.util.Constant;
 
@@ -36,6 +35,9 @@ public class DisplayReport extends Action{
 				
 				//save into session, name = name of bean config into file config struts
 				se.setAttribute(Constant.REPORT, reportDisplay);
+				
+				//mode Update
+				se.setAttribute(Constant.REPORT_FLAG, "2");
 			}
 			return mapping.findForward(Constant.SUCCESS);
 		}
