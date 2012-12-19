@@ -29,6 +29,26 @@ public class UserBlo {
 		return 0;
 	}*/
 	
+	public static boolean isExistUser_byEmail(String id) {
+		// user ton tai
+		if (userDao.checkExistUser(id)) {
+				return true;
+		}
+		// user ko ton tai
+		return false;
+	}
+	
+	public static boolean isExistUser_byLoginName(String id) {
+		User user = new User();
+		if (userDao.checkExistUser(id)) {
+			user = userDao.getUser(id);
+			if (user != null) {
+				return true;
+			}
+		}
+		// user ko ton tai
+		return false;
+	}
 	public static int checkRole(String value){
 		return 1;
 	}

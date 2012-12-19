@@ -22,7 +22,15 @@ public class User implements Serializable {
 	 */
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    private String email;
+	private String loginName;
+   
+	
+	/**
+	 * email
+	 */
+	@Persistent
+	 private String email;
+	
 	
 	/**
 	 * password
@@ -36,11 +44,33 @@ public class User implements Serializable {
 	@Persistent
 	private int idPermision;	
 	/**
+	 * name
+	 */
+	@Persistent
+	private String name;
+	/**
+	 * groupID
+	 */
+	@Persistent
+	private int groupID;	
+	/**
+	 * taskID
+	 */
+	@Persistent
+	private int taskID;	
+	/**
 	 * statusLogin
 	 */
 	@Persistent
 	private boolean statusLogin;
 	
+	
+	public String getLoginName() {
+		return loginName;
+	}
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -65,5 +95,25 @@ public class User implements Serializable {
 	public void setStatusLogin(boolean statusLogin) {
 		this.statusLogin = statusLogin;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getGroupID() {
+		return groupID;
+	}
+	public void setGroupID(int groupID) {
+		this.groupID = groupID;
+	}
+	public int getTaskID() {
+		return taskID;
+	}
+	public void setTaskID(int taskID) {
+		this.taskID = taskID;
+	}
+	
+	
 	
 }
