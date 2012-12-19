@@ -3,7 +3,8 @@
 <struts-config>
   <form-beans>
   <!-- po form đăng nhập vào ứng dụng-->
-   <form-bean name="UserForm" type="sp.form.UserForm"/>
+   <form-bean name="UserAuthenticationForm" type="sp.form.UserAuthenticationForm"/>
+   <form-bean name="AccountForm" type="sp.form.AccountForm"/>
   <!-- po -->
   </form-beans>
   <global-forwards>
@@ -12,14 +13,26 @@
   <action-mappings>
     
     <!-- Po - action xử lý chứng thực đăng nhập vào ứng dụng -->
-     <action input="/login.jsp" name="UserForm" path="/LogIn" type="sp.action.LogIn" scope="session">
-       <forward name="success" path="index.jsp"/>
-     </action>
-     
+     <action input="/login.jsp" name="UserAuthenticationForm" path="/LogIn" type="sp.action.LogIn" scope="session" validate="true">
+       <forward name="success" path="/index.jsp"/>
+     </action>     
      <!-- Po - action xử lý chứng thực đăng nhập vào ứng dụng -->
+
+      <!-- Po - action xử lý việc thêm, sửa tài khoản -->
+     <action input="/account.jsp" name="AccountForm" path="/editaccount" type="sp.action.EditAccountAction" scope="session" validate="true">
+       <forward name="success" path="/account.jsp"/>
+     </action>     
+     <!-- Po -action xử lý việc thêm, sửa tài khoản -->
+     
+    <!-- <action path="/promotionInfoWeekly" type="ebiz.action.mail.PromotionWeekly"-->
+
+    <!-- upload File -->
+    <action path="/uploadFile" type="sp.action.file.UploadFile">
+    	<forward name="success" path="/transferFile.do" redirect="true" />
+    </action>
     
   </action-mappings>
-  <message-resources parameter="ApplicationResources"/>
+  <message-resources parameter="ApplicationResource"/>
   <!-- ========================= Validator plugin ================================= -->
   <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
     <set-property property="pathnames" value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
