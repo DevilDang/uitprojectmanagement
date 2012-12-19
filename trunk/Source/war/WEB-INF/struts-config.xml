@@ -17,19 +17,6 @@
      </action>
      
      <!-- Po - action xử lý chứng thực đăng nhập vào ứng dụng -->
-     
-    <!-- upload File -->
-    <action path="/uploadFile" type="sp.action.file.UploadFile"  >
-    	<forward name="success" path="/transferFile.do" redirect="true" />
-    </action>
-    
-    <action path="/transferFile"  forward="uploadPic.jsp" >
-    </action>
-    
-    <!-- download File -->
-    <action path="/downloadFile" type="sp.action.file.DownloadFile"  validate="false">
-    	<forward name="success" path="uploadPic.jsp" redirect="true" />
-    </action>
     
   </action-mappings>
   <message-resources parameter="ApplicationResources"/>
