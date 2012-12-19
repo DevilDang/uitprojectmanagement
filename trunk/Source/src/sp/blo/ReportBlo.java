@@ -18,14 +18,14 @@ public class ReportBlo {
 		return reportDao.deleteReport(id);
 	}
 	//get ReportList
-	public static List<ReportForm> getListPage(String idProject, String idReq, String idTask,String status, int page){
+	public static List<ReportForm> getListPage(Long idProject, Long idReq, Long idTask,int status, int page){
 		
 		List<ReportForm> formList = new ArrayList<ReportForm>();
 		StringBuffer filter = new StringBuffer();
 		filter.append("idProject=="+ idProject);
 		filter.append("idReq=="+ idReq);
 		filter.append("idTask=="+ idTask);
-		filter.append("status==\'"+ status + "\'");
+		filter.append("status=="+ status );
 		List<Report> reportList = reportDao.getListReport(filter.toString(), page);
 		
 		if (reportList != null){

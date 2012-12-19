@@ -37,15 +37,16 @@ public class DislayReportList extends Action {
 		if (page != null) {
 			pageNumber = Integer.parseInt(page);
 		}
-		// get form to sort
-		String idProject = request.getParameter("idProject");
-		String idReq = request.getParameter("idReq");
-		String idTask = request.getParameter("idTask");
-		String status = request.getParameter("status");
-
+//		// get form to sort
+//		String idProject = request.getParameter("idProject");
+//		String idReq = request.getParameter("idReq");
+//		String idTask = request.getParameter("idTask");
+//		String status = request.getParameter("status");
+		
+		ReportForm sortForm = (ReportForm)form;
 		// call method to get Page Report
-		List<ReportForm> reportList = ReportBlo.getListPage(idProject, idReq,
-				idTask, status, pageNumber);
+		List<ReportForm> reportList = ReportBlo.getListPage(sortForm.getIdProject(), sortForm.getIdReq(),
+				sortForm.getIdGroup(), sortForm.getStatus(), pageNumber);
 
 		//get total number page
 		int total = ReportBlo.countOrganizationAll();
@@ -57,7 +58,8 @@ public class DislayReportList extends Action {
 		se.setAttribute(Constant.REPORT_LIST, reportList);
 		se.setAttribute(Constant.REPORT_PAGE_LIST, pageList);
 		se.setAttribute(Constant.REPORT_PAGE_NUMBER, page);
-
+		se.setAttribute(Constant.REPORT_SORT, sortForm);
+		
 		return mapping.findForward(Constant.SUCCESS);
 	}
 }

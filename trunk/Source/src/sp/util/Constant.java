@@ -27,5 +27,7 @@ public class Constant {
 	public final static String REPORT_PAGE_LIST ="report_page_list";
 	public final static String REPORT_PAGE_NUMBER ="report_page_number";
 	public final static String REPORT_TOTAL_NUMBER ="report_total_number";
+	public final static String REPORT_SORT ="report_sort";
+	public final static String REPORT_FLAG="report_flag";
 	
 }
