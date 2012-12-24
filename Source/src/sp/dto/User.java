@@ -3,6 +3,7 @@ package sp.dto;
 import java.io.Serializable;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
@@ -11,8 +12,14 @@ import javax.jdo.annotations.PrimaryKey;
  * @author Thuy
  *
  */
-@PersistenceCapable
+@PersistenceCapable(identityType = IdentityType.APPLICATION) 
 public class User implements Serializable {
+	
+	public static final String ADMIN = "admin";
+	public static final String PROJECT_MANAGER = "project_mangager";
+	public static final String LEADER = "leader";
+	public static final String EMPLOYER = "employer";
+	
 	/**
 	 * 
 	 */
@@ -22,16 +29,8 @@ public class User implements Serializable {
 	 */
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private String loginName;
-   
-	
-	/**
-	 * email
-	 */
-	@Persistent
-	 private String email;
-	
-	
+	private String email;
+   	
 	/**
 	 * password
 	 */
@@ -42,7 +41,7 @@ public class User implements Serializable {
 	 * idPermision
 	 */
 	@Persistent
-	private int idPermision;	
+	private String idPermision;	
 	/**
 	 * name
 	 */
@@ -52,12 +51,8 @@ public class User implements Serializable {
 	 * groupID
 	 */
 	@Persistent
-	private int groupID;	
-	/**
-	 * taskID
-	 */
-	@Persistent
-	private int taskID;	
+	private long groupID;	
+	
 	/**
 	 * statusLogin
 	 */
@@ -65,12 +60,6 @@ public class User implements Serializable {
 	private boolean statusLogin;
 	
 	
-	public String getLoginName() {
-		return loginName;
-	}
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
-	}
 	public String getEmail() {
 		return email;
 	}
@@ -83,10 +72,10 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getIdPermision() {
+	public String getIdPermision() {
 		return idPermision;
 	}
-	public void setIdPermision(int idPermision) {
+	public void setIdPermision(String idPermision) {
 		this.idPermision = idPermision;
 	}
 	public boolean isStatusLogin() {
@@ -101,19 +90,11 @@ public class User implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getGroupID() {
+	public long getGroupID() {
 		return groupID;
 	}
-	public void setGroupID(int groupID) {
+	public void setGroupID(long groupID) {
 		this.groupID = groupID;
 	}
-	public int getTaskID() {
-		return taskID;
-	}
-	public void setTaskID(int taskID) {
-		this.taskID = taskID;
-	}
-	
-	
 	
 }

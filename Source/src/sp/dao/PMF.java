@@ -249,6 +249,27 @@ public final class PMF {
         return true;
     }
     
+    // hàm này dùng để xóa các đối tượng mà key là 1 chuỗi  - Po
+    public static boolean deleteObject(Class<?> className, String key) {
+        PersistenceManager pm = getPMF();
+        Object obj = null;
+        try {
+        	obj = pm.getObjectById(className, key);
+        	if(obj != null){
+        		pm.deletePersistent(obj);
+        	}
+        	else
+        	{
+        		return false;
+        	}
+        } catch (JDOObjectNotFoundException e) {
+            return false;
+        } finally {
+            pm.close();
+        }
+        return true;
+    }
+    
     /*
      * get so luong record theo tung page
      */

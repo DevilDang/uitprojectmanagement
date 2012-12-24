@@ -10,7 +10,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import org.apache.struts.validator.ValidatorForm;
 
 /**
  * @author Thuy

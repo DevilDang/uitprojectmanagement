@@ -100,7 +100,13 @@
                                     </select>
                                 </td>
                             </tr>
-                                                       <tr>
+                            <tr>
+                                <td>Mô tả: </td>
+                                <td>
+                                   <textarea rows="5" cols="20"> ha ha ah</textarea>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Ngày Bắt Đầu: </td>
                                 <td><input type="text" name="ghichu" id="thuchanh">
                                 </td>
@@ -115,17 +121,15 @@
                                 <td><input type="text" name="ghichu" id="thuchanh">
                                 </td>
                             </tr>
-
                             <tr>
-                                <td>Các công việc: </td>
-                                <td>
-                                    <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')" size="3">
-                                    	<option value="user1" >Công việc 1</option>
-                                    	<option value="user1" >Công việc 2</option>
-                                    	<option value="user1" >Công việc 3</option>
-                                    	<option value="user1" >Công việc 4</option>
-                                    </select>
-                                </td>
+                             <td> Trạng thái</td>
+                             <td>
+                             	 <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')">
+                                    	<option value="0" >Đang hoạt động</option>
+                                    	<option value="1" >Đã hoàn thành</option>
+                               </select>
+                             </td>
+                              
                             </tr>   
                         </table>
                         <table>
