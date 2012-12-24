@@ -63,11 +63,24 @@
 
 function checkUncheckAll(theElement) {
     var theForm = theElement.form, z = 0;
+    var pos = 0;
     for(z=0; z<theForm.length;z++){
-        if(theForm[z].type == 'checkbox' && theForm[z].name != 'checkall'){
-            theForm[z].checked = theElement.checked;
+        if(theForm[z].type == 'checkbox' && theForm[z].name == 'checkall'){
+        	pos = z;
+            break;
         }
     }
+    
+    
+    for(var i = pos + 1; i<theForm.length;i++){
+        if(theForm[i].type == 'checkbox' && theForm[i].name == 'check'){
+        	theForm[i].checked = theForm[pos].checked;
+        }
+    }
+    
+    
+    
+    
 }
 
 //function checkUncheckSome(controller,theElements) {

@@ -99,15 +99,31 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Loại Công việc: </td>
+                                <td>
+                                    <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')">
+                                    	 <option value="user1" >Codec</option>
+                                    	 <option value="user1" >UseCase</option>
+                                    	                                   	 
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Người thực hiện: </td>
                                 <td>
-                                    <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')" size="4">
+                                    <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')">
                                     	 <option value="user1" >Đặng Tấn lộc</option>
                                     	 <option value="user1" >Nguyễn Thị Thúy</option>                                  	 
                                     </select>
                                 </td>
                             </tr>
-                                                       <tr>
+                            <tr>
+                                <td>Mô tả: </td>
+                                <td>
+                                   <textarea rows="5" cols="20"> ha ha ah</textarea>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Ngày Bắt Đầu: </td>
                                 <td><input type="text" name="ghichu" id="thuchanh">
                                 </td>
@@ -121,6 +137,16 @@
                                 <td>Tiến Độ: </td>
                                 <td><input type="text" name="ghichu" id="thuchanh">
                                 </td>
+                            </tr>
+                            <tr>
+                             <td> Trạng thái</td>
+                             <td>
+                             	 <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')">
+                                    	<option value="0" >Đang hoạt động</option>
+                                    	<option value="1" >Đã hoàn thành</option>
+                               </select>
+                             </td>
+                              
                             </tr>   
                         </table>
                         <table>

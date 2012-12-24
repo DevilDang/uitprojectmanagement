@@ -129,15 +129,15 @@
                                 </td>
                             </tr>
                              <tr>
-                                <td>Đã hoàn thành: </td>
-                                <td><input type="checkbox" name="ghichu" id="thuchanh">
-                                </td>
+                             <td> Trạng thái</td>
+                             <td>
+                             	 <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')">
+                                    	<option value="0" >Đang hoạt động</option>
+                                    	<option value="1" >Đã hoàn thành</option>
+                               </select>
+                             </td>
+                              
                             </tr>
-                             <tr>
-                                <td>Đang hoạt động: </td>
-                                <td><input type="checkbox" name="ghichu" id="thuchanh">
-                                </td>
-                            </tr>    
                         </table>
                         <table>
                             <tr>

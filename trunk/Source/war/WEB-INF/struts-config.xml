@@ -19,11 +19,27 @@
      <!-- Po - action xử lý chứng thực đăng nhập vào ứng dụng -->
 
       <!-- Po - action xử lý việc thêm, sửa tài khoản -->
-     <action input="/account.jsp" name="AccountForm" path="/editaccount" type="sp.action.EditAccountAction" scope="session" validate="true">
+     <action input="/account.jsp" name="AccountForm" path="/editaccount" type="sp.action.Account.EditAccountAction" scope="session" validate="true">
        <forward name="success" path="/account.jsp"/>
      </action>     
      <!-- Po -action xử lý việc thêm, sửa tài khoản -->
      
+      <!-- Po -action xử lý việc xóa tài khoản -->
+      <action path="/deleteaction" type="sp.action.Account.DeleteAccount">
+       <forward name="success" path="/account.jsp"/>
+      </action>  
+     <!-- Po -action xử lý việc xóa tài khoản -->
+     
+	 <!-- Po -action xử lý việc lấy danh sách các tài khoản -->
+      <action path="/getlistaccount" type="sp.action.Account.GetListAccount">
+      </action>  
+     <!-- Po -action xử lý việc lấy danh sách các tài khoản -->
+	
+	<!-- Po -action xử lý việc lấy chi tiết một tài khoản -->
+      <action path="/getaccount" type="sp.action.Account.GetAccount">
+      </action>  
+     <!-- Po -action xử lý việc lấy chi tiết một tài khoản -->
+       
     <!-- <action path="/promotionInfoWeekly" type="ebiz.action.mail.PromotionWeekly"-->
 
   </action-mappings>

@@ -30,4 +30,9 @@ public class Constant {
 	public final static String REPORT_SORT ="report_sort";
 	public final static String REPORT_FLAG="report_flag";
 	
+	// Po
+	//Account
+	public final static String ACCOUNT_LIST ="account_list";
+	//Po
+	
 }

@@ -5,6 +5,7 @@
 
 var isprocess = false;
 
+/*
 function serialize(form){
     var parts = new Array();
     var field = null;
@@ -45,7 +46,7 @@ function serialize(form){
                 if (!field.checked){
                     break;
                 }
-            /* falls through */
+            /* falls through 
 
             default:
                 parts.push(encodeURIComponent(field.name) + "=" +
@@ -95,7 +96,7 @@ function createXHR()
     {
         throw new Error("No XHR object available.");
     }
-}
+}*/
 
 // đoạn này sent dữ liệu lên server đễ add vào cơ sở dữ liệu
 //-------
@@ -1108,15 +1109,11 @@ function ajax_sualichhoc()
 // các scripts ở trang monhoc.jsp
 // -----
 
-function ajax_getdanhsachmonhoc(page)
+function ajax_getListAccount(page)
 {
     draw_loading();
-    var form_1 = document.getElementById("form_monhoc");
-    var hidden_page = form_1.elements["PAGE"];
-    hidden_page.value=page;
-
-    var form_danhsachmonhoc = document.getElementById("danhsachmonhoc");
-    var select_khoa = form_danhsachmonhoc.elements["khoa"];
+    var form = document.getElementById("listAccount");
+    var select_group = form.elements["group"];
 
     
     var xhr = createXHR();
@@ -1124,7 +1121,7 @@ function ajax_getdanhsachmonhoc(page)
         if (xhr.readyState == 4){
             if ((xhr.status  >= 200  &&  xhr.status  <  300) || xhr.status == 304){
 
-                var list_monhoc = JSON.parse(xhr.responseText);
+                var list_Account = JSON.parse(xhr.responseText);
 
                 draw_phantrang(list_monhoc[0].SOLUONG,page);
 
@@ -1415,6 +1412,7 @@ function ajax_load_page_danhsachmonhoc()
     url = addURLParam(url, select_khoa.name, select_khoa[select_khoa.selectedIndex].value);
 
     xhr.open("get", url, true);
+   
     xhr.send(null);
 }
 
@@ -3063,6 +3061,24 @@ function xoa_errors()
     }
 }
 //--- Po -- xóa các thông báo lỗi khi nhấn button reset
+
+//--- Po -- xử lý chọn chế độ thêm mới hay chỉnh sửa
+function selectMode(isEdit)
+{
+	 var td = document.getElementById("EditAccount");
+     
+	 var input = td.firstChild;
+	 if(isEdit)
+		 input.setAttribute("readonly","readonly");
+	 else
+	 {
+		 input.removeAttribute("readonly");
+	 }
+}
+//--- Po -- xử lý chọn chế độ thêm mới hay chỉnh sửa
+
+
+
 
 //------
 //----- các scripts doimatkhau.jsp
