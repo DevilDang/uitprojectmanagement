@@ -42,11 +42,12 @@ public class EditAccountAction extends org.apache.struts.action.Action{
     	User user = accountForm.getUser();
     	if(!UserBlo.isExistUser_byEmail(user.getEmail()))
     	{
-    		
+    		// thêm mới
+    		user.setId(System.currentTimeMillis());
     		UserDao.saveUser(user);
     	}
     	
-    	List<User> list_user = (List<User>)PMF.getList(User.class);
+    	List<User> list_user = (List<User>)PMF.getObjectList(User.class, "groupID==" +user.getGroupID(), "id desc", 1);
     	request.setAttribute(Constant.ACCOUNT_LIST, list_user);
     	System.out.println(list_user.size() + "snaznajhzbnahjzb");
         return mapping.findForward(SUCCESS);

@@ -24,6 +24,9 @@ public class User implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	
+	
 	/**
 	 * idUser 
 	 */
@@ -59,7 +62,19 @@ public class User implements Serializable {
 	@Persistent
 	private boolean statusLogin;
 	
+	/**
+	 * LongID
+	 */
+	@Persistent
+	private long id;
 	
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getEmail() {
 		return email;
 	}

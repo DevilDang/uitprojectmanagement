@@ -42,7 +42,7 @@
 					  <div class="chose3" align="center">
                             Nhóm:
                          
-                            <select name="group" id="box" onChange="ajax_getListAccount(1)">
+                            <select name="group" id="box" onChange="getListAccount(1)">
                                 <option value="" selected="selected"></option>
                                 <option value="-1">Tất cả</option>
                                 <option value="0">Chưa phân nhóm</option>
@@ -81,8 +81,8 @@
 					</div>
 					<div id="phantrang" class="chose3" align="center">
 						<select name="PAGE" id="select_page"
-							onchange="ajax_load_page_danhsachmonhoc()">
-							<option value="0">1</option>
+							onchange="getListaccountByPage()">
+							<option value="1">1</option>
 						</select>
 
 					</div>

@@ -21,6 +21,7 @@ if (request.getUserPrincipal() != null) {
             <li><a href="/displayOrgList.do">Đối Tác</a></li>
             <li><a href="group.jsp">Nhóm</a></li>
             <li><a href="account.jsp">Tài Khoản</a></li>
+            <li><a href="changepassword.jsp">Đổi Mật Khẩu</a></li>
             <li><a href="report.jsp">Báo Cáo</a></li>            
             <li><a href="<%=logout %>">Đăng Xuất</a></li>
         </ul>
