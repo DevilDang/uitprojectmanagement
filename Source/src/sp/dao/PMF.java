@@ -299,7 +299,36 @@ public final class PMF {
 	public static List<?> getObjectList(Class<?> className, String filter, int page){
     	PersistenceManager pm = getPMF();
         Query query = pm.newQuery(className);
+                
+        //set filter
+        query.setFilter(filter);
         
+        //set range data
+        query.setRange(Constant.RECORD * (page - 1), Constant.RECORD * page);
+      
+        List<Object> results = null;
+        List<Object> detachedList = null;
+        try {
+            detachedList = (List<Object>) query.execute();
+            results = (List<Object>) pm.detachCopyAll(detachedList);
+
+        } finally {
+            query.closeAll();
+            pm.close();
+        }
+        return results;
+        
+    }
+    
+    /*
+     * get so luong record theo tung page, filter, sorte
+     */
+    @SuppressWarnings("unchecked")
+	public static List<?> getObjectList(Class<?> className, String filter, String sort, int page){
+    	PersistenceManager pm = getPMF();
+        Query query = pm.newQuery(className);
+        
+        query.setOrdering(sort);
         //set filter
         query.setFilter(filter);
         
@@ -323,6 +352,33 @@ public final class PMF {
     
     /*
      * tinh tong so luong record co trong 1 table
+     */
+    @SuppressWarnings("unchecked")
+	public static int countNumberAll(Class<?> className, String filter){
+    	int number = 0;
+    	PersistenceManager pm = getPMF();
+        List<Object> tempList = new ArrayList<Object>();
+        Query query = pm.newQuery(className);
+        //set filter
+        query.setFilter(filter);
+        try {
+        	
+        	tempList = (List<Object>) query.execute();
+        	if (tempList != null){
+        	number = tempList.size();
+        	}
+        } catch (JDOObjectNotFoundException e) {
+            return 0;
+        } finally {
+        	query.closeAll();
+            pm.close();    
+        }
+        return number;
+    	
+    }
+    
+    /*
+     * tinh tong so luong record co trong 1 table, filter
      */
     @SuppressWarnings("unchecked")
 	public static int countNumberAll(Class<?> className){

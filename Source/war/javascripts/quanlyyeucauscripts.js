@@ -117,8 +117,8 @@ function selectMode(isEdit)
 }
 //--- Po -- xử lý chọn chế độ thêm mới hay chỉnh sửa
 
-// ---- Po tính số lượng trang
-function draw_phantrang(soluong,page)
+// ---- Po vẽ số lượng trang
+function draw_phantrang(pageinfo,page)
 {
     
     var select = document.getElementById("select_page");
@@ -128,11 +128,11 @@ function draw_phantrang(soluong,page)
         select.removeChild(select.firstChild);
     }
     
-    for(var i = 0;i<soluong;i++)
+    for(var i = 0;i<pageinfo.CountPage;i++)
     {
         var option = document.createElement("option");
-        option.setAttribute("value", i);
-        if(i == page)
+        option.setAttribute("value", i + 1);
+        if(i == (page - 1))
         {
                
             option.setAttribute("selected", true);
@@ -142,9 +142,93 @@ function draw_phantrang(soluong,page)
         select.appendChild(option);
     }
 }
-//---- Po tính số lượng trang
+//---- Po vẽ số lượng trang
 
-// --- Po draw table
+// ---- Po tính số lượng trang
+function ajax_getCountAndCountPage(classname,filter,page)
+{
+	
+    var xhr = createXHR();
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState == 4){
+            if ((xhr.status  >= 200  &&  xhr.status  <  300) || xhr.status == 304){
+
+                var pageInfo = JSON.parse(xhr.responseText);              
+                draw_phantrang(pageInfo,page);
+
+            } else {
+                alert("Request was unsuccessful: " + xhr.status);
+            }
+        }
+    };
+
+    
+    var url = "countpages.do";
+    url = addURLParam(url, "classname", classname);
+    url = addURLParam(url, "filter", filter);
+    
+    xhr.open("get", url, true);
+    xhr.send(null);
+}
+
+//----- Po tính số lượng trang
+
+// ------------------các hàm xử lý trong trang account.jsp
+
+function getListAccount(page)
+{
+	var form = document.getElementById("listAccount");
+	var select_group = form.elements["group"];	    
+    ajax_getCountAndCountPage("sp.dto.User","groupID==" + select_group[select_group.selectedIndex].value,page);
+    
+	ajax_getListAccount(page)
+}
+
+function getListaccountByPage()
+{
+	var form = document.getElementById("listAccount");
+	
+	var select_page = form.elements["select_page"];
+	ajax_getListAccount(select_page[select_page.selectedIndex].value)
+}
+
+function ajax_getListAccount(page)
+{
+	
+    //draw_loading();
+    var form = document.getElementById("listAccount");
+    var select_group = form.elements["group"];
+    
+    var xhr = createXHR();
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState == 4){
+            if ((xhr.status  >= 200  &&  xhr.status  <  300) || xhr.status == 304){
+
+                var list_Account = JSON.parse(xhr.responseText);
+                
+                //draw_phantrang(list_Account[0].SOLUONG,page);
+
+                draw_table_danhsachaccount(list_Account, list_Account.length,0);
+
+                //undraw_loading();
+            } else {
+                alert("Request was unsuccessful: " + xhr.status);
+            }
+        }
+    };
+
+    
+    var url = "getlistaccount.do";
+    url = addURLParam(url, "KEY", "LIST_MONHOC");
+    url = addURLParam(url, "PAGE", page);
+    url = addURLParam(url, select_group.name, select_group[select_group.selectedIndex].value);
+    
+    
+    xhr.open("get", url, true);
+    xhr.send(null);
+}
+
+//--- Po draw table
 function draw_table_danhsachaccount(list_account,length,index)
 {
 	// name của input checkbox
@@ -193,42 +277,4 @@ function draw_table_danhsachaccount(list_account,length,index)
     
 }
 // --- Po draw table
-
-// ------------------các hàm xử lý trong trang account.jsp
-function ajax_getListAccount(page)
-{
-    //draw_loading();
-    var form = document.getElementById("listAccount");
-    var select_group = form.elements["group"];
-
-    
-    var xhr = createXHR();
-    xhr.onreadystatechange = function(){
-        if (xhr.readyState == 4){
-            if ((xhr.status  >= 200  &&  xhr.status  <  300) || xhr.status == 304){
-
-                var list_Account = JSON.parse(xhr.responseText);
-                
-                //draw_phantrang(list_Account[0].SOLUONG,page);
-
-                draw_table_danhsachaccount(list_Account, list_Account.length,0);
-
-                //undraw_loading();
-            } else {
-                alert("Request was unsuccessful: " + xhr.status);
-            }
-        }
-    };
-
-    
-    var url = "getlistaccount.do";
-    url = addURLParam(url, "KEY", "LIST_MONHOC");
-    url = addURLParam(url, "PAGE", page);
-    url = addURLParam(url, select_group.name, select_group[select_group.selectedIndex].value);
-    
-    
-    xhr.open("get", url, true);
-    xhr.send(null);
-}
-
 //------------------các hàm xử lý trong trang account.jsp

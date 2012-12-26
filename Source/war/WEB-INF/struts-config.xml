@@ -39,6 +39,12 @@
       <action path="/getaccount" type="sp.action.Account.GetAccount">
       </action>  
      <!-- Po -action xử lý việc lấy chi tiết một tài khoản -->
+     
+     <!-- Po -action xử lý việc tính số page khi view danh sách -->
+      <action path="/countpages" type="sp.action.countpages">
+      </action>  
+     <!-- Po -action xử lý việc tính số page khi view danh sách -->
+       
        
     <!-- <action path="/promotionInfoWeekly" type="ebiz.action.mail.PromotionWeekly"-->
 
