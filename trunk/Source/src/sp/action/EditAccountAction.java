@@ -38,7 +38,8 @@ public class EditAccountAction extends org.apache.struts.action.Action{
         
     	AccountForm accountForm = (AccountForm)form;
     	User user = accountForm.getUser();
-    	if(!UserBlo.isExistUser_byLoginName(user.getLoginName()))
+    	UserDao userdao = new UserDao();
+    	if(userdao.checkExistUser(user.getEmail()))
     	{
     		UserDao.saveUser(user);
     	}

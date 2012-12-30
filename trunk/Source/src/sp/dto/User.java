@@ -19,7 +19,6 @@ public class User implements Serializable {
 	public static final String PROJECT_MANAGER = "project_mangager";
 	public static final String LEADER = "leader";
 	public static final String EMPLOYER = "employer";
-	
 	/**
 	 * 
 	 */

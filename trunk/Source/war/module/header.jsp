@@ -1,13 +1,15 @@
-<%@page import="com.google.appengine.api.users.UserServiceFactory"%>
-<%@page import="com.google.appengine.api.users.UserService"%>
+<%@page import="sp.util.Constant"%>
 <%@ page contentType="text/html; charset=utf-8" language="java" errorPage="" %>
+
 <%
-	UserService userService = UserServiceFactory.getUserService();
-String logout = "";
-if (request.getUserPrincipal() != null) {	
-    		 logout =  userService.createLogoutURL("/login.jsp") ;                          
-}
+ String typelogin = (String)request.getSession().getAttribute(Constant.Type_Login);
+ Object userlogin = (Object)request.getSession().getAttribute(Constant.User_Login);
+ if(typelogin == null || userlogin == null )
+ {
+	 response.sendRedirect("/login.jsp");
+ }
 %>
+
 <div id="header">
     <div id="banner">
         <div align="center"><img src="images/banner.jpg" alt="tkb banner" />
@@ -23,7 +25,7 @@ if (request.getUserPrincipal() != null) {
             <li><a href="account.jsp">Tài Khoản</a></li>
             <li><a href="changepassword.jsp">Đổi Mật Khẩu</a></li>
             <li><a href="/displayReportList.do">Báo Cáo</a></li>            
-            <li><a href="<%=logout %>">Đăng Xuất</a></li>
+            <li><a href="logout.do">Đăng Xuất</a></li>
         </ul>
     </div> <!--end menu-->
 
