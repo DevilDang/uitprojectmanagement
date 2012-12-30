@@ -3,7 +3,7 @@
 <struts-config>
   <form-beans>
   <!-- po form đăng nhập vào ứng dụng-->
-   <form-bean name="UserAuthenticationForm" type="sp.form.UserAuthenticationForm"/>
+   <form-bean name="UserForm" type="sp.form.UserForm"/>
    <form-bean name="AccountForm" type="sp.form.AccountForm"/>
   <!-- po -->
   </form-beans>
@@ -13,8 +13,15 @@
   <action-mappings>
     
     <!-- Po - action xử lý chứng thực đăng nhập vào ứng dụng -->
-     <action input="/login.jsp" name="UserAuthenticationForm" path="/LogIn" type="sp.action.LogIn" scope="session" validate="true">
+     <action input="/login.jsp" name="UserForm" path="/LogIn" type="sp.action.LogIn" scope="session" validate="true">
        <forward name="success" path="/index.jsp"/>
+       <forward name="fail" path="/login.jsp"/>      
+     </action>     
+     <!-- Po - action xử lý chứng thực đăng nhập vào ứng dụng -->
+
+	<!-- Po - action xử lý chứng thực đăng nhập vào ứng dụng -->
+     <action path="/logout" type="sp.action.LogOut" >
+       <forward name="success" path="/login.jsp"/>      
      </action>     
      <!-- Po - action xử lý chứng thực đăng nhập vào ứng dụng -->
 

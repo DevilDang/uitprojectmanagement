@@ -35,4 +35,10 @@ public class Constant {
 	public final static String ACCOUNT_LIST ="account_list";
 	//Po
 	
+	// Type Login
+	public final static String GOOGLE_AUTHENTICATION ="GoogleAuthentication";
+	public final static String MY_AUTHENTICATION ="MyAuthentication";
+	public final static String Type_Login ="typeLogin";
+	public final static String User_Login ="UserLogIN";
+	
 }

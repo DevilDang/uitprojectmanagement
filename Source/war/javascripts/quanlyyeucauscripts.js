@@ -278,3 +278,34 @@ function draw_table_danhsachaccount(list_account,length,index)
 }
 // --- Po draw table
 //------------------các hàm xử lý trong trang account.jsp
+
+// ------------- Các hàm xử lý trong trang login.jsp
+
+function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    return vars;
+}
+
+function checkStatusLoginByGoogleAccount()
+{
+	var getvars = getUrlVars();
+	if(getvars['typeLogin'] == "GoogleAccount")
+	{
+		alert("Hệ thống chứng thực bằng Google Account hiện bị lỗi");
+	}else if(getvars['statuslogin']=="false")
+	{
+		alert("Tài khoản này không tồn tại trong hệ thống, vui lòng thử lại");
+		
+	}
+	
+}
+
+// ------------- Các hàm xử lý trong trang login.jsp

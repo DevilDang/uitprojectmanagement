@@ -15,13 +15,13 @@ public class UserBlo {
 	 * checkUser
 	 * @param id
 	 * @return int
-	 *//*
-	public static int checkUser(String id) {
+	 */
+	public static int checkUser(String id, String password) {
 		User user = new User();
 		if (userDao.checkExistUser(id)) {
 			user = userDao.getUser(id);
 			if (user != null) {
-				if (user.getIdUser().equals(user.getPassword())) {
+				if (user.getPassword().equals(password)) {
 					// success
 					return 2;
 				} else {
@@ -32,7 +32,7 @@ public class UserBlo {
 		}
 		// user ko ton tai
 		return 0;
-	}*/
+	}
 	
 	public static boolean isExistUser_byEmail(String id) {
 		// user ton tai
