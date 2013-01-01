@@ -304,6 +304,12 @@ function checkStatusLoginByGoogleAccount()
 	{
 		alert("Tài khoản này không tồn tại trong hệ thống, vui lòng thử lại");
 		
+	}else if(getvars['init']=="true")
+	{
+		alert("Chúc mừng bạn đã khởi tạo thành công tài khoản Admin. Hãy đăng nhập vào hệ thống với : <br> Tên truy nhập: admin <br> Mật khẩu : admin");
+	}else if(getvars['init']=="false")
+	{
+	
 	}
 	
 }

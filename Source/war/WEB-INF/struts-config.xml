@@ -19,11 +19,17 @@
      </action>     
      <!-- Po - action xử lý chứng thực đăng nhập vào ứng dụng -->
 
-	<!-- Po - action xử lý chứng thực đăng nhập vào ứng dụng -->
+	<!-- Po - action xử lý đăng xuất khỏi ứng dụng -->
      <action path="/logout" type="sp.action.LogOut" >
        <forward name="success" path="/login.jsp"/>      
      </action>     
-     <!-- Po - action xử lý chứng thực đăng nhập vào ứng dụng -->
+     <!-- Po - action xử lý đăng xuất khỏi ứng dụng -->
+     
+     <!-- Po - action xử lý khởi tạo tài khoản admin khi lần đầu chạy ứng dụng -->
+     <action path="/initapp" type="sp.action.InitApp" >
+     </action>     
+     <!-- Po - action xử lý khởi tạo tài khoản admin khi lần đầu chạy ứng dụng -->
+     
 
       <!-- Po - action xử lý việc thêm, sửa tài khoản -->
      <action input="/account.jsp" name="AccountForm" path="/editaccount" type="sp.action.Account.EditAccountAction" scope="session" validate="true">

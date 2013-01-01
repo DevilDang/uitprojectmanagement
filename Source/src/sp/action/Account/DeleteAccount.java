@@ -39,10 +39,23 @@ public class DeleteAccount extends org.apache.struts.action.Action{
             throws Exception {
         
     	String login_name_array[] = request.getParameterValues("check");
+    	   	 
     	for(int i = 0;i<login_name_array.length;i++)
     		PMF.deleteObject(User.class, login_name_array[i]);
     	
-    	List<User> list_user = (List<User>)PMF.getList(User.class);  	
+    	long group = Long.parseLong(request.getParameter("group"));
+        int page = Integer.parseInt(request.getParameter("PAGE"));
+        
+        List<User> list_user; 
+        if(group == -1)
+        {
+        	// lấy tất cả 
+        	list_user = ( List<User>)PMF.getObjectList(User.class, page);
+        }else
+        {
+        	list_user= ( List<User>)PMF.getObjectList(User.class, "groupID==" +group ,"id desc", page);
+        }
+    	
     	request.setAttribute(Constant.ACCOUNT_LIST, list_user);
     	System.out.println(list_user.size() + "snaznajhzbnahjzb");
         return mapping.findForward(SUCCESS);
