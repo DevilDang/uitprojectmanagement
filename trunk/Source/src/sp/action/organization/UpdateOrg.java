@@ -2,6 +2,7 @@ package sp.action.organization;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -26,6 +27,9 @@ public class UpdateOrg extends Action {
 		// update or insert org into DB
 		OrganizationBlo.saveOrganization(org);
 		
+		//remove org from session
+		HttpSession se = request.getSession();
+		se.removeAttribute(Constant.ORGANIZATION);
 		
 		//forward page result
 		return mapping.findForward(Constant.SUCCESS);
