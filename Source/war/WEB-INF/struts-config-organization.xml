@@ -24,6 +24,7 @@
     path="/displayOrgList" 
     type="sp.action.organization.DislayOrganizationList" >
     	<forward name="success" path="organization.jsp" redirect="true" />
+    	<forward name="failure" path="inform_nothing.jsp" redirect="true" />
     </action>
     
     <!-- dislay 1 record Organization -->
