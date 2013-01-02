@@ -457,6 +457,21 @@ public class ReportBlo {
 		
 		
 	}
+	
+	/*
+	 * delete list obj
+	 */
+	public static boolean deleteReportList(String keyList[]) {
+		if (keyList.length >0){
+			int size = keyList.length;
+			for(int i = 0; i<size; i++){
+				Long id = Long.valueOf(keyList[i]);
+				reportDao.deleteReport(id);
+			}
+		}
+		return true;
+	}
+	
 	/**
 	 * create List Json Report
 	 * @param reportList
