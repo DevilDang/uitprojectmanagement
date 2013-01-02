@@ -38,7 +38,7 @@ public class DislayOrganizationList extends Action {
 		total = OrganizationBlo.countOrganizationAll();
 		
 		//total number of page
-		List<String> pageList = CommonUtil.countOrganizationAll(total);
+		List<String> pageList = CommonUtil.createPageList(total);
 		
 		//save into session
 		se.setAttribute(Constant.ORGANIZATION_LIST, formList);
