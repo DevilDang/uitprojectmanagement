@@ -14,6 +14,7 @@ import org.apache.struts.action.ActionMapping;
 
 import sp.blo.OrganizationBlo;
 import sp.blo.ReportBlo;
+import sp.form.AccountForm;
 import sp.form.OrganizationForm;
 import sp.util.CommonUtil;
 import sp.util.Constant;
@@ -25,6 +26,14 @@ public class DislayOrganizationList extends Action {
 			throws Exception {
 		
 		HttpSession se = request.getSession();
+		
+		// get user from session
+		AccountForm user = (AccountForm) se.getAttribute("user");
+		int per = Integer.parseInt(user.getPermission());
+		
+		//user co quyen admin
+		if (Constant.ADMIN == per )
+		{
 		//get pagenumber
 		String pageNumber = request.getParameter("page");
 		
@@ -69,8 +78,10 @@ public class DislayOrganizationList extends Action {
 		}
 		//forward page result
 		return mapping.findForward(Constant.SUCCESS);
+		}
 		
-		
+		//forward page result
+		return mapping.findForward(Constant.FAILURE);
 
 	}
 
