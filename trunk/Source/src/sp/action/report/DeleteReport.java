@@ -11,6 +11,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import sp.blo.OrganizationBlo;
 import sp.blo.ReportBlo;
 import sp.dto.Report;
 import sp.form.ReportForm;
@@ -26,15 +27,14 @@ public class DeleteReport extends Action{
 				HttpServletRequest request, HttpServletResponse response)
 				throws Exception {
 			
-			//get form
-			ReportForm formReport = (ReportForm)form;
+
+			String report_id_array[] = request.getParameterValues("check");
+		   	 
+			//delete
+			ReportBlo.deleteReportList(report_id_array);
 			
-			//get dto 
-			Report report = formReport.getReport();
-			
-			//save dto
-			ReportBlo.saveReport(report);
-			
+			//forward page result
 			return mapping.findForward(Constant.SUCCESS);
+			
 		}
 }
