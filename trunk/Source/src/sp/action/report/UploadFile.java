@@ -11,6 +11,9 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import sp.util.Constant;
+
+import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
@@ -35,14 +38,12 @@ System.out.println("123");
     		//get key cua file upload
     		System.out.println(blobKey.get(0).getKeyString());
     		HttpSession se = request.getSession();
-    		se.setAttribute("pic", blobKey.get(0).getKeyString());
-    		//upload thanh cong, ghi vo DB
-    		
-    		//forward den trang tiep theo
-    		
-    		
-//   		
-
+    		//save name into session
+    		BlobInfoFactory bi = new BlobInfoFactory();
+            String fname = bi.loadBlobInfo(blobKey.get(0)).getFilename();
+    		se.setAttribute(Constant.REPORT_FILE_NAME, fname);
+    		//save key into session
+    		se.setAttribute(Constant.REPORT_FILE_ID, blobKey.get(0).getKeyString());
     		
     		return mapping.findForward("success");
     	}

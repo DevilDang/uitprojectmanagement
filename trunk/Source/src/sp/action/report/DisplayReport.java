@@ -26,6 +26,7 @@ public class DisplayReport extends Action{
 				HttpServletRequest request, HttpServletResponse response)
 				throws Exception {
 			HttpSession se = request.getSession();
+			
 			//get id
 			String id = request.getParameter("id");
 			
@@ -37,7 +38,11 @@ public class DisplayReport extends Action{
 				se.setAttribute(Constant.REPORT, reportDisplay);
 				
 				//mode Update
-				se.setAttribute(Constant.REPORT_FLAG, "2");
+				se.setAttribute(Constant.RECORD_FLAG, Constant.MODE_UPDATE);
+				
+//				//remove REPORT_FILE
+				se.removeAttribute(Constant.REPORT_FILE_ID);
+				se.removeAttribute(Constant.REPORT_FILE_NAME);
 			}
 			return mapping.findForward(Constant.SUCCESS);
 		}

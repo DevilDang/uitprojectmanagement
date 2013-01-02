@@ -46,7 +46,6 @@ public class DownloadFile extends Action {
                 blobstoreService.serve(blobKey, response);
             }
         }
-        System.out.println("mapping");
         return null;
     }
 
