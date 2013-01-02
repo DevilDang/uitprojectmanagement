@@ -19,7 +19,6 @@ public class DislayOrganization extends Action {
 			throws Exception {
 		//get id from request
 		String id = request.getParameter("id");
-		System.out.println(id);
 		
 		//get obj from id 
 		OrganizationForm orgForm = OrganizationBlo.getOrganizationForm(id);
