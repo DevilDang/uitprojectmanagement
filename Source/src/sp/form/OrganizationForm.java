@@ -15,8 +15,6 @@ public class OrganizationForm extends ValidatorForm implements Serializable {
 	private String websiteOrg;
 	private String numberOrg;
 	
-	//check box
-	private boolean flagCheck;
 	
 	public Long getIdOrg() {
 		return idOrg;
