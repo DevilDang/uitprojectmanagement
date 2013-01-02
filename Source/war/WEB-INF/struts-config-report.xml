@@ -42,6 +42,11 @@
     	<forward name="success" path="report.jsp" redirect="true" />
     </action>
     
+     <!--Delete Report -->
+    <action path="/deleteReport" type="sp.action.report.DeleteReport"  >
+    	<forward name="success" path="/displayReportList.do" redirect="true" />
+    </action>
+    
     <!-- updateReport -->
     <action 
         input="/report.jsp" 
