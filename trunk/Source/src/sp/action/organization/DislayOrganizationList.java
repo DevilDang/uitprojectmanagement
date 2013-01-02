@@ -76,8 +76,6 @@ public class DislayOrganizationList extends Action {
 			
 			
 		}
-		//forward page result
-		return mapping.findForward(Constant.SUCCESS);
 		}
 		
 		//forward page result
