@@ -121,6 +121,31 @@ public final class PMF {
      * get ListObject by value
      * @param className Class<?> 
      * @param col String
+     * @param value String
+     * @return List<Object>
+     */
+    @SuppressWarnings("unchecked")
+	public static List<Object> getListByValue(Class<?> className, String col, long value) {
+    	PersistenceManager pm = getPMF();
+        Query query = pm.newQuery(className);
+        List<Object> results = null;
+        List<Object> detachedList = null;
+        query.setFilter(col + " == param");
+
+        query.declareParameters("String param");
+        try {
+            detachedList = (List<Object>) query.execute(value);
+            results = (List<Object>) pm.detachCopyAll(detachedList);
+        } finally {
+            query.closeAll();
+            pm.close();
+        }
+        return results;
+    }
+    /**
+     * get ListObject by value
+     * @param className Class<?> 
+     * @param col String
      * @param value Date
      * @return List<Object>
      */
@@ -152,6 +177,19 @@ public final class PMF {
      * @return boolean
      */
     public static boolean isObject(Class<?> className, String key) {
+        PersistenceManager pm = getPMF();
+        try {
+
+            pm.getObjectById(className, key);
+        } catch (JDOObjectNotFoundException e) {
+            return false;
+        } finally {
+            pm.close();
+        }
+        return true;
+    }
+    
+    public static boolean isObject(Class<?> className, long key) {
         PersistenceManager pm = getPMF();
         try {
 
@@ -203,6 +241,8 @@ public final class PMF {
         }
         return result;
     }
+    
+    
     
     
     /**
@@ -296,7 +336,7 @@ public final class PMF {
      * get so luong record theo tung page, filter
      */
     @SuppressWarnings("unchecked")
-	public static List<?> getObjectList(Class<?> className, String filter, int page){
+	public static List<?> getObjectListPaging(Class<?> className, String filter, int page){
     	PersistenceManager pm = getPMF();
         Query query = pm.newQuery(className);
                 
@@ -349,36 +389,33 @@ public final class PMF {
         
     }
     
-    
     /*
-     * tinh tong so luong record co trong 1 table
+     * get so luong record theo filter
      */
     @SuppressWarnings("unchecked")
-	public static int countNumberAll(Class<?> className, String filter){
-    	int number = 0;
+	public static List<?> getObjectList(Class<?> className, String filter){
     	PersistenceManager pm = getPMF();
-        List<Object> tempList = new ArrayList<Object>();
         Query query = pm.newQuery(className);
         //set filter
         query.setFilter(filter);
+        
+        List<Object> results = null;
+        List<Object> detachedList = null;
         try {
-        	
-        	tempList = (List<Object>) query.execute();
-        	if (tempList != null){
-        	number = tempList.size();
-        	}
-        } catch (JDOObjectNotFoundException e) {
-            return 0;
+            detachedList = (List<Object>) query.execute();
+            results = (List<Object>) pm.detachCopyAll(detachedList);
+
         } finally {
-        	query.closeAll();
-            pm.close();    
+            query.closeAll();
+            pm.close();
         }
-        return number;
-    	
+        return results;
+        
     }
     
+    
     /*
-     * tinh tong so luong record co trong 1 table, filter
+     * tinh tong so luong record co trong 1 table
      */
     @SuppressWarnings("unchecked")
 	public static int countNumberAll(Class<?> className){
@@ -401,5 +438,55 @@ public final class PMF {
         return number;
     	
     }
+    
+    /*
+     * tinh tong so luong record co trong 1 table, filter
+     */
+    @SuppressWarnings("unchecked")
+	public static int countNumberAll(Class<?> className, String filter){
+    	int number = 0;
+    	PersistenceManager pm = getPMF();
+        List<Object> tempList = new ArrayList<Object>();
+        Query query = pm.newQuery(className);
+        query.setFilter(filter);
+        try {
+        	
+        	tempList = (List<Object>) query.execute();
+        	if (tempList != null){
+        	number = tempList.size();
+        	}
+        } catch (JDOObjectNotFoundException e) {
+            return 0;
+        } finally {
+        	query.closeAll();
+            pm.close();    
+        }
+        return number;
+    	
+    }
+    
+    /*
+     * get danh sach value cua 1 Class
+     */
+    @SuppressWarnings("unchecked")
+	public static List<Long> getValueList(Class<?> className, String col, String sql){
+
+    	PersistenceManager pm = getPMF();
+    	List<Long> results = null;
+    	List<Long> detachedList = null;
+        
+        // re-count amount of page
+        Query query = pm.newQuery("select "+ col + " from " + className.getName() + " where " + sql);
+        try {
+        	detachedList = (List<Long>) query.execute();
+        	results = (List<Long>) pm.detachCopyAll(detachedList);
+
+        } finally {
+            query.closeAll();
+            pm.close();
+        }
+        return results;
+    }
+    
     
 }
