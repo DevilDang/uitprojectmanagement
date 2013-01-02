@@ -6,7 +6,10 @@ import java.util.List;
 import sp.dao.OrganizationDao;
 import sp.dto.Organization;
 import sp.form.OrganizationForm;
+import sp.form.ReportForm;
 import sp.util.Constant;
+import sp.util.JSONObject;
+import sp.util.JSONObjectList;
 
 public class OrganizationBlo {
 
@@ -41,11 +44,11 @@ public class OrganizationBlo {
 	/*
 	 * delete list obj
 	 */
-	public static boolean deleteOrganizationList(List<String> keyList) {
-		if (!keyList.isEmpty()){
-			int size = keyList.size();
+	public static boolean deleteOrganizationList(String keyList[]) {
+		if (keyList.length >0){
+			int size = keyList.length;
 			for(int i = 0; i<size; i++){
-				Long id = Long.valueOf(keyList.get(i));
+				Long id = Long.valueOf(keyList[i]);
 				orgDao.deleteOrganization(id);
 			}
 		}
@@ -109,4 +112,41 @@ public class OrganizationBlo {
 	public static List<String> getListString(String input){
 		return null;
 	}
+	
+	/**
+	 * create List Json Report
+	 * @param reportList
+	 * @return
+	 */
+	public static JSONObjectList createJSONObjectList(List<OrganizationForm> orgList)
+	{
+		JSONObjectList jsonlist = new JSONObjectList();
+        int length = orgList.size();
+        for (int i = 0; i < length; i++) {
+            JSONObject uc =createJSONObject(orgList.get(i));
+
+            jsonlist.getListobject().add(uc);
+
+        }
+        
+        return jsonlist;
+	}
+	
+	/**
+	 * create JsonObject from an ReportForm
+	 * @param report
+	 * @return
+	 */
+	public static JSONObject createJSONObject(OrganizationForm org)
+	{
+		String keys[] = {"idOrg", "nameOrg","websiteOrg"};
+        
+		JSONObject uc = new JSONObject(keys);
+        uc.getObject().put(keys[0], String.valueOf(org.getIdOrg()));
+        uc.getObject().put(keys[1], org.getNameOrg());
+        uc.getObject().put(keys[2], org.getWebsiteOrg());
+
+       return uc;     
+    }
+	
 }
