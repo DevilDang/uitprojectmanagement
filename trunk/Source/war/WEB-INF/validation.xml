@@ -64,6 +64,20 @@
                     </var>
             </field>
         </form>
+        
+        <!-- Report -->
+        <form name="report">
+            <field
+                property="title"
+                depends="required">
+                    <arg key="report.title"/>
+            </field>
+            <field
+                property="content"
+                depends="required">
+                    <arg key="report.content"/>
+            </field>
+        </form>
     </formset>
 
     <!-- An example formset for another locale -->
