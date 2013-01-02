@@ -319,7 +319,6 @@ function checkStatusLoginByGoogleAccount()
 
 function getListReport(flag,page)
 {
-	alert(flag);
 	var form = document.getElementById("sortForm");
 	
 	var select;
@@ -487,8 +486,7 @@ function draw_table_danhsach_report(list_report,length,index)
 
       td = tr.insertCell(tr.cells.length);
       var a =  document.createElement("a");
-      a.setAttribute("href","javascript: void(0)");
-      a.setAttribute("onclick","ajax_getAccount('" +list_report[i].id+"');");
+      a.setAttribute("href","/displayReport.do?id="+list_report[i].id);
       a.innerHTML = list_report[i].id;
       td.appendChild(a);
              
@@ -549,3 +547,83 @@ function checkSubmit()
 		}
 	
 }
+
+
+//-------------organization.jsp
+//get danh sach req by page
+function getListReqByPage(page)
+{
+
+//  var form = document.getElementById("sortForm");
+//  var select_group = form.elements["group"];
+  
+  var xhr = createXHR();
+  xhr.onreadystatechange = function(){
+      if (xhr.readyState == 4){
+          if ((xhr.status  >= 200  &&  xhr.status  <  300) || xhr.status == 304){
+
+              var list_req = JSON.parse(xhr.responseText);
+              //draw_phantrang(list_Account[0].SOLUONG,page);
+
+              draw_table_danhsach_req(list_req, list_req.length,0);
+
+              //undraw_loading();
+          } else {
+              alert("Request was unsuccessful: " + xhr.status);
+          }
+      }
+  };
+
+  
+  var url = "displayOrgList.do";
+  url = addURLParam(url, "page", page);
+//  url = addURLParam(url, select_group.name, select_group[select_group.selectedIndex].value);
+  
+  
+  xhr.open("get", url, true);
+  xhr.send(null);
+}
+
+//--- ve
+function draw_table_danhsach_req(list_req,length,index)
+{
+	// name cá»§a input checkbox
+  var tr, td, i;
+  var table = document.getElementById("table_req_list");
+
+  // tháº» body cÅ©
+  var body = table. tBodies[0];
+
+  // váº½ má»™t thá»§ body má»›i chá»©a dá»¯ liá»‡u
+  var tbody = document.createElement("tbody");
+  table.replaceChild(tbody,body);
+  for (i = index; i<length; i++)
+  {
+  	
+      tr = tbody.insertRow(tbody.rows.length);
+      tr.setAttribute("align", "center");
+
+      td = tr.insertCell(tr.cells.length);
+      var input = document.createElement("input");
+      input.setAttribute("type","checkbox");
+      input.setAttribute("name","check");
+      input.setAttribute("value",list_req[i].idOrg);
+      td.appendChild(input);
+     
+      
+
+      td = tr.insertCell(tr.cells.length);
+      var a =  document.createElement("a");
+      a.setAttribute("href","/displayOrg.do?id="+list_req[i].idOrg);
+      a.innerHTML = list_req[i].idOrg;
+      td.appendChild(a);
+             
+      
+      td = tr.insertCell(tr.cells.length);
+      td.innerHTML = list_req[i].nameOrg;
+      
+      td = tr.insertCell(tr.cells.length);
+      td.innerHTML = list_req[i].websiteOrg;
+      
+  }
+} 
