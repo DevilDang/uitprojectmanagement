@@ -29,7 +29,10 @@ public class DislayOrganizationList extends Action {
 		
 		// get user from session
 		AccountForm user = (AccountForm) se.getAttribute("user");
-		int per = Integer.parseInt(user.getPermission());
+		int per = 4;
+		if (user != null ){
+			per = Integer.parseInt(user.getPermission());
+		}
 		
 		//user co quyen admin
 		if (Constant.ADMIN == per )
