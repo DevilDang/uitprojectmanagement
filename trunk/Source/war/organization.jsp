@@ -6,13 +6,15 @@
 <html>
     <head>
         <title>Quản Lý Đối Tác</title>
-        <link rel="stylesheet" type="text/css" href="default.css"/>
-        <link rel="stylesheet" type="text/css" href="css/style.css"/>
-        <link rel="stylesheet" type="text/css" href="css/SpryMenuBarHorizontal.css"/>
-        <script src="javascripts/SpryMenuBar.js" type="text/javascript"></script>
-        <script src="javascripts/MyJavaScripts.js" type="text/javascript"></script>
-        <script src="javascripts/json.js" type="text/javascript"></script>
-        <script src="javascripts/check.js" type="text/javascript"></script>
+        <link rel="stylesheet" type="text/css" href="default.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="css/SpryMenuBarHorizontal.css" />
+<script src="javascripts/SpryMenuBar.js" type="text/javascript"></script>
+<script src="javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+<script src="javascripts/json.js" type="text/javascript"></script>
+<script src="javascripts/check.js" type="text/javascript"></script>
+<script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
     </head>
     <body>
         <div id="container">           
@@ -26,7 +28,7 @@
             <div id="content">
                 <div id="content_left">
                     <h3 align="center"> Quản lý danh sách </h3><br>
-                    <form name="danhsachmonhoc" id ="danhsachmonhoc" method="post" action="">
+                    <form name="danhsachmonhoc" id ="danhsachmonhoc" method="post" action="/deleteOrganization.do">
                     	 
                         <p>Số lượng:
                         <logic:present name="org_total_number">
@@ -36,7 +38,7 @@
                         <p><br>
                         </p>
                         <div id="table">
-                            <table id="table_danhsach_monhoc" cellspacing="0" cellpadding="0" border="1">                               
+                            <table id="table_req_list" cellspacing="0" cellpadding="0" border="1">                               
                                <thead>
                                     <tr align="center">
                                         <td width="20"><input type="checkbox" name="checkall" id="checkall" onClick="checkUncheckAll(this);"/></td>
@@ -50,7 +52,7 @@
       <logic:iterate id="element" name="org_list" > 
                                 	 <tr align="center">
                                         <td width="20">
-                                        <input type="checkbox" name="checkall" id="checkall"  onClick="checkUncheckAll(this);"/> </td>
+                                        <input type="checkbox" name="check" id="checkall"  value="<bean:write name="element"  property="idOrg"/>"/> </td>
                                         <td width="70"><b><a href="/displayOrg.do?id=<bean:write name="element"  property="idOrg"/>"><bean:write name="element"  property="idOrg"/></a></b></td>
                                         <td width="130"><b><bean:write name="element"  property="nameOrg"/></b></td>
                                         <td width="130"><b><bean:write name="element"  property="addOrg"/></b></td>                               
@@ -61,17 +63,17 @@
                             </table>
                         </div>
                         <div id="phantrang" class="chose3" align="center">
-                            <select name ="PAGE" id="select_page" onchange="ajax_load_page_danhsachmonhoc()">
+                            <select name ="PAGE" id="select_page" onchange="getListReqByPage(this.options[this.selectedIndex].value)">
                                 <logic:present name="org_page_list">
-                               <logic:iterate id="element" name="org_page_list" >
-                                <option value="<bean:write name="element"/>"><bean:write name="element" /></option>
+                               <logic:iterate id="item" name="org_page_list" >
+                             <option value="<bean:write name="item"/>" ><bean:write name="item"/></option>
                                 </logic:iterate>
                                 </logic:present>
                             </select>
 
                         </div>
                         <div class="chose3" align="center">
-                            <input type="button" id="submit" value="Xóa" style="height: 25px; width: 100px" onClick="ajax_delete_monhoc()">
+                            <input type="submit" id="submit" value="Xóa" style="height: 25px; width: 100px" onClick="ajax_delete_monhoc()">
                             <input type="hidden" name="KEY" value="XOA_MONHOC">
 
                         </div>
