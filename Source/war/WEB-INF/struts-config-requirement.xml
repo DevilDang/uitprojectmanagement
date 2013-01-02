@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+<struts-config>
+  <form-beans>
+   <form-bean name="req" type="sp.form.RequirementForm" />
+  </form-beans>
+  <global-forwards>
+  </global-forwards>
+  <action-mappings>
+    
+    <!-- display ReqList-->
+     <action path="/displayReqList" type="sp.action.requirement.DislayReqList">  
+    	<forward name="success" path="requirement.jsp" redirect="true" />
+    	<forward name="failure" path="inform_nothing.jsp" redirect="true" />
+    </action>
+    
+      <!-- update Req -->
+    <action 
+        input="/requirement.jsp" 
+        path="/updateReq" 
+        type="sp.action.requirement.UpdateRequirement"  
+        name="req"
+        validate="true" >
+    	<forward name="success" path="/dislayReportListPaging.do" redirect="true" />
+    </action>
+    
+    <!-- display Detail-->
+     <action path="/displayReq" type="sp.action.requirement.DisplayReq">  
+    	<forward name="success" path="requirement.jsp" redirect="true" />
+    </action>
+    
+  </action-mappings>
+  
+</struts-config>

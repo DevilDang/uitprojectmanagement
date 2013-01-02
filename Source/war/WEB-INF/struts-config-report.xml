@@ -7,11 +7,6 @@
   <global-forwards>
   </global-forwards>
   <action-mappings>
-    <action 
-    path="/displayOrgList" 
-    type="sp.action.organization.DislayOrganizationList" >
-    	<forward name="success" path="organization.jsp" redirect="true" />
-    </action>
     
     <!-- upload File -->
     <action path="/uploadFile" type="sp.action.report.UploadFile"  >
@@ -28,24 +23,82 @@
     </action>
     
     <!-- display Report  -->
-    <action 
-        input="/organization.jsp" 
-        path="/displayReport" 
-        type="sp.action.report.TransferUploadFile"  
-        name="organization"
-        validate="true" >
+    <action path="/displayReport" type="sp.action.report.DisplayReport">  
+    	<forward name="success" path="report.jsp" redirect="true" />
+    </action>
+    
+    <!-- display Report List  -->
+    <action path="/displayReportList" type="sp.action.report.DislayReportList">  
+    	<forward name="success" path="report.jsp" redirect="true" />
+    	<forward name="failure" path="inform_nothing.jsp" redirect="true" />
+    </action>
+    
+    <action path="/dislayReportListPaging" type="sp.action.report.DislayReportListPaging">  
     	<forward name="success" path="report.jsp" redirect="true" />
     </action>
     
      <!-- changeMode : update -> insert -->
-    <action path="/changeMode" type="sp.action.report.ChangeMode"  >
+    <action path="/changeModeReport" type="sp.action.report.ChangeMode"  >
     	<forward name="success" path="report.jsp" redirect="true" />
     </action>
     
     <!-- updateReport -->
-    <action path="/updateReport" type="sp.action.report.UpdateReport"  >
+    <action 
+        input="/report.jsp" 
+        path="/updateReport" 
+        type="sp.action.report.UpdateReport"  
+        name="report"
+        validate="true" >
+    	<forward name="success" path="/dislayReportListPaging.do" redirect="true" />
+    </action>
+    
+     <!-- My ReportList-->
+    <action path="/displayReportListMine" type="sp.action.report.DislayReportListMine">  
+    	<forward name="success" path="reportMine.jsp" redirect="true" />
+    	<forward name="failure" path="inform_nothing.jsp" redirect="true" />
+    </action>
+    
+    <action path="/dislayReportListPagingMine" type="sp.action.report.DisplayReportListMinePaging">  
+    	<forward name="success" path="reportMine.jsp" redirect="true" />
+    </action>
+    
+    <action 
+        input="/report.jsp" 
+        path="/updateReportMine" 
+        type="sp.action.report.UpdateReport"  
+        name="report"
+        validate="true" >
+    	<forward name="success" path="/dislayReportListPagingMine.do" redirect="true" />
+    </action>
+    
+    <action path="/displayReportMine" type="sp.action.report.DisplayReport">  
+    	<forward name="success" path="reportMine.jsp" redirect="true" />
+    </action>
+    
+    <action path="/changeModeReportMine" type="sp.action.report.ChangeMode">  
+    	<forward name="success" path="reportMine.jsp" redirect="true" />
+    </action>
+    
+   <!-- upload File -->
+    <action path="/uploadFileMine" type="sp.action.report.UploadFile"  >
+    	<forward name="success" path="/transferFileMine.do" redirect="true" />
+    </action>
+    
+    <action path="/transferFileMine" type="sp.action.report.TransferUploadFile"  >
+    	<forward name="success" path="reportMine.jsp" redirect="true" />
+    </action>
+    
+    <!-- download File -->
+    <action path="/downloadFileMine" type="sp.action.report.DownloadFile" >
+    	<forward name="success" path="reportMine.jsp" redirect="true" />
+    </action>
+    
+    <!-- calculate list page-->
+     <action path="/countPageList" type="sp.action.report.PageReportList">  
     	<forward name="success" path="report.jsp" redirect="true" />
     </action>
+    
+    
   </action-mappings>
   
 </struts-config>
