@@ -23,9 +23,11 @@ public class ReportForm extends ValidatorForm implements Serializable {
 //	private String nameUser;// hien thi nameUser
 	private Date createDate;
 	private String comment;
-	private int status;
+	private String status;
 	private String content;
 	private String fileId;
+	private String fileName;
+	private int level;
 	/**
 	 * @return the id
 	 */
@@ -139,13 +141,13 @@ public class ReportForm extends ValidatorForm implements Serializable {
 	/**
 	 * @return the status
 	 */
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 	/**
 	 * @param status the status to set
 	 */
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 	
@@ -175,6 +177,20 @@ public class ReportForm extends ValidatorForm implements Serializable {
 	public void setFileId(String fileId) {
 		this.fileId = fileId;
 	}
+	
+	
+	/**
+	 * @return the level
+	 */
+	public int getLevel() {
+		return level;
+	}
+	/**
+	 * @param level the level to set
+	 */
+	public void setLevel(int level) {
+		this.level = level;
+	}
 	/*
 	 * transfer Form -> DTO
 	 */
@@ -189,9 +205,11 @@ public class ReportForm extends ValidatorForm implements Serializable {
 		report.setIdGroup(this.idGroup);
 		report.setIdUser(this.idUser);
 		report.setComment(this.comment);
+		report.setContent(this.content);
 		report.setCreateDate(this.createDate);
 		report.setStatus(this.status);
 		report.setFileId(this.fileId);
+		report.setLevel(this.level);
 		return report;
 	}
 	
@@ -207,9 +225,23 @@ public class ReportForm extends ValidatorForm implements Serializable {
 		this.idGroup = report.getIdGroup();
 		this.idUser = report.getIdUser();
 		this.comment = report.getComment();
+		this.content = report.getContent();
 		this.createDate = report.getCreateDate();
 		this.status = report.getStatus();
 		this.fileId = report.getFileId();
+		this.level = report.getLevel();
+	}
+	/**
+	 * @return the fileName
+	 */
+	public String getFileName() {
+		return fileName;
+	}
+	/**
+	 * @param fileName the fileName to set
+	 */
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 }
