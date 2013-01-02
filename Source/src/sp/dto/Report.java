@@ -41,13 +41,16 @@ public class Report implements Serializable {
 	private String comment;
 	
 	@Persistent
-	private int status;
+	private String status;
 	
 	@Persistent
 	private String content;
 	
 	@Persistent
 	private String fileId;
+	
+	@Persistent
+	private int level;
 	
 
 	/**
@@ -180,14 +183,14 @@ public class Report implements Serializable {
 	/**
 	 * @return the status
 	 */
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
 	/**
 	 * @param status the status to set
 	 */
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
@@ -217,6 +220,20 @@ public class Report implements Serializable {
 	 */
 	public void setFileId(String fileId) {
 		this.fileId = fileId;
+	}
+
+	/**
+	 * @return the level
+	 */
+	public int getLevel() {
+		return level;
+	}
+
+	/**
+	 * @param level the level to set
+	 */
+	public void setLevel(int level) {
+		this.level = level;
 	}
 	
 	
