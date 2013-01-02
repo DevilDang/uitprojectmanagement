@@ -29,9 +29,11 @@ public class ChangeMode extends Action{
 			
 			//remove Report Bean out of session
 			se.removeAttribute(Constant.REPORT);
+			se.removeAttribute(Constant.REPORT_FILE_ID);
+			se.removeAttribute(Constant.REPORT_FILE_NAME);
 			
 			//mode Insert
-			se.setAttribute(Constant.REPORT_FLAG, mode);
+			se.setAttribute(Constant.RECORD_FLAG, mode);
 			
 			return mapping.findForward(Constant.SUCCESS);
 		}
