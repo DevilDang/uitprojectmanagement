@@ -66,7 +66,7 @@
 				<br>
 
 				<form name="sortForm" id="sortForm" method="post"
-					action="">
+					action="/deleteReport.do">
 					<div class="chose3" align="center">
 						Dự Án: <select name="project" id="box"
 							onChange="getListReport(1,1)">
@@ -192,6 +192,7 @@
 							<thead>
 
 								<tr align="center">
+								
 									<td width="20"><input type="checkbox" name="checkall"
 										id="checkall" onClick="checkUncheckAll(this);" /></td>
 									<td width="50"><b>Số Báo Cáo</b></td>
@@ -204,8 +205,9 @@
 							<tbody>
 								<logic:iterate id="item" name="record_list">
 									<tr align="center">
-										<td width="20"><input type="checkbox" name="checkall"
-											id="checkall" onClick="checkUncheckAll(this);" /></td>
+									<td><input type="checkbox" name="check" id="checkall"  value="<bean:write name="item" property="id"/>"/> </td>
+										<!-- <td width="20"><input type="checkbox" name="checkall"
+											id="checkall" onClick="checkUncheckAll(this);" /></td> -->
 										<td width="70"><b><a href="/displayReport.do?id=<bean:write name="item" property="id"/>"><bean:write name="item" property="id"/></a> </b></td>
 										<td width="130"><b><bean:write name="item" property="title"/></b></td>
 										<td width="130"><b><bean:write name="item" property="idUser"/></b></td>
@@ -240,8 +242,8 @@
 
 					</div>
 					<div class="chose3" align="center">
-						<input type="button" id="submit" value="Xóa"
-							style="height: 25px; width: 100px" onClick="ajax_delete_monhoc()">
+						<input type="submit" id="submit" value="Xóa"
+							style="height: 25px; width: 100px" >
 						<input type="hidden" name="KEY" value="XOA_MONHOC">
 
 					</div>
