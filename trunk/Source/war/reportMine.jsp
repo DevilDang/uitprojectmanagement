@@ -20,10 +20,21 @@
 <link rel="stylesheet" type="text/css"
 	href="css/SpryMenuBarHorizontal.css" />
 <script src="javascripts/SpryMenuBar.js" type="text/javascript"></script>
-<!--  script src="javascripts/MyJavaScripts.js" type="text/javascript"></script -->
+<script src="javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
 <script src="javascripts/json.js" type="text/javascript"></script>
 <script src="javascripts/check.js" type="text/javascript"></script>
 <script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
+<script src="javascripts/reportMine.js" type="text/javascript"></script>
+<script type="text/javascript">
+	 $(document).ready(function() {
+		$("#idSubmit").click(function() {
+	        var flag =  checkSubmit();
+	        if(!flag){
+	            return false;
+	        }
+	    });
+	}); 
+</script>
 </head>
 <body>
 
@@ -53,10 +64,10 @@
 					action="">
 					<div class="chose3" align="center">
 						Dự Án: <select name="project" id="box"
-							onChange="getListReport(1,1)">
+							onChange="getListReportMine(1,1)">
 							<logic:iterate id="element" name="idProList">
 							<%-- <c:choose>
-							<c:when test="${element == report_sort.idProject }">
+							<c:when test="${element == record_sort.idProject }">
 							<option value="/displayReportPaging.do?idProject=<bean:write name="element"/>" selected>
 									<bean:write name="element" />
 							</option>
@@ -76,10 +87,10 @@
 					<logic:notEmpty name="idReqList">
 						<div class="chose3" align="center">
 							Yêu cầu: <select name="req" id="box"
-								onChange="getListReport(2,1)">
+								onChange="getListReportMine(2,1)">
 							<logic:iterate id="element" name="idReqList">
 							<%-- <c:choose>
-							<c:when test="${element == report_sort.idReq }">
+							<c:when test="${element == record_sort.idReq }">
 							<option value="" selected>
 										<bean:write name="element" />
 									</option>
@@ -100,10 +111,10 @@
 					<logic:notEmpty name="idGroupList">
 						<div class="chose3" align="center">
 							Nhóm thực hiện: <select name="group" id="box"
-								onChange="getListReport(3,1)">
+								onChange="getListReportMine(3,1)">
 								<logic:iterate id="element" name="idGroupList">
 								<%-- <c:choose>
-								<c:when test="${element == report_sort.idGroup }">
+								<c:when test="${element == record_sort.idGroup }">
 								<option value="" selected>
 										<bean:write name="element" />
 								</option>
@@ -127,7 +138,7 @@
 								onChange="ajax_getdanhsachmonhoc(0)">
 								<logic:iterate id="element" name="idTaskList">
 								<c:choose>
-								<c:when test="${element == report_sort.idTask }">
+								<c:when test="${element == record_sort.idTask }">
 								<option value="" selected>
 										<bean:write name="element" />
 									</option>
@@ -149,21 +160,21 @@
 					<div class="chose3" align="center">
 						Trạng thái 
 						<!-- onChange="getListReportByStatus(1)" -->
-						<select name="status" id="box" onChange="getListReport(5,1)">
-							<logic:equal name="report_sort" property="status" value="New"><option value="New" selected="selected">New</option></logic:equal>
-							<logic:notEqual name="report_sort" property="status" value="New"><option value="New" >New</option></logic:notEqual>
+						<select name="status" id="box" onChange="getListReportMine(4,1)">
+							<logic:equal name="record_sort" property="status" value="New"><option value="New" selected="selected">New</option></logic:equal>
+							<logic:notEqual name="record_sort" property="status" value="New"><option value="New" >New</option></logic:notEqual>
 							
-							<logic:equal name="report_sort" property="status" value="Review"><option value="Review" selected="selected">Review</option></logic:equal>
-							<logic:notEqual name="report_sort" property="status" value="Review"><option value="Review" >Review</option></logic:notEqual>
+							<logic:equal name="record_sort" property="status" value="Review"><option value="Review" selected="selected">Review</option></logic:equal>
+							<logic:notEqual name="record_sort" property="status" value="Review"><option value="Review" >Review</option></logic:notEqual>
 							
-							<logic:equal name="report_sort" property="status" value="Request_update"><option value="Request_update" selected="selected">Request_update</option></logic:equal>
-							<logic:notEqual name="report_sort" property="status" value="Request_update"><option value="Request_update" >Request_update</option></logic:notEqual>
+							<logic:equal name="record_sort" property="status" value="Request_update"><option value="Request_update" selected="selected">Request_update</option></logic:equal>
+							<logic:notEqual name="record_sort" property="status" value="Request_update"><option value="Request_update" >Request_update</option></logic:notEqual>
 							
-							<logic:equal name="report_sort" property="status" value="Updated"><option value="Updated" selected="selected">Updated</option></logic:equal>
-							<logic:notEqual name="report_sort" property="status" value="Updated"><option value="Updated" >Updated</option></logic:notEqual>
+							<logic:equal name="record_sort" property="status" value="Updated"><option value="Updated" selected="selected">Updated</option></logic:equal>
+							<logic:notEqual name="record_sort" property="status" value="Updated"><option value="Updated" >Updated</option></logic:notEqual>
 							
-							<logic:equal name="report_sort" property="status" value="Finish"><option value="Finish" selected="selected">Finish</option></logic:equal>
-							<logic:notEqual name="report_sort" property="status" value="Finish"><option value="Finish" >Finish</option></logic:notEqual>
+							<logic:equal name="record_sort" property="status" value="Finish"><option value="Finish" selected="selected">Finish</option></logic:equal>
+							<logic:notEqual name="record_sort" property="status" value="Finish"><option value="Finish" >Finish</option></logic:notEqual>
 						</select>
 					</div>
 					<p>&nbsp;</p>
@@ -186,7 +197,7 @@
 
 							</thead>
 							<tbody>
-								<logic:iterate id="item" name="report_list">
+								<logic:iterate id="item" name="record_list">
 									<tr align="center">
 										<td width="20"><input type="checkbox" name="checkall"
 											id="checkall" onClick="checkUncheckAll(this);" /></td>
@@ -200,26 +211,11 @@
 						</table>
 					</div>
 					<div id="phantrang" class="chose3" align="center">
-						<select name="page" id="select_page" ONCHANGE="location = this.options[this.selectedIndex].value;" >
-							<logic:iterate id="item" name="report_page_list">
-							<c:choose>
-							<c:when test="${item == report_page_number}">
-							<option value="/dislayReportListPagingMine.do?page=<bean:write name="item"/>" selected><bean:write name="item"/></option>
-							</c:when>
-							<c:otherwise>
-							<option value="/dislayReportListPagingMine.do?page=<bean:write name="item"/>" ><bean:write name="item"/></option>
-							</c:otherwise>
-							</c:choose>
-							
-							<%-- <logic:equal value="<bean:write name="item"/>" name="report_page_number">
-							<option value="/dislayReportListPagingMine.do?page=<bean:write name="item"/>" selected><bean:write name="item"/></option>
-							</logic:equal> --%>
-							
-							<%-- <logic:notEqual value="<bean:write name="item"/>" name="report_page_number"> --%>
-							<%-- <option value="/dislayReportListPagingMine.do?page=<bean:write name="item"/>" ><bean:write name="item"/></option> --%>
-							<%-- </logic:notEqual> --%>
+						<select name="page" id="select_page" onchange="getListReportMineByPage(this.options[this.selectedIndex].text,1)" >
+							<logic:iterate id="item" name="record_page_list">
+							<option value="<bean:write name="item"/>" selected><bean:write name="item"/></option>
 							</logic:iterate>
-						</select>
+							</select>
 
 					</div>
 					<div class="chose3" align="center">
@@ -258,24 +254,28 @@
 							<td>Tập tin :</td>
 							<td><logic:present name="report_file_name">
 									<bean:write name="report_file_name" />
-									<input type="hidden" id="fileName" value="<bean:write name="report_file_name" />"/>
+									<input type="hidden" id="fileId" value="<bean:write name="report_file_id" />"/>
 								</logic:present>
 								
 								<!-- Update -->
 								<logic:notPresent name="report_file_name"> 
-							<logic:equal name="report_flag" value="2">
+							<logic:equal name="record_flag" value="2">
 							<bean:write name="report" property="fileName"/>
-							<html:hidden property="fileId"></html:hidden>
-							<input type="hidden" id="fileName" value="<bean:write name="report" property="fileId" />"/>
+							<html:hidden property="fileId" styleId="fileId"></html:hidden>
+						
+							<%-- <input type="hidden" id="fileName" value="<bean:write name="report" property="fileId" />"/> --%>
+							</logic:equal>
+							<logic:equal name="record_flag" value="1">
+								<input type="hidden" id="fileId" value=""/>
 							</logic:equal>
 							</logic:notPresent>
 							<html:hidden property="level"/>
 							</td>
 						
 						</tr>
-						<logic:present name="report_flag">
-							<logic:equal name="report_flag" value="2">
-								<tr >
+						<logic:present name="record_flag">
+							<logic:equal name="record_flag" value="2">
+								<tr id="idReport">
 									<td width="100">Mã tập tin:</td>
 									<td width="300"><bean:write name="report" property="id" />
 									</td>
@@ -285,56 +285,52 @@
 						</logic:present>
 						<tr>
 							<td width="100">Tiêu đề:</td>
-							<td width="300"><html:text property="title" />
+							<td width="300"><html:text property="title" styleId="title" />
 							</td>						</tr>
 
 						<tr>
 						<tr>
 							<td>Nội dung:</td>
-							<td><html:textarea property="content"></html:textarea>
+							<td><html:textarea property="content" ></html:textarea>
 							</td>
 						</tr>
-						<logic:present name="sortForm">
-						<logic:notEqual name="sortForm" property="level" value="4">
 						<tr>
 							<td>Comment:</td>
-							<td><html:textarea property="comment"></html:textarea>
+							<td><html:textarea property="comment" ></html:textarea>
 							</td>
 						</tr>
-						<logic:equal name="sortForm" property="level" value="4">
+						<%-- <logic:equal name="sortForm" property="level" value="4">
 						<tr>
 							<td>Comment:</td>
 							<td><bean:write name="report" property="comment"/>
 							</td>
 						</tr>
-						</logic:equal>
-						</logic:notEqual>
-						</logic:present>
+						</logic:equal> --%>
 						<logic:present name="report_flag">
 						<logic:equal name="report_flag" value="2">
 						<tr>
 							<td width="100">Trạng thái:</td>
 							<td width="300"><html:select property="status">
-										<logic:present name="report_sort" >
+										<logic:present name="record_sort" >
 										<!-- New -->
-										<logic:equal value="New" name="report_sort" property="status">
+										<logic:equal value="New" name="record_sort" property="status">
 										
 										<html:option value="New">New</html:option>
 										
 										</logic:equal>
 										
 										<!-- Review -->
-										<logic:equal value="Review" name="report_sort" property="status">
+										<logic:equal value="Review" name="record_sort" property="status">
 										<html:option value="Review">Review</html:option>
 										</logic:equal>
 										
 										<!-- Request_update -->
-										<logic:equal value="Request_update" name="report_sort" property="status">
+										<logic:equal value="Request_update" name="record_sort" property="status">
 										<html:option value="Request_update">Request_update</html:option>
 										<html:option value="Updated">Updated</html:option>
 										</logic:equal>
 										<!-- Updated -->
-										<logic:equal value="Updated" name="report_sort" property="status">
+										<logic:equal value="Updated" name="record_sort" property="status">
 										<html:option value="Updated">Updated</html:option>
 										</logic:equal>
 										</logic:present>
@@ -347,23 +343,23 @@
 					</table>
 					<table>
 						<tr>
-							<td width="170" align="right"><div id="bt_reset">
-									<input type="reset" name="reset" id="reset" value="Reset"
+							<td width="170" align="right"><div id="bt_reset" style="height: 25px; width: 50px">
+									<!-- <input type="reset" name="reset" id="reset" value="Reset"
 										style="height: 25px; width: 100px"
-										onClick="reset_validate_form_monhoc()">
+										onClick="reset_validate_form_monhoc()"> -->
 								</div>
 							</td>
 							<td width="40"></td>
 							<td width="150" align="left">
 								<div id="bt_submit">
-								<logic:present name="report_sort" >
+								<logic:present name="record_sort" >
 								<!-- Leader, PM, Admin -->
-									<logic:equal value="New" name="report_sort" property="status">
-										<input type="submit" id="submit" value="OK"
+									<logic:equal value="New" name="record_sort" property="status">
+										<input type="submit" id="idSubmit" value="OK"
 										style="height: 25px; width: 100px" >
 									</logic:equal>
-									<logic:equal value="Request_update" name="report_sort" property="status">
-										<input type="submit" id="submit" value="OK"
+									<logic:equal value="Request_update" name="record_sort" property="status">
+										<input type="submit" id="idSubmit" value="OK"
 										style="height: 25px; width: 100px" >
 									</logic:equal>
 									
