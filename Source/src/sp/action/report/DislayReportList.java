@@ -43,7 +43,7 @@ public class DislayReportList extends Action {
 		user = new AccountForm();
 		user.setEmail("a@gmail.com");
 		user.setGroupCode(2);
-		user.setPermission("4");
+		user.setPermission("3");
 		// end temp
 
 		// get permision

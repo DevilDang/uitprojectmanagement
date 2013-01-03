@@ -24,8 +24,8 @@ public class DisplayReportListMinePaging extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		
-		//get PrintWriter
-		PrintWriter out = response.getWriter();
+		
+		String ajax = request.getParameter("ajax");
 		
 		HttpSession se = request.getSession();
 		//get sortForm
@@ -64,6 +64,18 @@ public class DisplayReportListMinePaging extends Action {
 		//call method sort
 		List<ReportForm> reportList = ReportBlo.getListPage(filter, page);
 		
+		if ("1".equals(ajax)){
+			//get PrintWriter
+			PrintWriter out = response.getWriter();
+			//return value (ajax)
+			JSONObjectList jsonlist = ReportBlo.createJSONObjectList(reportList);
+	        
+	        out.write(jsonlist.toJSONtextString());
+	        out.close();
+	        return null;
+		}
+		else
+		{
 		//get total number page
 		int total = ReportBlo.countReportAllBySQL(filter);
 		
@@ -74,16 +86,7 @@ public class DisplayReportListMinePaging extends Action {
 		se.setAttribute(Constant.RECORD_LIST, reportList);
 		se.setAttribute(Constant.RECORD_PAGE_LIST, pageList);
 		se.setAttribute(Constant.RECORD_PAGE_NUMBER, String.valueOf(page));
-		
-//		//return value (ajax)
-//		JSONObjectList jsonlist = ReportBlo.createJSONObjectList(reportList);
-//        
-//        out.write(jsonlist.toJSONtextString());
-//        out.close();
-//        return null;
-//        
-		//forward
 		return mapping.findForward(Constant.SUCCESS);
-		
+		}
 	}
 }

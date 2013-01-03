@@ -126,10 +126,10 @@ public class DislayReportListMine extends Action {
 			se.setAttribute(Constant.RECORD_LIST, reportList);
 			se.setAttribute(Constant.RECORD_PAGE_LIST, pageList);
 			se.setAttribute(Constant.RECORD_PAGE_NUMBER,"1");
-//			se.setAttribute(Constant.REPORT_SORT, sortForm); // su dung khi // update/insert
+			se.setAttribute(Constant.RECORD_SORT, sortForm); // su dung khi // update/insert
 //			
-//			//set mode = insert												
-//			se.setAttribute(Constant.REPORT_FLAG, Constant.MODE_INSERT);
+			//set mode = insert												
+			se.setAttribute(Constant.RECORD_FLAG, Constant.MODE_INSERT);
 //			
 //			// sort
 //			se.setAttribute(Constant.IDPROJECTLIST, idProjectList);
