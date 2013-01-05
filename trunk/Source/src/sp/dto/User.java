@@ -67,6 +67,13 @@ public class User implements Serializable {
 	@Persistent
 	private long id;
 	
+	/**
+	 * statusTask
+	 */
+	@Persistent
+	private String statusTask;
+	
+	
 	
 	public long getId() {
 		return id;
@@ -109,6 +116,18 @@ public class User implements Serializable {
 	}
 	public void setGroupID(long groupID) {
 		this.groupID = groupID;
+	}
+	/**
+	 * @return the statusTask
+	 */
+	public String getStatusTask() {
+		return statusTask;
+	}
+	/**
+	 * @param statusTask the statusTask to set
+	 */
+	public void setStatusTask(String statusTask) {
+		this.statusTask = statusTask;
 	}
 	
 }
