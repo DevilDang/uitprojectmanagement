@@ -13,6 +13,16 @@
         <script src="javascripts/MyJavaScripts.js" type="text/javascript"></script>
         <script src="javascripts/json.js" type="text/javascript"></script>
         <script src="javascripts/check.js" type="text/javascript"></script>
+        <script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
+       <script src="javascripts/requirement.js" type="text/javascript"></script> 
+<script type="text/javascript">
+	 function changeGroup(obj){
+		 alert(obj);
+		
+		 obj.value = obj.text;
+		 alert(obj.value);
+	 }
+</script>
     </head>
     <body>
         <div id="container">           
@@ -26,12 +36,13 @@
             <div id="content">
                 <div id="content_left">
                     <h3 align="center"> Quản lý danh sách </h3><br>
-                    <form name="danhsachmonhoc" id ="danhsachmonhoc" method="post" action="">
+                    <form name="sortForm" id ="sortForm" method="post" action="/deleteReq.do">
                     	  <div class="chose3" align="center">
                             Dự Án:
                          
                             <select name="project" id="box"
-							onChange="getListReport(1,1)">
+							onChange="getListReq(1,1)">
+							<logic:present name="idProList">
 							<logic:iterate id="element" name="idProList">
 							<%-- <c:choose>
 							<c:when test="${element == record_sort.idProject }">
@@ -49,12 +60,13 @@
 									<bean:write name="element" />
 							</option>
 							</logic:iterate>
+							</logic:present>
 						</select>
                         </div>
                         <logic:notEmpty name="idReqList">
 						<div class="chose3" align="center">
 							Yêu cầu: <select name="req" id="box"
-								onChange="getListReport(2,1)">
+								onChange="getListReq(2,1)">
 							<logic:iterate id="element" name="idReqList">
 							<%-- <c:choose>
 							<c:when test="${element == record_sort.idReq }">
@@ -78,7 +90,7 @@
 					<logic:notEmpty name="idGroupList">
 						<div class="chose3" align="center">
 							Nhóm thực hiện: <select name="group" id="box"
-								onChange="getListReport(3,1)">
+								onChange="getListReq(3,1)">
 								<logic:iterate id="element" name="idGroupList">
 								<%-- <c:choose>
 								<c:when test="${element == record_sort.idGroup }">
@@ -99,11 +111,27 @@
 							</select>
 						</div>
 					</logic:notEmpty>
+					<div class="chose3" align="center">
+							Trạng thái: <select name="status" id="box"
+								onChange="getListReq(4,1)">
+								<logic:present name="record_sort">
+							<logic:equal value="Open" name="record_sort"  property="status">
+							<option value="Open">Open</option>
+							<option value="Close">Close</option>
+							</logic:equal>
+							<logic:equal value="Close" name="record_sort"  property="status">
+							<option value="Close">Close</option>
+							<option value="Open">Open</option>
+							</logic:equal>
+							</logic:present>
+							</select>
+						</div>
+						
                         <p>&nbsp;</p>
                         <p><br>
                         </p>
                         <div id="table">
-                            <table id="table_danhsach_monhoc" cellspacing="0" cellpadding="0" border="1">                               
+                            <table id="table_req_list" cellspacing="0" cellpadding="0" border="1">                               
                                 <thead>
                                     <tr align="center">
                                         <td width="20"><input type="checkbox" name="checkall" id="checkall" onClick="checkUncheckAll(this);"/></td>
@@ -114,44 +142,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                	 <logic:iterate id="item" name="record_list">
+                                <logic:present name="record_list">
+                                <logic:iterate id="item" name="record_list">
 									<tr align="center">
-										<td width="20"><input type="checkbox" name="checkall"
-											id="checkall" onClick="checkUncheckAll(this);" /></td>
+										<td><input type="checkbox" name="check" id="checkall"  value="<bean:write name="item" property="id"/>"/> </td>
 										<td width="70"><b><a href="/displayReq.do?id=<bean:write name="item" property="id"/>"><bean:write name="item" property="id"/></a> </b></td>
 										<td width="130"><b><bean:write name="item" property="nameReq"/></b></td>
 										<td width="130"><b><bean:write name="item" property="idGroup"/></b></td>
 										<td width="70"><b><bean:write name="item" property="process"/>%</b></td>
 									</tr>
-								</logic:iterate>                             
+								</logic:iterate>   
+								</logic:present>
                                 </tbody>
                             </table>
                         </div>
                         <div id="phantrang" class="chose3" align="center">
-                            <select name="page" id="select_page" onchange="getListReportByPage()" >
+                            <select name="page" id="select_page" onchange="getListReqByPage(this.options[this.selectedIndex].text)" >
+							<logic:present name="record_page_list">
 							<logic:iterate id="item" name="record_page_list">
-							<%-- <c:choose>
-							<c:when test="${item == record_page_number}">
-							<option value="/dislayReportListPaging.do?page=<bean:write name="item"/>" selected><bean:write name="item"/></option>
-							</c:when>
-							<c:otherwise>
-							<option value="/dislayReportListPaging.do?page=<bean:write name="item"/>" ><bean:write name="item"/></option>
-							</c:otherwise>
-							</c:choose> --%>
-							
-							<%-- <logic:equal value="<bean:write name="item"/>" name="report_page_number">
-							<option value="/dislayReportListPaging.do?page=<bean:write name="item"/>" selected><bean:write name="item"/></option>
-							</logic:equal>
-							 --%>
-							<%-- <logic:notEqual value="<bean:write name="item"/>" name="report_page_number">
-							<option value="/dislayReportListPaging.do?page=<bean:write name="item"/>" ><bean:write name="item"/></option>
-							</logic:notEqual> --%>
+							<option value="<bean:write name="item"/>" selected><bean:write name="item"/></option>
 							</logic:iterate>
+							</logic:present>
 						</select>
 
                         </div>
                         <div class="chose3" align="center">
-                            <input type="button" id="submit" value="Xóa" style="height: 25px; width: 100px" onClick="ajax_delete_monhoc()">
+                            <input type="submit" id="submit" value="Xóa" style="height: 25px; width: 100px" onClick="ajax_delete_monhoc()">
                             <input type="hidden" name="KEY" value="XOA_MONHOC">
 
                         </div>
@@ -162,7 +178,13 @@
                 </div> <!--end content left-->
                 <html:form action="/updateReq.do" method="get">
                 <div id="content_right">
-                        <h3 align="center"> Chỉnh sửa </h3><br>
+                        <h3 align="center"> Chỉnh sửa
+                        <logic:present name="record_sort" >
+						<logic:equal value="2" name="record_sort"  property="level">
+						| <a href="/changeModeReq.do?mode=1">Thêm mới </a>
+						</logic:equal>
+						</logic:present>
+                         </h3><br>
                         <table id="table_monhoc" class="table_right" cellspacing="5" cellpadding="0" border="0">
                             <thead>
 
@@ -185,10 +207,15 @@
                             <tr>
                                 <td>Nhóm thực hiện: </td>
                                 <td>
-                                    <html:select property="idGroup" >
+                                    <html:select property="idGroup" onchange="this.options[this.selectedIndex].value = this.options[this.selectedIndex].text">
+                                    <html:option value=""><bean:write name="req" property="idGroup"/></html:option>
+                                   <logic:equal value="2" name="record_sort" property="level">
                                     <logic:iterate id="item" name="req_group_free">
                                     <html:option value=""><bean:write name="item" /></html:option>
                                     </logic:iterate>
+                                    </logic:equal>
+                                      <logic:notEqual value="2" name="record_sort" property="level">
+                                     </logic:notEqual>
                                     </html:select>
                                 </td>
                             </tr>
@@ -222,7 +249,7 @@
                              	 <html:option value="Open" >Open</html:option>
                              	 <html:option value="Close">Close</html:option>
                              	 </logic:equal>
-                             	 <logic:equal value="Open" name="record_sort" property="status">
+                             	 <logic:equal value="Close" name="record_sort" property="status">
                              	 <html:option value="Close">Close</html:option>
                              	 <html:option value="Open" >Open</html:option>
                              	 </logic:equal>
@@ -240,11 +267,13 @@
                                 </td>
                                 <td width="40"> </td>
                                 <td width="150" align="left">
+                                <logic:equal value="2" name="record_sort" property="level">
                                     <div id="bt_submit">
-                                        <input type ="button" id="submit" value="OK" style="height: 25px; width: 100px" onClick="ajax_capnhatmonhoc()">
+                                        <input type ="submit" id="submit" value="OK" style="height: 25px; width: 100px" >
                                         <input type ="hidden" name ="KEY" value="THEM_MONHOC">
                                         <input type ="hidden" name="PAGE" value="0">
                                     </div>
+                               </logic:equal>
                                 </td>
                             </tr>
                         </table>           

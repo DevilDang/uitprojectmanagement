@@ -410,7 +410,7 @@
 								<!-- Leader, PM,Admin -->
 								<logic:notEqual value="4" name="record_sort" property="level">
 									<logic:equal value="New" name="record_sort" property="status">
-										<input type="button"  value="OK" 
+										<input type="submit"  value="OK" 
 										style="height: 25px; width: 100px"  >
 									</logic:equal>
 									<logic:equal value="Review" name="record_sort" property="status">
