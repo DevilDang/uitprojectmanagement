@@ -25,7 +25,7 @@ import sp.util.Constant;
  * @author T
  * 
  */
-public class DislayReportListMine extends Action {
+public class DisplayReportListMine extends Action {
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)

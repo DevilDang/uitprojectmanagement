@@ -1,4 +1,4 @@
-package sp.action.report;
+package sp.action.requirement;
 
 import java.io.PrintWriter;
 import java.util.List;
@@ -13,13 +13,13 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import sp.blo.ReportBlo;
-import sp.blo.UserBlo;
-import sp.form.ReportForm;
+import sp.blo.RequirementBlo;
+import sp.form.RequirementForm;
 import sp.util.CommonUtil;
 import sp.util.Constant;
 import sp.util.JSONObjectList;
 
-public class DisplayReportListPaging extends Action {
+public class DisplayReqListPaging extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
@@ -27,8 +27,9 @@ public class DisplayReportListPaging extends Action {
 		String ajax = request.getParameter("ajax");
 		
 		HttpSession se = request.getSession();
+		
 		//get sortForm
-		ReportForm sortForm = (ReportForm)se.getAttribute(Constant.RECORD_SORT);
+		RequirementForm sortForm = (RequirementForm)se.getAttribute(Constant.RECORD_SORT);
 		
 		//get value from request
 		String idProject = request.getParameter("idProject");
@@ -41,7 +42,7 @@ public class DisplayReportListPaging extends Action {
 			sortForm.setIdProject(Long.valueOf(idProject));
 		}
 		if (idReq != null){
-			sortForm.setIdReq(Long.valueOf(idReq));
+			sortForm.setId(Long.valueOf(idReq));
 		}
 		if (idGroup != null){
 			sortForm.setIdGroup(Long.valueOf(idGroup));
@@ -61,17 +62,17 @@ public class DisplayReportListPaging extends Action {
 		se.setAttribute(Constant.RECORD_SORT, sortForm);
 		
 		//get filter
-		String filter = ReportBlo.getFilter(sortForm);
+		String filter = RequirementBlo.getFilterReq(sortForm);
 		
 		//call method sort
-		List<ReportForm> reportList = ReportBlo.getListPage(filter, page);
+		List<RequirementForm> reqList = RequirementBlo.getListPage(filter, page);
 		
 		//ajax
 		if ("1".equals(ajax)){
 			//get PrintWriter
 			PrintWriter out = response.getWriter();
 			//return value (ajax)
-			JSONObjectList jsonlist = ReportBlo.createJSONObjectList(reportList);
+			JSONObjectList jsonlist = RequirementBlo.createJSONObjectList(reqList);
 	        
 	        out.write(jsonlist.toJSONtextString());
 	        out.close();
@@ -86,7 +87,7 @@ public class DisplayReportListPaging extends Action {
 			List<String> pageList = CommonUtil.createPageList(total);
 			
 			//save session
-			se.setAttribute(Constant.RECORD_LIST, reportList);
+			se.setAttribute(Constant.RECORD_LIST, reqList);
 			se.setAttribute(Constant.RECORD_PAGE_LIST, pageList);
 			se.setAttribute(Constant.RECORD_PAGE_NUMBER, String.valueOf(page));
 			//forward

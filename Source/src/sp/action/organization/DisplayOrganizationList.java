@@ -20,7 +20,7 @@ import sp.util.CommonUtil;
 import sp.util.Constant;
 import sp.util.JSONObjectList;
 
-public class DislayOrganizationList extends Action {
+public class DisplayOrganizationList extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
