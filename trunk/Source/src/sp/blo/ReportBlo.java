@@ -293,7 +293,7 @@ public class ReportBlo {
 	 * @param idPM 
 	 * @return idProject
 	 */
-	public static long getIdProjectByPM(String idPM){
+	public static Long getIdProjectByPM(String idPM){
 		StringBuilder filter = new StringBuilder();
 		filter.append("idPm==\'"+ idPM + "\'");
 		filter.append("&&");

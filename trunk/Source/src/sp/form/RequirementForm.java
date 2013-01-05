@@ -7,6 +7,7 @@ import org.apache.struts.validator.ValidatorForm;
 
 import sp.dto.Requirement;
 import sp.dto.Task;
+import sp.util.CommonUtil;
 
 public class RequirementForm extends ValidatorForm implements Serializable{
 	
@@ -19,8 +20,8 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 	private String content;
 	private Long idProject;
 	private Long idGroup;
-	private Date startDate;
-	private Date endDate;
+	private String startDate;
+	private String endDate;
 	private int process;
 	private String status;
 	private int level;
@@ -88,25 +89,25 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 	/**
 	 * @return the startDate
 	 */
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 	/**
 	 * @param startDate the startDate to set
 	 */
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 	/**
 	 * @return the endDate
 	 */
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 	/**
 	 * @param endDate the endDate to set
 	 */
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 	/**
@@ -156,8 +157,8 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 		req.setContent(this.content);
 		req.setIdProject(this.idProject);
 		req.setIdGroup(this.idGroup);
-		req.setStartDate(this.startDate);
-		req.setEndDate(this.endDate);
+		req.setStartDate(CommonUtil.convertStrToDate(this.startDate));
+		req.setEndDate(CommonUtil.convertStrToDate(this.endDate));
 		req.setProcess(this.process);
 		req.setStatus(this.status);
 		return req;
@@ -172,8 +173,8 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 		this.content = req.getContent();
 		this.idProject = req.getIdProject();
 		this.idGroup = req.getIdGroup();
-		this.startDate = req.getStartDate();
-		this.endDate = req.getEndDate();
+		this.startDate = CommonUtil.convertDateToStr(req.getStartDate());
+		this.endDate = CommonUtil.convertDateToStr(req.getEndDate());
 		this.process = req.getProcess();
 		this.status = req.getStatus();
 		

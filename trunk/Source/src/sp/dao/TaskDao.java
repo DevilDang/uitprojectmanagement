@@ -1,8 +1,10 @@
 package sp.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sp.dto.Task;
+import sp.dto.User;
 
 public class TaskDao {
 	
@@ -37,11 +39,23 @@ public class TaskDao {
 	}
 	
 	/**
-	 * get user who had assigned task
+	 * get danh sach nhan vien thuoc group ma chua co task
 	 * @return
 	 */
-	public List<String> getUserAssignedTask(String filter){
+	@SuppressWarnings("unchecked")
+	public List<String> getUserFreeTask(String filter){
 		
-		return null;
+		List<User> userList = (List<User>) PMF.getObject(User.class, filter);
+		
+		if (userList == null || userList.size() == 0 ){
+			return null;
+		}
+		List<String> idUserList = new ArrayList<String>();
+		int size = userList.size();
+		for (int i = 0; i<size; i++){
+			idUserList.add(userList.get(i).getEmail());
+		}
+		
+		return idUserList;
 	}
 }

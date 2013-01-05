@@ -11,6 +11,8 @@ public class Constant {
 			public final static String BLANK="";
 			public final static String MODE_INSERT="1";
 			public final static String MODE_UPDATE="2";
+			public final static String OPEN= "Open";
+			public final static String CLOSE= "Close";
 			
 			//SESSION
 			public final static String RECORD_LIST ="record_list";
@@ -70,15 +72,29 @@ public class Constant {
 		public final static String TASK_CANCEL="Cancel";
 		public final static String TASK_CLOSE ="Close";
 		
+		//KIND TASK
+		public final static String TASK_TEST="Test";
+		public final static String TASK_TESTCASE="TestCase";
+		public final static String TASK_USECASE="UseCase";
+		public final static String TASK_BAN_GIAO="BanGiao";
+		public final static String TASK_CODE="Code";
+		
 		//default: status sort
 		public final static String DEFAULT_STATUS ="status != 'close'";
 		
 		
 		//REQUIREMENT
-		public final static String REQ_OPEN= "Open";
-		public final static String REQ_CLOSE= "Close";
+	
 		public final static String REQ_GROUP_FREE= "req_group_free";
 		public final static String REQ ="req";
+		
+		//GROUP
+		public final static String GROUP_FREE_REQ= "freeReq"; // duoc assign vo du an , nhung chua co req
+		public final static String GROUP_ASSIGN_REQ= "assignReq"; // duoc assign vo du an, da co Req -> remind: khi update status thi phai update status cua Group
+		
+		//TASK
+		public final static String USER_FREE_TASK= "freeTask"; // nhan vien chua co task
+		public final static String USER_ASSIGN_TASK= "assignTask"; // nhan vien da duoc set task
 		
 //-- end Thuy --	
 		

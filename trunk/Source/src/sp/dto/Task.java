@@ -21,7 +21,7 @@ public class Task implements Serializable  {
 	private Long id; 
 	
 	@Persistent
-	private int  kind;
+	private String  kind;
 	
 	@Persistent
 	private String  nameTask;
@@ -45,6 +45,9 @@ public class Task implements Serializable  {
 	private Date endDate;
 	
 	@Persistent
+	private int  process;
+	
+	@Persistent
 	private String status;
 
 	/**
@@ -65,14 +68,14 @@ public class Task implements Serializable  {
 	/**
 	 * @return the kind
 	 */
-	public int getKind() {
+	public String getKind() {
 		return kind;
 	}
 
 	/**
 	 * @param kind the kind to set
 	 */
-	public void setKind(int kind) {
+	public void setKind(String kind) {
 		this.kind = kind;
 	}
 
@@ -172,6 +175,20 @@ public class Task implements Serializable  {
 	 */
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	/**
+	 * @return the process
+	 */
+	public int getProcess() {
+		return process;
+	}
+
+	/**
+	 * @param process the process to set
+	 */
+	public void setProcess(int process) {
+		this.process = process;
 	}
 
 	/**

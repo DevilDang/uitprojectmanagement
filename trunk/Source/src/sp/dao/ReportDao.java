@@ -3,7 +3,6 @@ package sp.dao;
 import java.util.List;
 
 import sp.dto.Group;
-import sp.dto.Organization;
 import sp.dto.Project;
 import sp.dto.Report;
 import sp.dto.Requirement;
@@ -81,7 +80,7 @@ public class ReportDao {
 		List<Project> projectList = (List<Project>) PMF.getObjectList(Project.class, filter.toString());
 //		List<Project> projectList = (List<Project>) PMF.getObjectList(Project.class, 1);
 		//check result
-		if (projectList == null){
+		if (projectList == null || projectList.size() == 0){
 			return null;
 		}
 		return projectList.get(0).getId();
@@ -94,8 +93,9 @@ public class ReportDao {
 	public Long getIdGroupAssign(Long idGroup){
 		
 		Group group = (Group)PMF.getObject(Group.class, idGroup);
+		
 		//check status
-		if (group == null){
+		if (group == null ){
 			return null;
 		}
 		else{
