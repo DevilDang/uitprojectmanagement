@@ -3,6 +3,8 @@
  */
 package sp.action.requirement;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,7 +15,9 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import sp.blo.ReportBlo;
+import sp.blo.RequirementBlo;
 import sp.form.ReportForm;
+import sp.form.RequirementForm;
 import sp.util.Constant;
 
 /**
@@ -32,10 +36,15 @@ public class DisplayReq extends Action{
 			
 			//get Report
 			if (id != null){
-				ReportForm reportDisplay = ReportBlo.getReportForm(Long.parseLong(id));
+				RequirementForm reqForm = RequirementBlo.getRequirementForm(Long.parseLong(id));
+				
+				//get group free
+				List<Long> idGroupFreeList = RequirementBlo.getGroupListFree(reqForm.getIdProject());
+				
+				se.setAttribute(Constant.REQ_GROUP_FREE, idGroupFreeList);
 				
 				//save into session, name = name of bean config into file config struts
-				se.setAttribute(Constant.REQ, reportDisplay);
+				se.setAttribute(Constant.REQ, reqForm);
 				
 				//mode Update
 				se.setAttribute(Constant.RECORD_FLAG, Constant.MODE_UPDATE);

@@ -17,19 +17,16 @@ import org.apache.struts.action.ActionMapping;
 
 import sp.blo.ReportBlo;
 import sp.blo.RequirementBlo;
-import sp.blo.UserBlo;
 import sp.form.AccountForm;
-import sp.form.ReportForm;
 import sp.form.RequirementForm;
 import sp.util.CommonUtil;
 import sp.util.Constant;
-import sp.util.JSONObjectList;
 
 /**
  * @author T
  * 
  */
-public class DislayReqList extends Action {
+public class DisplayReqList extends Action {
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -43,9 +40,14 @@ public class DislayReqList extends Action {
 
 		// start temp
 		user = new AccountForm();
-		user.setEmail("a@gmail.com");
-		user.setGroupCode(2);
-		user.setPermission("3");
+		user.setEmail("c@yahoo.com");
+		user.setPermission("2");
+		
+//		Group group = new Group();
+//		group.setIdLeader("b@gmail.com");
+//		group.setIdProject(1L);
+//		group.setStatus(Constant.GROUP_FREE_REQ);
+//		PMF.insertObject(group);
 		// end temp
 
 		// get permision
@@ -55,7 +57,7 @@ public class DislayReqList extends Action {
 		int level = 0;
 		Long idProject = null;
 		Long idReq = null;
-		Long idGroup = user.getGroupCode();
+		Long idGroup = 0L;
 //		String status = Constant.BLANK;
 		String idUser = user.getEmail();
 
@@ -75,7 +77,7 @@ public class DislayReqList extends Action {
 
 				// set SortForm
 				idProject = idProjectList.get(0);
-//				status = Constant.REQ_NEW;
+				
 				level = Constant.ADMIN;
 
 				sort = true;
@@ -101,7 +103,8 @@ public class DislayReqList extends Action {
 				}
 
 		} else if (Constant.LEADER == permission) {
-
+			
+			idGroup = user.getGroupCode();
 			idProject = ReportBlo.getIdProjectByGroup(idGroup);
 
 			if (idProject != null) {
@@ -122,13 +125,14 @@ public class DislayReqList extends Action {
 				}
 
 			}
+		}
 
 		if (sort == true) {
 			// create sortForm
 			RequirementForm sortForm = RequirementBlo.getSortForm(idProject, idReq,
 					idGroup, level);
 			
-			sortForm.setStatus(Constant.REQ_OPEN);
+			sortForm.setStatus(Constant.OPEN);
 			
 			// get filter
 			String filter = RequirementBlo.getFilterReq(sortForm);
@@ -163,7 +167,6 @@ public class DislayReqList extends Action {
 			return mapping.findForward(Constant.SUCCESS);
 		}
 		
-	}
 		return mapping.findForward(Constant.FAILURE);
 }
 }
