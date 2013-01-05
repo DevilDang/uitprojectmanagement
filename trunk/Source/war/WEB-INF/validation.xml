@@ -78,6 +78,36 @@
                     <arg key="report.content"/>
             </field>
         </form>
+        
+        <!-- Report -->
+        <form name="req">
+            <field
+                property="nameReq"
+                depends="required">
+                    <arg key="req.nameReq"/>
+            </field>
+            <field
+                property="idGroup"
+                depends="required">
+                    <arg key="req.idGroup"/>
+            </field>
+            <field
+                property="content"
+                depends="required">
+                    <arg key="req.content"/>
+            </field>
+            <field
+                property="startDate"
+                depends="required">
+                    <arg key="req.startDate"/>
+            </field>
+             <field
+                property="endDate"
+                depends="required">
+                    <arg key="req.endDate"/>
+            </field>
+        </form>
+        
     </formset>
 
     <!-- An example formset for another locale -->

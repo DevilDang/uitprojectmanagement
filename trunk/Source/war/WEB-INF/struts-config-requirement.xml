@@ -9,9 +9,14 @@
   <action-mappings>
     
     <!-- display ReqList-->
-     <action path="/displayReqList" type="sp.action.requirement.DislayReqList">  
+     <action path="/displayReqList" type="sp.action.requirement.DisplayReqList">  
     	<forward name="success" path="requirement.jsp" redirect="true" />
     	<forward name="failure" path="inform_nothing.jsp" redirect="true" />
+    </action>
+    
+     <!-- display ReqList Paging-->
+     <action path="/dislayReqListPaging" type="sp.action.requirement.DisplayReqListPaging">  
+    	<forward name="success" path="requirement.jsp" redirect="true" />
     </action>
     
       <!-- update Req -->
@@ -21,12 +26,26 @@
         type="sp.action.requirement.UpdateRequirement"  
         name="req"
         validate="true" >
-    	<forward name="success" path="/dislayReportListPaging.do" redirect="true" />
+    	<forward name="success" path="/dislayReqListPaging.do" redirect="true" />
     </action>
     
     <!-- display Detail-->
-     <action path="/displayReq" type="sp.action.requirement.DisplayReq">  
+    <action path="/displayReq" type="sp.action.requirement.DisplayReq">  
     	<forward name="success" path="requirement.jsp" redirect="true" />
+    </action>
+    
+      <!-- change Mode-->
+    <action path="/changeModeReq" type="sp.action.requirement.ChangeModeReq">  
+    	<forward name="success" path="requirement.jsp" redirect="true" />
+    </action>
+    
+      <!-- count page-->
+    <action path="/countReqListPage" type="sp.action.requirement.PageReqList">  
+    </action>
+    
+      <!-- delete Req-->
+    <action path="/deleteReq" type="sp.action.requirement.DeleteRequirement">  
+        <forward name="success" path="/displayReqList.do" redirect="true" />
     </action>
     
   </action-mappings>

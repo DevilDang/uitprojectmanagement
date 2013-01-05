@@ -22,15 +22,15 @@
     <!-- dislay 1 page organization -->
     <action 
     path="/displayOrgList" 
-    type="sp.action.organization.DislayOrganizationList" >
+    type="sp.action.organization.DisplayOrganizationList" >
     	<forward name="success" path="organization.jsp" redirect="true" />
     	<forward name="failure" path="inform_nothing.jsp" redirect="true" />
     </action>
     
-    <!-- dislay 1 record Organization -->
+    <!-- Display 1 record Organization -->
     <action 
     path="/displayOrg" 
-    type="sp.action.organization.DislayOrganization" >
+    type="sp.action.organization.DisplayOrganization" >
     	<forward name="success" path="organization.jsp" redirect="true" />
     </action>
     
