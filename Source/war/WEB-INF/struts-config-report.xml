@@ -28,12 +28,12 @@
     </action>
     
     <!-- display Report List  -->
-    <action path="/displayReportList" type="sp.action.report.DislayReportList">  
+    <action path="/displayReportList" type="sp.action.report.DisplayReportList">  
     	<forward name="success" path="report.jsp" redirect="true" />
     	<forward name="failure" path="inform_nothing.jsp" redirect="true" />
     </action>
     
-    <action path="/dislayReportListPaging" type="sp.action.report.DislayReportListPaging">  
+    <action path="/dislayReportListPaging" type="sp.action.report.DisplayReportListPaging">  
     	<forward name="success" path="report.jsp" redirect="true" />
     </action>
     
@@ -58,7 +58,7 @@
     </action>
     
      <!-- My ReportList-->
-    <action path="/displayReportListMine" type="sp.action.report.DislayReportListMine">  
+    <action path="/displayReportListMine" type="sp.action.report.DisplayReportListMine">  
     	<forward name="success" path="reportMine.jsp" redirect="true" />
     	<forward name="failure" path="inform_nothing.jsp" redirect="true" />
     </action>
