@@ -3,16 +3,13 @@ package sp.blo;
 import java.util.ArrayList;
 import java.util.List;
 
-import sp.dao.PMF;
-import sp.dao.ReportDao;
 import sp.dao.RequirementDao;
 import sp.dto.Group;
-import sp.dto.Report;
 import sp.dto.Requirement;
-import sp.form.ReportForm;
 import sp.form.RequirementForm;
-import sp.util.CommonUtil;
 import sp.util.Constant;
+import sp.util.JSONObject;
+import sp.util.JSONObjectList;
 
 public class RequirementBlo {
 	
@@ -22,22 +19,38 @@ public class RequirementBlo {
 		return reqDao.saveRequirement(req);
 	}
 	
-//	/**
-//	 * get ReqList of project
-//	 */
-//	@SuppressWarnings("unchecked")
-//	public List<RequirementForm> getReqListByFilter(Long idProject){
-//
-//		return (List<Requirement>)PMF.getObjectListPaging(Requirement.class, filter, page);
-//	}
+	public static boolean updateStatusGroup(Long id, Long idGroup){
+		
+		//update status of old group = freeReq
+		Requirement req = reqDao.getRequirement(id);
+		Long idOldGroup = req.getIdGroup();
+		boolean flag  = false;
+		
+		//change idGroup
+		if (!idOldGroup.equals(idGroup)){
+			flag = reqDao.updateStatusGroup(idOldGroup, Constant.GROUP_FREE_REQ);
+			
+			//success
+			if (flag){
+				
+				//update status of new group = assignReq
+				flag =	reqDao.updateStatusGroup(idGroup, Constant.GROUP_ASSIGN_REQ);
+			}
+		}
+		
+		return flag;
+}
+public static boolean updateStatusGroup(Long idGroup, String status){
+		
+			return reqDao.updateStatusGroup(idGroup,status);
+}
+
+public static boolean updateStatusGroupReq(Long id, String status){
 	
-//	/**
-//	 * get number of record 
-//	 */
-//	public int getNumberByFilter(String filter){
-//		return PMF.countNumberAll(Requirement.class, filter);
-//	}
-	
+	Requirement req = reqDao.getRequirement(id);
+	return reqDao.updateStatusGroup(req.getIdGroup(), status);
+}
+
 	/**
 	 * get file 
 	 */
@@ -45,8 +58,8 @@ public class RequirementBlo {
 		
 		StringBuffer filter = new StringBuffer();
 			filter.append("idProject=="+ sortForm.getIdProject());
-//			filter.append("&&");
-//			filter.append("status ==\'"+ sortForm.getStatus()+"\'");
+			filter.append("&&");
+			filter.append("status ==\'"+ sortForm.getStatus()+"\'");
 			
 		 if(Constant.LEADER == sortForm.getLevel()){
 			filter.append("&&");
@@ -66,14 +79,6 @@ public class RequirementBlo {
 		return reqDao.getNumberByFilter(filter);
 
 	}
-	
-	/*
-	 * get danh sach req cua project ( goi ham ReportBlo.getIdReqList())
-	 */
-	
-	/*
-	 * get danh sach nhom da duoc assign vo du an nhung chua duoc set req
-	 */
 	
 	/*
 	 * get tat ca danh sach nhom cua du an
@@ -105,30 +110,19 @@ public class RequirementBlo {
 	 */
 	public static List<Long> getGroupListFree(Long idProject){
 		
+		StringBuffer filter = new StringBuffer();
+		filter.append("idProject=="+ idProject);
+		filter.append("&&");
+		filter.append("status==\'"+Constant.GROUP_FREE_REQ +"\'");
+		List<Group> groupList = reqDao.getGroupOfProject(filter.toString());
 		List<Long> idGroupList = new ArrayList<Long>();
-		
-		List<Group> groupList = getGroupListAll(idProject);
-		if (groupList == null || groupList.size()==0){
-			return null;
-		}
-		
-		List<Requirement> reqList = getGroupListOfReq(idProject);
-		if (reqList != null && reqList.size() >0){
-			int groupLen = groupList.size();
-			int reqLen = reqList.size();
-			int i, j;
-			for ( i = 0; i< groupLen; i++){
-				for( j = 0; j< reqLen; j++){
-					if( groupList.get(i).getId() == reqList.get(j).getIdGroup()){
-						break;
-					}
-				}
-				if( j == reqLen){
-					idGroupList.add(groupList.get(i).getId());
-				}
-				
+		if (groupList != null & groupList.size() >0){
+			int size = groupList.size();
+			for( int i = 0; i<size; i++){
+				idGroupList.add(groupList.get(i).getId());
 			}
 		}
+		
 		return idGroupList;
 	}
 	
@@ -176,5 +170,72 @@ public static RequirementForm getRequirementForm(Long id){
 	
 	return form;
 }
+public static Requirement getRequirement(Long id){
+	
+	//get Req
+	return reqDao.getRequirement(id);
+	
+}
+/*
+ * tinh so page dua tren so record
+ */
+public static int countReportAllBySQL(String filter) {
+	
+	return reqDao.countReportAllBySQL(filter);
+
+}
+/*
+ * delete list obj
+ */
+public static boolean deleteReqList(String keyList[]) {
+	if (keyList.length >0){
+		int size = keyList.length;
+		for(int i = 0; i<size; i++){
+			Long id = Long.valueOf(keyList[i]);
+			if (updateStatusGroupReq(id, Constant.GROUP_FREE_REQ)){
+				reqDao.deleteReq(id);
+			}
+		}
+	}
+	return true;
+}
+
+/**
+ * create List Json Report
+ * @param reportList
+ * @return
+ */
+public static JSONObjectList createJSONObjectList(List<RequirementForm> reqList)
+{
+	JSONObjectList jsonlist = new JSONObjectList();
+    int length = reqList.size();
+    for (int i = 0; i < length; i++) {
+        JSONObject uc =createJSONObject(reqList.get(i));
+
+        jsonlist.getListobject().add(uc);
+
+    }
+    
+    return jsonlist;
+}
+
+/**
+ * create JsonObject from an ReportForm
+ * @param report
+ * @return
+ */
+public static JSONObject createJSONObject(RequirementForm req)
+{
+	String keys[] = {"id", "nameReq","idGroup","process"};
+    
+	JSONObject uc = new JSONObject(keys);
+    uc.getObject().put(keys[0], String.valueOf(req.getId()));
+    uc.getObject().put(keys[1], req.getNameReq());
+    uc.getObject().put(keys[2], String.valueOf(req.getIdGroup()));
+    uc.getObject().put(keys[3], String.valueOf(req.getProcess()));
+
+   return uc;     
+}
+
 
 }

@@ -6,7 +6,6 @@ import java.util.Date;
 import org.apache.struts.validator.ValidatorForm;
 
 import sp.dto.Task;
-import sp.dto.User;
 
 public class TaskForm extends ValidatorForm implements Serializable {
 	
@@ -15,6 +14,7 @@ public class TaskForm extends ValidatorForm implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long id; 
+	private String kind;
 	private String  nameTask;
 	private String  emailEmployee;
 	private Long idProject;
@@ -22,7 +22,9 @@ public class TaskForm extends ValidatorForm implements Serializable {
 	private Long idGroup;
 	private Date startDate;
 	private Date endDate;
+	private int process;
 	private String status;
+	private int level; 
 	/**
 	 * @return the id
 	 */
@@ -132,12 +134,50 @@ public class TaskForm extends ValidatorForm implements Serializable {
 		this.status = status;
 	}
 
+	/**
+	 * @return the kind
+	 */
+	public String getKind() {
+		return kind;
+	}
+	/**
+	 * @param kind the kind to set
+	 */
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
+	/**
+	 * @return the process
+	 */
+	public int getProcess() {
+		return process;
+	}
+	/**
+	 * @param process the process to set
+	 */
+	public void setProcess(int process) {
+		this.process = process;
+	}
+	
+	/**
+	 * @return the level
+	 */
+	public int getLevel() {
+		return level;
+	}
+	/**
+	 * @param level the level to set
+	 */
+	public void setLevel(int level) {
+		this.level = level;
+	}
 	/*
 	 * transfer Form -> DTO
 	 */
 	public Task getTask(){
 		Task task = new Task();
 		task.setId(this.id);
+		task.setKind(this.kind);
 		task.setEmailEmployee(this.emailEmployee);
 		task.setNameTask(this.nameTask);
 		task.setIdProject(this.idProject);
@@ -145,6 +185,7 @@ public class TaskForm extends ValidatorForm implements Serializable {
 		task.setIdGroup(this.idProject);
 		task.setStartDate(this.startDate);
 		task.setEndDate(this.endDate);
+		task.setProcess(this.process);
 		task.setStatus(this.status);
 		return task;
 	}
@@ -154,6 +195,7 @@ public class TaskForm extends ValidatorForm implements Serializable {
 	 */
 	public void editForm(Task task){
 		this.id = task.getId();
+		this.kind = task.getKind();
 		this.emailEmployee = task.getEmailEmployee();
 		this.nameTask = task.getNameTask();
 		this.idReq = task.getIdReq();
@@ -161,7 +203,7 @@ public class TaskForm extends ValidatorForm implements Serializable {
 		this.startDate = task.getStartDate();
 		this.endDate = task.getEndDate();
 		this.status = task.getStatus();
-		
+		this.process = task.getProcess();
 	}
 	
 }

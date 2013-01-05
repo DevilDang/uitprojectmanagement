@@ -1,6 +1,7 @@
 package sp.util;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,16 +18,15 @@ public class CommonUtil {
 	public static List<String> createPageList(int count) {
 		
 		List<String> pageList = new ArrayList<String>();
-		int page = 0;
+		int page = 1;
 		if (count > 0) {
 			page = count / Constant.RECORD;
 			if (count % Constant.RECORD > 0) {
 				page = page + 1;
 			}
-			page = page + 1;
-			for (int i = 1; i < page; i++) {
-				pageList.add(String.valueOf(i));
-			}
+		}
+		for (int i = 1; i <= page; i++) {
+			pageList.add(String.valueOf(i));
 		}
 		return pageList;
 
@@ -89,4 +89,27 @@ public class CommonUtil {
 	}
 	
 	
+	public static Date convertStrToDate(String date){
+		if (date != null && !"".equals(date)){
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            Date today = df.parse(date);
+            return today;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+	}
+	return null;
+	}
+	
+	public static String convertDateToStr(Date date){
+		if (date != null){
+		DateFormat formatter = new SimpleDateFormat("dd/MMM/yy");
+		String s = formatter.format(date);
+		return s;
+		}
+		return null;
+	}
 }

@@ -3,6 +3,7 @@ package sp.dao;
 import java.util.List;
 
 import sp.dto.Group;
+import sp.dto.Report;
 import sp.dto.Requirement;
 import sp.dto.Task;
 
@@ -19,6 +20,10 @@ public class RequirementDao {
 	
 	public Requirement getRequirement(Long id){
 		return (Requirement) PMF.getObject(Requirement.class, id);
+	}
+	
+	public boolean deleteReq(Long id){
+		return PMF.deleteObject(Requirement.class, id);
 	}
 	
 
@@ -43,15 +48,13 @@ public class RequirementDao {
 		return PMF.countNumberAll(Requirement.class, filter);
 	}
 	
-//	/**
-//	 * get danh sach req cua du an
-//	 * @return
-//	 */
-//	@SuppressWarnings("unchecked")
-//	public List<Requirement> getReqOfProject(String filter){
-//		
-//		return (List<Requirement>)PMF.getObjectList(Requirement.class, filter);
-//	}
+	/*
+	 * count number all 
+	 */
+	public int countReportAllBySQL(String filter) {
+		return PMF.countNumberAll(Requirement.class,filter);
+
+	}
 	
 	
 	/**
@@ -70,5 +73,17 @@ public class RequirementDao {
 	public List<Requirement> getGroupOfReq(String filter){
 		
 		return (List<Requirement>)PMF.getObjectList(Requirement.class, filter);
+	}
+	
+
+	/**
+	 * get group da duoc set Req
+	 */
+	public boolean updateStatusGroup(Long id, String status){
+		
+		Group group = (Group) PMF.getObject(Group.class, id);
+		group.setStatus(status);
+		return PMF.insertObject(group);
+		
 	}
 }
