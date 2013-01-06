@@ -8,7 +8,8 @@
                 /WEB-INF/struts-config.xml,
                 /WEB-INF/struts-config-organization.xml,
                 /WEB-INF/struts-config-report.xml,
-                /WEB-INF/struts-config-requirement.xml
+                /WEB-INF/struts-config-requirement.xml,
+                 /WEB-INF/struts-config-task.xml
             </param-value>
         </init-param>
         <init-param>
