@@ -1,7 +1,6 @@
 package sp.action.requirement;
 
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,10 +10,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import sp.blo.ReportBlo;
 import sp.blo.RequirementBlo;
-import sp.dao.PMF;
-import sp.form.ReportForm;
 import sp.form.RequirementForm;
 import sp.util.CommonUtil;
 import sp.util.Constant;

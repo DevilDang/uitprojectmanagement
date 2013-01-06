@@ -1,4 +1,5 @@
-package sp.action.requirement;
+package sp.action.task;
+
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,24 +10,24 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import sp.blo.RequirementBlo;
+import sp.blo.TaskBlo;
 import sp.util.Constant;
 
 /**
  * @author Thuy
  *
  */
-public class DeleteRequirement extends Action{
+public class DeleteTask extends Action{
 	
 		public ActionForward execute(ActionMapping mapping, ActionForm form,
 				HttpServletRequest request, HttpServletResponse response)
 				throws Exception {
 			
 
-			String[] req_id_array = request.getParameterValues("check");
+			String[] task_id_array = request.getParameterValues("check");
 			
 			//delete
-			RequirementBlo.deleteReqList(req_id_array);
+			TaskBlo.deleteReqList(task_id_array);
 			
 			//forward page result
 			return mapping.findForward(Constant.SUCCESS);

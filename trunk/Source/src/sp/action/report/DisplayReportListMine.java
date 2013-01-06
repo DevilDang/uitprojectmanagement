@@ -3,7 +3,6 @@
  */
 package sp.action.report;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import sp.blo.ReportBlo;
-import sp.form.AccountForm;
 import sp.form.ReportForm;
 import sp.util.CommonUtil;
 import sp.util.Constant;
