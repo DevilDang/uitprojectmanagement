@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+<struts-config>
+  <form-beans>
+   <form-bean name="task" type="sp.form.TaskForm" />
+  </form-beans>
+  <global-forwards>
+  </global-forwards>
+  <action-mappings>
+    
+    <!-- display TaskList-->
+     <action path="/displayTaskList" type="sp.action.task.DisplayTaskList">  
+    	<forward name="success" path="task.jsp" redirect="true" />
+    </action>
+    
+     <!-- display TaskList Paging-->
+     <action path="/displayTaskListPaging" type="sp.action.task.DisplayTaskListPaging">  
+    	<forward name="success" path="task.jsp" redirect="true" />
+    </action>
+    
+      <!-- update Task -->
+    <action 
+        input="/task.jsp" 
+        path="/updateTask" 
+        type="sp.action.task.UpdateTask"  
+        name="task"
+        validate="true" >
+    	<forward name="success" path="/displayTaskListPaging.do" redirect="true" />
+    </action>
+    
+    <!-- display Detail-->
+    <action path="/displayTask" type="sp.action.task.DisplayTask">  
+    	<forward name="success" path="task.jsp" redirect="true" />
+    </action>
+    
+    
+      <!-- count page-->
+    <action path="/countTaskListPage" type="sp.action.task.PageReqList">  
+    </action>
+    
+      <!-- delete Req-->
+    <action path="/deleteTask" type="sp.action.task.DeleteTask">  
+        <forward name="success" path="/displayTaskList.do" redirect="true" />
+    </action>
+    
+       <!-- change Mode-->
+    <action path="/changeModeTask" type="sp.action.task.ChangeModeTask">  
+        <forward name="success" path="task.jsp" redirect="true" />
+    </action>
+    
+    
+  </action-mappings>
+  
+</struts-config>

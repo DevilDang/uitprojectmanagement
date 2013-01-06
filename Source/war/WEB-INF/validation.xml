@@ -79,7 +79,7 @@
             </field>
         </form>
         
-        <!-- Report -->
+        <!-- Req -->
         <form name="req">
             <field
                 property="nameReq"
@@ -105,6 +105,50 @@
                 property="endDate"
                 depends="required">
                     <arg key="req.endDate"/>
+            </field>
+        </form>
+        
+         <!-- Task -->
+        <form name="task">
+            <field
+                property="kind"
+                depends="required">
+                    <arg key="task.kind"/>
+            </field>
+            <field
+                property="nameTask"
+                depends="required">
+                    <arg key="task.nameTask"/>
+            </field>
+            <field
+                property="emailEmployee"
+                depends="required">
+                    <arg key="task.emailEmployee"/>
+            </field>
+             <field
+                property="content"
+                depends="required">
+                    <arg key="task.content"/>
+            </field>
+            <field
+                property="startDate"
+                depends="required">
+                    <arg key="task.startDate"/>
+            </field>
+            <field
+                property="endDate"
+                depends="required">
+                    <arg key="task.endDate"/>
+            </field>
+            <field
+                property="process"
+                depends="required">
+                    <arg key="task.process"/>
+            </field>
+            <field
+                property="status"
+                depends="required">
+                    <arg key="task.status"/>
             </field>
         </form>
         
