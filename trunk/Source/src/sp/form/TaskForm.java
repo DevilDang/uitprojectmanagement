@@ -1,11 +1,11 @@
 package sp.form;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import org.apache.struts.validator.ValidatorForm;
 
 import sp.dto.Task;
+import sp.util.CommonUtil;
 
 public class TaskForm extends ValidatorForm implements Serializable {
 	
@@ -20,8 +20,9 @@ public class TaskForm extends ValidatorForm implements Serializable {
 	private Long idProject;
 	private Long idReq;
 	private Long idGroup;
-	private Date startDate;
-	private Date endDate;
+	private String content;
+	private String startDate;
+	private String endDate;
 	private int process;
 	private String status;
 	private int level; 
@@ -100,25 +101,25 @@ public class TaskForm extends ValidatorForm implements Serializable {
 	/**
 	 * @return the startDate
 	 */
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 	/**
 	 * @param startDate the startDate to set
 	 */
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 	/**
 	 * @return the endDate
 	 */
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 	/**
 	 * @param endDate the endDate to set
 	 */
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 	/**
@@ -171,6 +172,19 @@ public class TaskForm extends ValidatorForm implements Serializable {
 	public void setLevel(int level) {
 		this.level = level;
 	}
+	
+	/**
+	 * @return the content
+	 */
+	public String getContent() {
+		return content;
+	}
+	/**
+	 * @param content the content to set
+	 */
+	public void setContent(String content) {
+		this.content = content;
+	}
 	/*
 	 * transfer Form -> DTO
 	 */
@@ -182,11 +196,12 @@ public class TaskForm extends ValidatorForm implements Serializable {
 		task.setNameTask(this.nameTask);
 		task.setIdProject(this.idProject);
 		task.setIdReq(this.idReq);
-		task.setIdGroup(this.idProject);
-		task.setStartDate(this.startDate);
-		task.setEndDate(this.endDate);
+		task.setIdGroup(this.idGroup);
+		task.setStartDate(CommonUtil.convertStrToDate(this.startDate));
+		task.setEndDate(CommonUtil.convertStrToDate(this.endDate));
 		task.setProcess(this.process);
 		task.setStatus(this.status);
+		task.setContent(this.content);
 		return task;
 	}
 	
@@ -200,10 +215,11 @@ public class TaskForm extends ValidatorForm implements Serializable {
 		this.nameTask = task.getNameTask();
 		this.idReq = task.getIdReq();
 		this.idGroup = task.getIdGroup();
-		this.startDate = task.getStartDate();
-		this.endDate = task.getEndDate();
+		this.startDate = CommonUtil.convertDateToStr(task.getStartDate());
+		this.endDate = CommonUtil.convertDateToStr(task.getEndDate());
 		this.status = task.getStatus();
 		this.process = task.getProcess();
+		this.content = task.getContent();
 	}
 	
 }

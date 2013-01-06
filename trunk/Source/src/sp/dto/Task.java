@@ -49,6 +49,9 @@ public class Task implements Serializable  {
 	
 	@Persistent
 	private String status;
+	
+	@Persistent
+	private String content;
 
 	/**
 	 * @return the id
@@ -204,8 +207,20 @@ public class Task implements Serializable  {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	
+
+	/**
+	 * @return the content
+	 */
+	public String getContent() {
+		return content;
+	}
+
+	/**
+	 * @param content the content to set
+	 */
+	public void setContent(String content) {
+		this.content = content;
+	}
 	
 
 }

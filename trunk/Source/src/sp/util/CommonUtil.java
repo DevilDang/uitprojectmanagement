@@ -106,7 +106,7 @@ public class CommonUtil {
 	
 	public static String convertDateToStr(Date date){
 		if (date != null){
-		DateFormat formatter = new SimpleDateFormat("dd/MMM/yy");
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		String s = formatter.format(date);
 		return s;
 		}

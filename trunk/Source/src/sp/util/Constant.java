@@ -95,7 +95,8 @@ public class Constant {
 		//TASK
 		public final static String USER_FREE_TASK= "freeTask"; // nhan vien chua co task
 		public final static String USER_ASSIGN_TASK= "assignTask"; // nhan vien da duoc set task
-		
+		public final static String TASK_USER_FREE= "task_user_free";
+		public final static String TASK= "task";
 //-- end Thuy --	
 		
 	// Po
