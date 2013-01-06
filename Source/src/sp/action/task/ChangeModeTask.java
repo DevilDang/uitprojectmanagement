@@ -1,36 +1,37 @@
-package sp.action.requirement;
-
+package sp.action.task;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import sp.blo.RequirementBlo;
 import sp.util.Constant;
 
 /**
  * @author Thuy
  *
  */
-public class DeleteRequirement extends Action{
+public class ChangeModeTask extends Action{
 	
 		public ActionForward execute(ActionMapping mapping, ActionForm form,
 				HttpServletRequest request, HttpServletResponse response)
 				throws Exception {
 			
-
-			String[] req_id_array = request.getParameterValues("check");
+			HttpSession se = request.getSession();
+			//get mode 
+			String mode = request.getParameter("mode");
 			
-			//delete
-			RequirementBlo.deleteReqList(req_id_array);
+			//remove 
+			se.removeAttribute(Constant.TASK);
 			
-			//forward page result
+			//mode Insert
+			se.setAttribute(Constant.RECORD_FLAG, mode);
+			
 			return mapping.findForward(Constant.SUCCESS);
-			
 		}
 }
 

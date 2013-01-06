@@ -38,30 +38,32 @@ public class UpdateRequirement extends Action{
 			String mode = (String) se.getAttribute(Constant.RECORD_FLAG);
 			Requirement req ;
 			
+			//set sortForm into  formReport
+			formReq.setIdProject(sortForm.getIdProject());
+			
 			//mode insert
 			if (Constant.MODE_INSERT.equals(mode)){
 				
-				//set sortForm into  formReport
-				formReq.setIdProject(sortForm.getIdProject());
-				
 				//update status of Group = assign
 				RequirementBlo.updateStatusGroup(formReq.getIdGroup(), Constant.GROUP_ASSIGN_REQ);
-				req = formReq.getRequirement();
+				
 			}
+			//mode update
 			else
 			{
-				//if close Req
-				if (Constant.CLOSE.equals(formReq.getStatus())){
-					req = RequirementBlo.getRequirement(formReq.getId());
-					req.setStatus(Constant.CLOSE);
-				}
-				else
-				{
+//				//if close Req
+//				if (Constant.CLOSE.equals(formReq.getStatus())){
+//					req = RequirementBlo.getRequirement(formReq.getId());
+//					req.setStatus(Constant.CLOSE);
+//				}
+//				else
+//				{
 					RequirementBlo.updateStatusGroup(formReq.getId(),formReq.getIdGroup());
-					req = formReq.getRequirement();
-				}
+//					req = formReq.getRequirement();
+//				}
 			}
 			
+			req = formReq.getRequirement();
 			//save dto
 			RequirementBlo.saveRequirement(req);
 			

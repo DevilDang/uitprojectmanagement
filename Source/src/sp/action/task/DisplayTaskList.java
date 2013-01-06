@@ -1,7 +1,7 @@
 /**
  * 
  */
-package sp.action.report;
+package sp.action.task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +16,11 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import sp.blo.ReportBlo;
+import sp.blo.TaskBlo;
+import sp.dao.PMF;
+import sp.dto.User;
 import sp.form.AccountForm;
-import sp.form.ReportForm;
+import sp.form.TaskForm;
 import sp.util.CommonUtil;
 import sp.util.Constant;
 
@@ -25,7 +28,7 @@ import sp.util.Constant;
  * @author T
  * 
  */
-public class DisplayReportList extends Action {
+public class DisplayTaskList extends Action {
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -36,34 +39,37 @@ public class DisplayReportList extends Action {
 
 		// get user from session
 		AccountForm user = (AccountForm) se.getAttribute("user");
-
+		
 		// start temp
 		user = new AccountForm();
-		user.setEmail("a@gmail.com");
-		user.setGroupCode(2);
+		user.setEmail("c@yahoo.com");
 		user.setPermission("3");
-		// end temp
-
+		user.setGroupCode(2);
 		// get permision
+		
+		User user1 = new User();
+		user1.setEmail("t@yahoo.com");
+		user1.setIdPermision("3");
+		user1.setGroupID(2);
+		user1.setStatusTask(Constant.USER_FREE_TASK);
+		PMF.insertObject(user1);
+		
 		int permission = Integer.parseInt(user.getPermission());
 
 		// initial sortForm
 		int level = 0;
 		Long idProject = null;
 		Long idReq = null;
-		Long idGroup  = 0L;
-		Long idTask = null;
-		String status = Constant.BLANK;
+		Long idGroup = 0L;
+		// String status = Constant.BLANK;
 		String idUser = user.getEmail();
 
 		// value into session
 		List<Long> idProjectList = new ArrayList<Long>();
 		List<Long> idReqList = new ArrayList<Long>();
 		List<Long> idGroupList = new ArrayList<Long>();
-		List<Long> idTaskList = new ArrayList<Long>();
 		boolean sort = false;
 
-		
 		// ADMIN
 		if (Constant.ADMIN == permission) { // thao tac khi co project
 
@@ -74,7 +80,7 @@ public class DisplayReportList extends Action {
 
 				// set SortForm
 				idProject = idProjectList.get(0);
-				status = Constant.REPORT_NEW;
+
 				level = Constant.ADMIN;
 
 				sort = true;
@@ -89,106 +95,61 @@ public class DisplayReportList extends Action {
 			// pm had got project
 			if (idProject != null) {
 
-				// get idReqList
-				idReqList = ReportBlo.getIdReqList(idProject);
+				// set sortForm
+				// status = Constant.REQ_NEW;
+				level = Constant.PM;
 
-				// check project had requirements
+				// set session
+				idProjectList.add(idProject);
 
-				if (idReqList != null && idReqList.size() != 0) {
-
-					// set sortForm
-					idReq = idReqList.get(0);
-					status = Constant.REPORT_NEW;
-					level = Constant.PM;
-
-					// set session
-					idProjectList.add(idProject);
-
-					sort = true;
-				}
+				sort = true;
 			}
 
-		} else if (Constant.LEADER == permission) {
-			
-			idGroup = user.getGroupCode();
+		} else if ((Constant.LEADER == permission)||(Constant.EMPLOYEE== permission)) {
 
+			idGroup = user.getGroupCode();
 			idProject = ReportBlo.getIdProjectByGroup(idGroup);
 
 			if (idProject != null) {
 				idReq = ReportBlo.getIdReq(idGroup, idProject);
 				if (idReq != null) {
 
-					// set value into SortForm
-					status = Constant.REPORT_NEW;
 					level = Constant.LEADER;
 
 					// set into session
 					idProjectList.add(idProject);
 					idReqList.add(idReq);
 					idGroupList.add(idGroup);
+
 					// tien hanh sort
 					sort = true;
 				}
 
 			}
-
-		} else if (Constant.EMPLOYEE == permission) {
-
-			// check member da duoc gan vo nhom chua
-			
-			if (idGroup != 0) {
-
-				// get idProject
-				idProject = ReportBlo.getIdProjectByGroup(idGroup);
-				if (idProject != null) {
-
-					// get idReq
-					idReq = ReportBlo.getIdReq(idGroup, idProject);
-
-					if (idReq != null) {
-
-						// get idTask
-						idTask = ReportBlo.getIdTask(idProject, idGroup, idReq,
-								idUser);
-
-						if (idTask != null) {
-
-							// set into SortFrom
-							status = Constant.REPORT_NEW;
-							level = Constant.EMPLOYEE;
-
-							// set into session
-							idProjectList.add(idProject);
-							idReqList.add(idReq);
-							idGroupList.add(idGroup);
-							idTaskList.add(idTask);
-
-							// tien hanh sort
-							sort = true;
-						}
-
-					}
-				}
-			}
 		}
 		if (sort == true) {
 			// create sortForm
-			ReportForm sortForm = ReportBlo.getSortForm(idProject, idReq,
-					idGroup, idTask, idUser, status, level);
+			TaskForm sortForm = TaskBlo.getSortForm(idProject,
+					idReq, idGroup,idUser, level);
 
+			sortForm.setStatus(Constant.OPEN);
+			sortForm.setKind(Constant.TASK_TEST);
 			// get filter
-			String filter = ReportBlo.getFilter(sortForm);
-
+			String filter = TaskBlo.getFilterSQL(sortForm);
+			
 			// call method to get Page Report
-			List<ReportForm> reportList = ReportBlo.getListPage(filter, 1);
-
+			List<TaskForm> reportList = TaskBlo.getTaskListByFilter(filter, 1);
+			//
 			// get total number page
-			int total = ReportBlo.countReportAllBySQL(filter);
+			int total = TaskBlo.getNumberByFilter(filter);
 
 			// get List page number
 			List<String> pageList = CommonUtil.createPageList(total);
 
+			// get group free
+			List<String> idTaskList = TaskBlo.getUserFreeTask(idGroup);
 			// save session
+			se.setAttribute(Constant.TASK_USER_FREE, idTaskList);
 			se.setAttribute(Constant.RECORD_LIST, reportList);
 			se.setAttribute(Constant.RECORD_PAGE_LIST, pageList);
 			se.setAttribute(Constant.RECORD_PAGE_NUMBER, "1");
@@ -202,11 +163,10 @@ public class DisplayReportList extends Action {
 			se.setAttribute(Constant.IDPROJECTLIST, idProjectList);
 			se.setAttribute(Constant.IDREQLIST, idReqList);
 			se.setAttribute(Constant.IDGROUPLIST, idGroupList);
-			se.setAttribute(Constant.IDTASKLIST, idTaskList);
 
 			return mapping.findForward(Constant.SUCCESS);
-		} else {
-			return mapping.findForward(Constant.FAILURE);
 		}
+
+		return mapping.findForward(Constant.FAILURE);
 	}
 }

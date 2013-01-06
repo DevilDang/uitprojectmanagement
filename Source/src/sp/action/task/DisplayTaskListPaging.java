@@ -1,4 +1,4 @@
-package sp.action.report;
+package sp.action.task;
 
 import java.io.PrintWriter;
 import java.util.List;
@@ -12,13 +12,13 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import sp.blo.ReportBlo;
-import sp.form.ReportForm;
+import sp.blo.TaskBlo;
+import sp.form.TaskForm;
 import sp.util.CommonUtil;
 import sp.util.Constant;
 import sp.util.JSONObjectList;
 
-public class DisplayReportListPaging extends Action {
+public class DisplayTaskListPaging extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
@@ -26,21 +26,23 @@ public class DisplayReportListPaging extends Action {
 		String ajax = request.getParameter("ajax");
 		
 		HttpSession se = request.getSession();
+		
 		//get sortForm
-		ReportForm sortForm = (ReportForm)se.getAttribute(Constant.RECORD_SORT);
+		TaskForm sortForm = (TaskForm)se.getAttribute(Constant.RECORD_SORT);
 		
 		//get value from request
 		String idProject = request.getParameter("idProject");
 		String idReq = request.getParameter("idReq");
 		String  idGroup = request.getParameter("idGroup");
+		String  kind = request.getParameter("kind");
 		String status = request.getParameter("status");
 		String pageNumber = request.getParameter("page");
-		int page = 0;
+		int page = 1;
 		if (idProject != null){
 			sortForm.setIdProject(Long.valueOf(idProject));
 		}
 		if (idReq != null){
-			sortForm.setIdReq(Long.valueOf(idReq));
+			sortForm.setId(Long.valueOf(idReq));
 		}
 		if (idGroup != null){
 			sortForm.setIdGroup(Long.valueOf(idGroup));
@@ -48,29 +50,31 @@ public class DisplayReportListPaging extends Action {
 		if (status != null){
 			sortForm.setStatus(status);
 		}
+		if (kind != null){
+			sortForm.setKind(kind);
+		}
 		if (pageNumber != null){
 			page = Integer.parseInt(pageNumber);
 			sortForm.setPage(page);
 		}
-		else
-		{
-			page = 1;
-		}
+		
 		//save sortForm into session
 		se.setAttribute(Constant.RECORD_SORT, sortForm);
 		
 		//get filter
-		String filter = ReportBlo.getFilter(sortForm);
+		String filter = TaskBlo.getFilterSQL(sortForm);
 		
 		//call method sort
-		List<ReportForm> reportList = ReportBlo.getListPage(filter, page);
+		List<TaskForm> taskList = TaskBlo.getTaskListByFilter(filter, page);
 		
 		//ajax
 		if ("1".equals(ajax)){
+			
 			//get PrintWriter
 			PrintWriter out = response.getWriter();
+			
 			//return value (ajax)
-			JSONObjectList jsonlist = ReportBlo.createJSONObjectList(reportList);
+			JSONObjectList jsonlist = TaskBlo.createJSONObjectList(taskList);
 	        
 	        out.write(jsonlist.toJSONtextString());
 	        out.close();
@@ -79,13 +83,17 @@ public class DisplayReportListPaging extends Action {
 		else
 		{
 			//get total number page
-			int total = ReportBlo.countReportAllBySQL(filter);
+			int total = TaskBlo.getNumberByFilter(filter);
 			
 			//get List page number
 			List<String> pageList = CommonUtil.createPageList(total);
 			
+			// get group free
+			List<String> idTaskList = TaskBlo.getUserFreeTask(sortForm.getIdGroup());
+			
 			//save session
-			se.setAttribute(Constant.RECORD_LIST, reportList);
+			se.setAttribute(Constant.TASK_USER_FREE, idTaskList);
+			se.setAttribute(Constant.RECORD_LIST, taskList);
 			se.setAttribute(Constant.RECORD_PAGE_LIST, pageList);
 			se.setAttribute(Constant.RECORD_PAGE_NUMBER, String.valueOf(page));
 			//forward
