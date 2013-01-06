@@ -19,7 +19,7 @@
         <ul id="MenuBar1" class="MenuBarHorizontal">
             <li><a href="project.jsp">Dự án</a></li>
             <li><a href="/displayReqList.do">Yêu Cầu</a></li>
-            <li><a href="task.jsp">Công Việc</a></li>
+            <li><a href="/displayTaskList.do">Công Việc</a></li>
             <li><a href="/displayOrgList.do">Đối Tác</a></li>
             <li><a href="group.jsp">Nhóm</a></li>
             <li><a href="account.jsp">Tài Khoản</a></li>
