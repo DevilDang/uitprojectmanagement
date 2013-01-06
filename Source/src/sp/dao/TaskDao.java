@@ -16,6 +16,10 @@ public class TaskDao {
 	public boolean saveTask(Task task){
 		return PMF.insertObject(task);
 	}
+	
+	public boolean deleteTask(Long id){
+		return PMF.deleteObject(Task.class, id);
+	}
 
 	/**
 	 * getTaskList Paging
@@ -45,7 +49,7 @@ public class TaskDao {
 	@SuppressWarnings("unchecked")
 	public List<String> getUserFreeTask(String filter){
 		
-		List<User> userList = (List<User>) PMF.getObject(User.class, filter);
+		List<User> userList = (List<User>) PMF.getObjectList(User.class, filter);
 		
 		if (userList == null || userList.size() == 0 ){
 			return null;
