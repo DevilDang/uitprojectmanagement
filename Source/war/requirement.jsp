@@ -15,14 +15,7 @@
         <script src="javascripts/check.js" type="text/javascript"></script>
         <script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
        <script src="javascripts/requirement.js" type="text/javascript"></script> 
-<script type="text/javascript">
-	 function changeGroup(obj){
-		 alert(obj);
-		
-		 obj.value = obj.text;
-		 alert(obj.value);
-	 }
-</script>
+
     </head>
     <body>
         <div id="container">           
@@ -208,10 +201,10 @@
                                 <td>Nhóm thực hiện: </td>
                                 <td>
                                     <html:select property="idGroup" onchange="this.options[this.selectedIndex].value = this.options[this.selectedIndex].text">
-                                    <html:option value=""><bean:write name="req" property="idGroup"/></html:option>
+                                   <option value="<bean:write name="req" property="idGroup"/>"><bean:write name="req" property="idGroup"/></option>
                                    <logic:equal value="2" name="record_sort" property="level">
                                     <logic:iterate id="item" name="req_group_free">
-                                    <html:option value=""><bean:write name="item" /></html:option>
+                                    <option value="<bean:write name="item" />"><bean:write name="item" /></option>
                                     </logic:iterate>
                                     </logic:equal>
                                       <logic:notEqual value="2" name="record_sort" property="level">

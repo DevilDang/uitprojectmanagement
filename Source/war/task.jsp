@@ -1,4 +1,8 @@
-<%@ page contentType="text/html; charset=utf-8" language="java" errorPage="" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%>
+<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic"%>
+<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
 <html>
     <head>
         <title>Quản Lý Công Việc</title>
@@ -9,6 +13,8 @@
         <script src="javascripts/MyJavaScripts.js" type="text/javascript"></script>
         <script src="javascripts/json.js" type="text/javascript"></script>
         <script src="javascripts/check.js" type="text/javascript"></script>
+        <script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
+       <script src="javascripts/task.js" type="text/javascript"></script> 
     </head>
     <body>
         <div id="container">           
@@ -22,56 +28,147 @@
             <div id="content">
                 <div id="content_left">
                     <h3 align="center"> Quản lý danh sách </h3><br>
-                    <form name="danhsachmonhoc" id ="danhsachmonhoc" method="post" action="">
+                    <form name="sortForm" id ="sortForm" method="post" action="/deleteTask.do">
                     	  <div class="chose3" align="center">
                             Dự Án:
                          
-                            <select name="khoa" id="box" onChange="ajax_getdanhsachmonhoc(0)">
-                                <option value="user1" >Dự án 1</option>
-                                <option value="user1" >Dự án 2</option>
-                              
-                            </select>
+                            <select name="project" id="box"
+							onChange="getListTask(1,1)">
+							<logic:present name="idProList">
+							<logic:iterate id="element" name="idProList">
+								<option value="/displayReportPaging.do?idProject=<bean:write name="element"/>" >
+									<bean:write name="element" />
+							</option>
+							</logic:iterate>
+							</logic:present>
+						</select>
                         </div>
-                          <div class="chose3" align="center">
-                            Yêu cầu :
-                         
-                            <select name="khoa" id="box" onChange="ajax_getdanhsachmonhoc(0)">
-                                <option value="user1" >Yêu cầu 1</option>
-                                <option value="user1" >Yêu Cầu 2</option>
-                              
-                            </select>
-                        </div>
+                        <logic:notEmpty name="idReqList">
+						<div class="chose3" align="center">
+							Yêu cầu: <select name="req" id="box"
+								onChange="getListTask(2,1)">
+							<logic:iterate id="element" name="idReqList">
+								<option value="" selected>
+										<bean:write name="element" />
+									</option>
+							</logic:iterate>
+							</select>
+						</div>
+					</logic:notEmpty>
+					<logic:notEmpty name="idGroupList">
+						<div class="chose3" align="center">
+							Nhóm thực hiện: <select name="group" id="box"
+								onChange="getListTask(3,1)">
+								<logic:iterate id="element" name="idGroupList">
+								<option value="">
+										<bean:write name="element" />
+									</option>
+								</logic:iterate>
+							</select>
+						</div>
+					</logic:notEmpty>
+					<div class="chose3" align="center">
+						Loại công việc: <select name="kind" id="box"
+								onChange="getListTask(4,1)">
+								<!-- Test -->
+								<logic:equal value="Test" name="record_sort" property="kind">
+								<option value="Test" selected>Test</option>
+								<option value="TestCase" >TestCase</option>
+								<option value="UseCase" >UseCase</option>
+								<option value="BanGiao" >BanGiao</option>
+								<option value="Code" >Code</option>
+								</logic:equal>
+								<!-- TestCase -->
+								<logic:equal value="TestCase" name="record_sort" property="kind">
+								<option value="TestCase" selected>TestCase</option>
+								<option value="Test" >Test</option>
+								<option value="UseCase" >UseCase</option>
+								<option value="BanGiao" >BanGiao</option>
+								<option value="Code" >Code</option>
+								</logic:equal>
+								<!-- UseCase -->
+								<logic:equal value="UseCase" name="record_sort" property="kind">
+								<option value="UseCase" selected>UseCase</option>
+								<option value="TestCase" >TestCase</option>
+								<option value="Test" >Test</option>
+								<option value="BanGiao" >BanGiao</option>
+								<option value="Code" >Code</option>
+								</logic:equal>
+								<!-- BanGiao -->
+								<logic:equal value="BanGiao" name="record_sort" property="kind">
+								<option value="BanGiao" selected>BanGiao</option>
+								<option value="UseCase" >UseCase</option>
+								<option value="TestCase" >TestCase</option>
+								<option value="Test" >Test</option>
+								<option value="Code" >Code</option>
+								</logic:equal>
+								<!-- Code -->
+								<logic:equal value="Code" name="record_sort" property="kind">
+								<option value="Code" selected>Code</option>
+								<option value="UseCase" >UseCase</option>
+								<option value="TestCase" >TestCase</option>
+								<option value="Test" >Test</option>
+								<option value="BanGiao" >BanGiao</option>
+								</logic:equal>
+							</select>
+						</div>
+					<div class="chose3" align="center">
+							Trạng thái: <select name="status" id="box"
+								onChange="getListTask(5,1)">
+								<logic:present name="record_sort">
+							<logic:equal value="Open" name="record_sort"  property="status">
+							<option value="Open">Open</option>
+							<option value="Close">Close</option>
+							</logic:equal>
+							<logic:equal value="Close" name="record_sort"  property="status">
+							<option value="Close">Close</option>
+							<option value="Open">Open</option>
+							</logic:equal>
+							</logic:present>
+							</select>
+						</div>
+						
                         <p>&nbsp;</p>
                         <p><br>
                         </p>
                         <div id="table">
-                            <table id="table_danhsach_monhoc" cellspacing="0" cellpadding="0" border="1">                               
+                            <table id="table_task_list" cellspacing="0" cellpadding="0" border="1">                               
                                 <thead>
                                     <tr align="center">
                                         <td width="20"><input type="checkbox" name="checkall" id="checkall" onClick="checkUncheckAll(this);"/></td>
-                                        <td width="100"><b>Mã Công Việc</b></td>
-                                        <td width="130"><b>Tên Công Việc</b></td>
+                                        <td width="70"><b>Mã Yêu Cầu</b></td>
+                                        <td width="130"><b>Tên Yêu Cầu</b></td>
+                                        <td width="130"><b>Nhóm Thực Hiện</b></td>
                                         <td width="70"><b>Tiến Độ</b></td>                                     
                                     </tr>
                                 </thead>
                                 <tbody>
-                                	 <tr align="center">
-                                        <td width="20"><input type="checkbox" name="checkall" id="checkall" onClick="checkUncheckAll(this);"/></td>
-                                        <td width="70"><b><a href="#">CV1</a></b></td>
-                                        <td width="130"><b>Công Việc 1</b></td>
-                                        <td width="70"><b>100%</b></td>                                     
-                                    </tr>                               
+                                <logic:notEmpty name="record_list">
+                                <logic:iterate id="item" name="record_list">
+									<tr align="center">
+										<td><input type="checkbox" name="check" id="checkall"  value="<bean:write name="item" property="id"/>"/> </td>
+										<td width="70"><b><a href="/displayTask.do?id=<bean:write name="item" property="id"/>"><bean:write name="item" property="id"/></a> </b></td>
+										<td width="130"><b><bean:write name="item" property="nameTask"/></b></td>
+										<td width="130"><b><bean:write name="item" property="idGroup"/></b></td>
+										<td width="70"><b><bean:write name="item" property="process"/>%</b></td>
+									</tr>
+								</logic:iterate>   
+								</logic:notEmpty>
                                 </tbody>
                             </table>
                         </div>
                         <div id="phantrang" class="chose3" align="center">
-                            <select name ="PAGE" id="select_page" onchange="ajax_load_page_danhsachmonhoc()">
-                                <option value="0" >1</option>
-                            </select>
+                        <select name="page" id="select_page" onchange="getListTaskByPage(this.options[this.selectedIndex].text)" >
+							<logic:present name="record_page_list">
+							<logic:iterate id="item" name="record_page_list">
+							<option value="<bean:write name="item"/>" selected><bean:write name="item"/></option>
+							</logic:iterate>
+							</logic:present>
+						</select>
 
                         </div>
                         <div class="chose3" align="center">
-                            <input type="button" id="submit" value="Xóa" style="height: 25px; width: 100px" onClick="ajax_delete_monhoc()">
+                            <input type="submit" id="submit" value="Xóa" style="height: 25px; width: 100px" onClick="ajax_delete_monhoc()">
                             <input type="hidden" name="KEY" value="XOA_MONHOC">
 
                         </div>
@@ -80,74 +177,138 @@
 
                     </div>
                 </div> <!--end content left-->
-                <form name="form1" method="post" action="" id="form_monhoc">
+                <html:form action="/updateTask.do" method="get">
                     <div id="content_right">
-                        <h3 align="center"> Chỉnh sửa </h3><br>
+                      <h3 align="center">
+						Chỉnh sửa 
+						<logic:present name="record_sort" >
+						<logic:equal value="3" name="record_sort"  property="level">
+						| <a href="/changeModeTask.do?mode=1">Thêm mới </a>
+						</logic:equal>
+						</logic:present>
+						
+					</h3><br>
                         <table id="table_monhoc" class="table_right" cellspacing="5" cellpadding="0" border="0">
                             <thead>
 
                             </thead>
-                            <tr>
-                                <td width="100">Mã Công việc: </td>
-                                <td width="300">                    	                       	
-                                    <input name="mamon" type="text" id="mamon">                       
-                                </td>
-                            </tr>
+                            <logic:present name="record_flag">
+							<logic:equal name="record_flag" value="2">
+								<tr >
+									<td width="100">Mã công việc:</td>
+									<td width="300"><bean:write name="task" property="id" />
+									</td>
+								</tr>
+							</logic:equal>
+						</logic:present>
                             <tr>
                                 <td>Tên công việc: </td>
-                                <td><input type="text" name="tenmon" id="tenmon" >
+                                <td><html:text property="nameTask"></html:text>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Loại Công việc: </td>
                                 <td>
-                                    <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')">
-                                    	 <option value="user1" >Codec</option>
-                                    	 <option value="user1" >UseCase</option>
-                                    	                                   	 
-                                    </select>
+                                    <html:select property="kind" >
+                                   <logic:equal value="3" name="record_sort" property="level">
+                                      <logic:equal value="Test" name="record_sort" property="kind">
+                                       <html:option value="Test" >Test</html:option>
+                                       <html:option value="TestCase" >TestCase</html:option>
+                                       <html:option value="UseCase" >UseCase</html:option>
+                                       <html:option value="BanGiao" >BanGiao</html:option>
+                                       <html:option value="Code" >Code</html:option>
+                                   	  </logic:equal>
+                                   	  <logic:equal value="TestCase" name="record_sort" property="kind">
+                                       <html:option value="Test" >Test</html:option>
+                                       <html:option value="TestCase" >TestCase</html:option>
+                                       <html:option value="UseCase" >UseCase</html:option>
+                                       <html:option value="BanGiao" >BanGiao</html:option>
+                                       <html:option value="Code" >Code</html:option>
+                                   	  </logic:equal>
+                                   	  <logic:equal value="UseCase" name="record_sort" property="kind">
+                                   	  <html:option value="UseCase" >UseCase</html:option>
+                                       <html:option value="Test" >Test</html:option>
+                                       <html:option value="TestCase" >TestCase</html:option>
+                                       <html:option value="BanGiao" >BanGiao</html:option>
+                                       <html:option value="Code" >Code</html:option>
+                                   	  </logic:equal>
+                                   	   <logic:equal value="BanGiao" name="record_sort" property="kind">
+                                   	   <html:option value="BanGiao" >BanGiao</html:option>
+                                       <html:option value="Test" >Test</html:option>
+                                       <html:option value="TestCase" >TestCase</html:option>
+                                       <html:option value="UseCase" >UseCase</html:option>
+                                       <html:option value="Code" >Code</html:option>
+                                   	  </logic:equal>
+                                   	   <logic:equal value="Code" name="record_sort" property="kind">
+                                   	    <html:option value="Code" >Code</html:option>
+                                       <html:option value="Test" >Test</html:option>
+                                       <html:option value="UseCase" >UseCase</html:option>
+                                       <html:option value="BanGiao" >BanGiao</html:option>
+                                   	  </logic:equal>
+                                    </logic:equal>
+                                    </html:select>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Người thực hiện: </td>
                                 <td>
-                                    <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')">
-                                    	 <option value="user1" >Đặng Tấn lộc</option>
-                                    	 <option value="user1" >Nguyễn Thị Thúy</option>                                  	 
-                                    </select>
+                                     <html:select property="emailEmployee" >
+                                    <option value="<bean:write name="task" property="emailEmployee"/>"><bean:write name="task" property="emailEmployee"/></option>
+                                   <logic:equal value="3" name="record_sort" property="level">
+                                    <logic:notEmpty name="task_user_free">
+                                     <logic:iterate id="item" name="task_user_free">
+                                     <option value="<bean:write name="item" />"><bean:write name="item" /></option>
+                                    </logic:iterate>
+                                    </logic:notEmpty>
+                                    </logic:equal>
+                                    </html:select>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Mô tả: </td>
                                 <td>
-                                   <textarea rows="5" cols="20"> ha ha ah</textarea>
+                                  <html:textarea property="content"></html:textarea>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Ngày Bắt Đầu: </td>
-                                <td><input type="text" name="ghichu" id="thuchanh">
+                                <td><html:text property="startDate"></html:text>
                                 </td>
                             </tr>  
                               <tr>
                                 <td>Ngày Kết Thúc: </td>
-                                <td><input type="text" name="ghichu" id="thuchanh">
+                                <td><html:text property="endDate"></html:text>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Tiến Độ: </td>
-                                <td><input type="text" name="ghichu" id="thuchanh">
+                                <td><html:text property="process"></html:text>%
                                 </td>
                             </tr>
                             <tr>
                              <td> Trạng thái</td>
                              <td>
-                             	 <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')">
-                                    	<option value="0" >Đang hoạt động</option>
-                                    	<option value="1" >Đã hoàn thành</option>
-                               </select>
+                             	 <html:select property="status">
+                             	 <logic:present name="record_sort" >
+                             	 <logic:equal value="Open" name="record_sort" property="status">
+                             	 <html:option value="Open" >Open</html:option>
+                             	 <html:option value="Close">Close</html:option>
+                             	 </logic:equal>
+                             	 <logic:equal value="Close" name="record_sort" property="status">
+                             	 <html:option value="Close">Close</html:option>
+                             	 <html:option value="Open" >Open</html:option>
+                             	 </logic:equal>
+                             	 </logic:present>
+                             	 </html:select>
                              </td>
                               
-                            </tr>   
+                            </tr>  
+                            <tr>
+                             <!-- display error checked by XML -->
+              <html:messages id="error">
+                <%=error%>
+              </html:messages> 
+              </tr>
                         </table>
                         <table>
                             <tr>
@@ -156,17 +317,17 @@
                                     </div>
                                 </td>
                                 <td width="40"> </td>
+                                 <logic:equal value="3" name="record_sort" property="level">
                                 <td width="150" align="left">
                                     <div id="bt_submit">
-                                        <input type ="button" id="submit" value="OK" style="height: 25px; width: 100px" onClick="ajax_capnhatmonhoc()">
-                                        <input type ="hidden" name ="KEY" value="THEM_MONHOC">
-                                        <input type ="hidden" name="PAGE" value="0">
+                                        <input type ="submit" id="submit" value="OK" style="height: 25px; width: 100px">
                                     </div>
                                 </td>
+                                </logic:equal>
                             </tr>
                         </table>           
                     </div><!--end content right-->
-                </form>
+                </html:form>
 
             </div>
 
