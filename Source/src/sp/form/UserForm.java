@@ -9,7 +9,6 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.validator.ValidatorForm;
 
 import sp.blo.UserBlo;
-import sp.dao.UserDao;
 
 public class UserForm extends ValidatorForm implements Serializable {
 

@@ -333,6 +333,29 @@ public final class PMF {
     }
     
     /*
+     * get so luong record theo tung page,sort
+     */
+    @SuppressWarnings("unchecked")
+	public static List<?> getObjectListSorted(Class<?> className,String sort, int page){
+    	PersistenceManager pm = getPMF();
+        Query query = pm.newQuery(className);
+        query.setOrdering(sort);
+        query.setRange(Constant.RECORD * (page - 1), Constant.RECORD * page);
+        List<Object> results = null;
+        List<Object> detachedList = null;
+        try {
+            detachedList = (List<Object>) query.execute();
+            results = (List<Object>) pm.detachCopyAll(detachedList);
+
+        } finally {
+            query.closeAll();
+            pm.close();
+        }
+        return results;
+        
+    }
+    
+    /*
      * get so luong record theo tung page, filter
      */
     @SuppressWarnings("unchecked")
@@ -359,6 +382,51 @@ public final class PMF {
         return results;
         
     }
+    
+    @SuppressWarnings("unchecked")
+	public static List<?> getObjectList(Class<?> className, String filter, String sort){
+    	PersistenceManager pm = getPMF();
+        Query query = pm.newQuery(className);
+        
+        query.setOrdering(sort);
+        //set filter
+        query.setFilter(filter);
+        
+        List<Object> results = null;
+        List<Object> detachedList = null;
+        try {
+            detachedList = (List<Object>) query.execute();
+            results = (List<Object>) pm.detachCopyAll(detachedList);
+
+        } finally {
+            query.closeAll();
+            pm.close();
+        }
+        return results;
+        
+    }
+    
+    @SuppressWarnings("unchecked")
+   	public static List<?> getObjectListSort(Class<?> className, String sort){
+       	PersistenceManager pm = getPMF();
+           Query query = pm.newQuery(className);
+           
+           query.setOrdering(sort);
+           
+           List<Object> results = null;
+           List<Object> detachedList = null;
+           try {
+               detachedList = (List<Object>) query.execute();
+               results = (List<Object>) pm.detachCopyAll(detachedList);
+
+           } finally {
+               query.closeAll();
+               pm.close();
+           }
+           return results;
+           
+       }
+    
     
     /*
      * get so luong record theo tung page, filter, sorte

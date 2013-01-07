@@ -279,6 +279,101 @@ function draw_table_danhsachaccount(list_account,length,index)
 // --- Po draw table
 //------------------các hàm xử lý trong trang account.jsp
 
+//------------------các hàm xử lý trong trang project.jsp
+function getListProject(page)
+{
+	var form = document.getElementById("listProject");
+	var select_status = form.elements["status"];	    
+    ajax_getCountAndCountPage("sp.dto.Project","status==" + select_status[select_status.selectedIndex].value,page);
+    
+    ajax_getListProject(page)
+}
+
+function getListProjectByPage()
+{
+	var form = document.getElementById("listProject");
+	
+	var select_page = form.elements["select_page"];
+	ajax_getListProject(select_page[select_page.selectedIndex].value)
+}
+
+function ajax_getListProject(page)
+{
+	 //draw_loading();
+    var form = document.getElementById("listProject");
+    var select_status = form.elements["status"];
+    
+    var xhr = createXHR();
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState == 4){
+            if ((xhr.status  >= 200  &&  xhr.status  <  300) || xhr.status == 304){
+
+                var list_project = JSON.parse(xhr.responseText);
+                
+                //draw_phantrang(list_Account[0].SOLUONG,page);
+                draw_table_danhsachProject(list_project,length,0)
+                //undraw_loading();
+            } else {
+                alert("Request was unsuccessful: " + xhr.status);
+            }
+        }
+    };
+
+    
+    var url = "getlistproject.do";
+    url = addURLParam(url, "PAGE", page);
+    url = addURLParam(url, select_status.name, select_status[select_status.selectedIndex].value);
+    
+    xhr.open("get", url, true);
+    xhr.send(null);
+}
+
+function draw_table_danhsachProject(list_project,length,index)
+{
+	// name của input checkbox
+    var tr, td, i;
+    var table = document.getElementById("table_danhsach_project");
+
+    // thẻ body cũ
+    var body = table. tBodies[0];
+
+    // vẽ một thủ body mới chứa dữ liệu
+    var tbody = document.createElement("tbody");
+    table.replaceChild(tbody,body);
+    for (i = index; i<length; i++)
+    {
+    	
+        tr = tbody.insertRow(tbody.rows.length);
+        tr.setAttribute("align", "center");
+
+        td = tr.insertCell(tr.cells.length);
+        var input = document.createElement("input");
+        input.setAttribute("type","checkbox");
+        input.setAttribute("name","check");
+        input.setAttribute("value",list_project[i].IDproject);
+        td.appendChild(input);
+       
+        
+
+        td = tr.insertCell(tr.cells.length);
+        var a =  document.createElement("a");
+        a.setAttribute("href","javascript: void(0)");
+        a.setAttribute("onclick","ajax_getAccount('" +list_project[i].IDproject+"');");
+        a.innerHTML = list_project[i].projectname;
+        td.appendChild(a);
+               
+        
+        td = tr.insertCell(tr.cells.length);
+        td.innerHTML = list_project[i].projectmanager;
+        
+        td = tr.insertCell(tr.cells.length);
+        td.innerHTML = list_project[i].process;
+        
+    }
+}
+//------------------các hàm xử lý trong trang project.jsp
+
+
 // ------------- Các hàm xử lý trong trang login.jsp
 
 function getUrlVars()
@@ -626,4 +721,6 @@ function draw_table_danhsach_req(list_req,length,index)
       td.innerHTML = list_req[i].websiteOrg;
       
   }
-} 
+}
+
+

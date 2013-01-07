@@ -1,6 +1,5 @@
 package sp.blo;
 
-
 import java.util.List;
 
 import sp.dao.PMF;
@@ -9,7 +8,8 @@ import sp.dto.User;
 import sp.util.JSONObject;
 import sp.util.JSONObjectList;
 
-public class UserBlo {
+public class GroupBlo {
+	
 	private static UserDao userDao = new UserDao();
 
 	/**
@@ -75,6 +75,6 @@ public class UserBlo {
         return jsonlist;
 	}
 	
-
 	
+
 }

@@ -110,4 +110,9 @@ public class Constant {
 	public final static String Type_Login ="typeLogin";
 	public final static String User_Login ="UserLogIN";
 	
+	// project, task, request
+	public final static int STATUS_OPEN = 1;   
+	public final static int STATUS_CLOSE = 0;
+	public final static String PROJECT_LIST ="project_list";
+	
 }

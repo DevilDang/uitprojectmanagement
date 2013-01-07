@@ -1,6 +1,5 @@
-package sp.action.Account;
-
-
+package sp.action.Project;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,14 +9,16 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import sp.blo.ProjectBlo;
 import sp.blo.UserBlo;
-import sp.dao.PMF;
+import sp.dao.ProjectDao;
 import sp.dao.UserDao;
+import sp.dto.Project;
 import sp.dto.User;
-import sp.util.Constant;
+import sp.util.JSONObjectList;
 
-public class DeleteAccount extends org.apache.struts.action.Action{
-
+public class GetListProject extends org.apache.struts.action.Action {
+	
 	 /*
      * forward name="success" path=""
      */
@@ -25,7 +26,7 @@ public class DeleteAccount extends org.apache.struts.action.Action{
 
     /**
      * This is the action called from the Struts framework.
-     * Class này dùng để xóa các tài khoản
+     * Action này dùng để lấy danh sách các dự án
      * @param mapping The ActionMapping used to select this instance.
      * @param form The optional ActionForm bean for this request.
      * @param request The HTTP Request we are processing.
@@ -34,28 +35,24 @@ public class DeleteAccount extends org.apache.struts.action.Action{
      * @return
      */
     
-    @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        
-    	String login_name_array[] = request.getParameterValues("check");
-    	   	 
-    	for(int i = 0;i<login_name_array.length;i++)
-    		PMF.deleteObject(User.class, login_name_array[i]);
     	
-    	
-    	long group = Long.parseLong(request.getParameter("group"));
+    	PrintWriter out = response.getWriter();
+        long status = Integer.parseInt(request.getParameter("status"));
         int page = Integer.parseInt(request.getParameter("PAGE"));
         
-        List<User> list_user = UserDao.getListAccountSorted(group, page);
-    	request.setAttribute(Constant.ACCOUNT_LIST, list_user);
-    	request.setAttribute("group", group);
-    	request.setAttribute("page", page);
-    	
+        ProjectDao projectdao = new ProjectDao();
+        List<Project> list_project = projectdao.getProjectListFilter(page, "status=="+status, "IDproject desc");
+        
+        JSONObjectList jsonlist = ProjectBlo.createJSONObjectList(list_project);
+        
+        out.write(jsonlist.toJSONtextString());
+        out.close();
     	
         return mapping.findForward(SUCCESS);
     }
-    
+
 }

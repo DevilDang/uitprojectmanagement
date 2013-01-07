@@ -106,15 +106,6 @@
                                     </select>
                                 </td>
                             </tr>  
-                            <tr>
-                                <td>Thực hiện yêu cầu: </td>
-                                <td> 
-                                <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')">
-                                    	 <option value="user1" >Yêu cầu 1</option>
-                                    	 <option value="user1" >Yêu cầu 2</option>                                  	 
-                                    </select>
-                                </td>
-                            </tr>   
                         </table>
                         <table>
                             <tr>

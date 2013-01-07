@@ -12,6 +12,7 @@ import org.apache.struts.action.ActionMapping;
 
 import sp.blo.UserBlo;
 import sp.dao.PMF;
+import sp.dao.UserDao;
 import sp.dto.User;
 import sp.util.JSONObjectList;
 
@@ -32,8 +33,7 @@ public class GetListAccount extends org.apache.struts.action.Action {
      * @return
      */
     
-    @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
@@ -42,15 +42,7 @@ public class GetListAccount extends org.apache.struts.action.Action {
         long group = Long.parseLong(request.getParameter("group"));
         int page = Integer.parseInt(request.getParameter("PAGE"));
         
-        List<User> list_user; 
-        if(group == -1)
-        {
-        	// lấy tất cả 
-        	list_user = ( List<User>)PMF.getObjectList(User.class, page);
-        }else
-        {
-        	list_user= ( List<User>)PMF.getObjectList(User.class, "groupID==" +group ,"id desc", page);
-        }
+        List<User> list_user = UserDao.getListAccountSorted(group, page);
         
         JSONObjectList jsonlist = UserBlo.createJSONObjectList(list_user);
         
