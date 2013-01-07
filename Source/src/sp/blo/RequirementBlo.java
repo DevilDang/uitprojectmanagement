@@ -119,7 +119,7 @@ public static boolean updateStatusGroupReq(Long id, String status){
 		if (groupList != null & groupList.size() >0){
 			int size = groupList.size();
 			for( int i = 0; i<size; i++){
-				idGroupList.add(groupList.get(i).getId());
+				idGroupList.add(groupList.get(i).getIDgroup());
 			}
 		}
 		

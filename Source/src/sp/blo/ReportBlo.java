@@ -202,7 +202,7 @@ public class ReportBlo {
 		//create list idProject
 		int size = projectList.size();
 		for( int i = 0; i<size; i++){
-			idProjectList.add(projectList.get(0).getId());
+			idProjectList.add(projectList.get(0).getIDproject());
 		}
 		
 		return idProjectList;
@@ -295,7 +295,7 @@ public class ReportBlo {
 	 */
 	public static Long getIdProjectByPM(String idPM){
 		StringBuilder filter = new StringBuilder();
-		filter.append("idPm==\'"+ idPM + "\'");
+		filter.append("projectmanager==\'"+ idPM + "\'");
 		filter.append("&&");
 		filter.append(Constant.DEFAULT_STATUS);
 		return reportDao.getIdProjectByPM(filter.toString());
@@ -401,59 +401,59 @@ public class ReportBlo {
 	 * create data
 	 */
 	public static void createData(){
-		User user = new User();
-		user.setEmail("a@gmail.com");
-		user.setGroupID(1);
-		user.setIdPermision(String.valueOf(Constant.EMPLOYEE));
-		PMF.insertObject(user);
-		
-		//2
-		user.setEmail("b@gmail.com");
-		user.setGroupID(2);
-		user.setIdPermision(String.valueOf(Constant.LEADER));
-		PMF.insertObject(user);
-		
-		//
-		user.setEmail("c@gmail.com");
-		user.setGroupID(3);
-		user.setIdPermision(String.valueOf(Constant.PM));
-		PMF.insertObject(user);
-		
-		Project pro = new Project();
-		pro.setIdPm("c@yahoo.com");
-		
-		PMF.insertObject(pro);
-		
-		Group group = new Group();
-		group.setIdLeader("b@gmail.com");
-		@SuppressWarnings("unchecked")
-		List<Project> proList = (List<Project>) PMF.getObjectList(Project.class, "idPm == 'c@yahoo.com'" );
-		group.setIdProject(proList.get(0).getId());
-		
-		PMF.insertObject(group);
-		
-		
-		Requirement req = new Requirement();
-		@SuppressWarnings("unchecked")
-		List<Group> groupList = (List<Group>) PMF.getObjectList(Group.class, "idProject == " + proList.get(0).getId());
-		req.setIdGroup(groupList.get(0).getId());
-		req.setIdProject(proList.get(0).getId());
-		PMF.insertObject(req);
-		
-		Task task = new Task();
-		task.setIdProject(proList.get(0).getId());
-		task.setIdGroup(groupList.get(0).getId());
-		@SuppressWarnings("unchecked")
-		List<Requirement> reqList = (List<Requirement>) PMF.getObjectList(Requirement.class, "idProject == " + proList.get(0).getId() + "&& idGroup==" + groupList.get(0).getId());
-		task.setIdReq(reqList.get(0).getId());
-		task.setEmailEmployee("a@gmail.com");
-		PMF.insertObject(task);
+//		User user = new User();
+//		user.setEmail("a@gmail.com");
+//		user.setGroupID(1);
+//		user.setIdPermision(String.valueOf(Constant.EMPLOYEE));
+//		PMF.insertObject(user);
 //		
-		@SuppressWarnings("unchecked")
-		List<Group> groupList1 = (List<Group>) PMF.getObjectList(Group.class, Constant.DEFAULT_STATUS);
-		groupList1.size();
-		List<Requirement> reqList1 = (List<Requirement>) PMF.getObjectList(Requirement.class, Constant.DEFAULT_STATUS);
-		List<Task> taskList = (List<Task>) PMF.getObjectList(Task.class, Constant.DEFAULT_STATUS);
+//		//2
+//		user.setEmail("b@gmail.com");
+//		user.setGroupID(2);
+//		user.setIdPermision(String.valueOf(Constant.LEADER));
+//		PMF.insertObject(user);
+//		
+//		//
+//		user.setEmail("c@gmail.com");
+//		user.setGroupID(3);
+//		user.setIdPermision(String.valueOf(Constant.PM));
+//		PMF.insertObject(user);
+//		
+//		Project pro = new Project();
+//		pro.setIdPm("c@yahoo.com");
+//		
+//		PMF.insertObject(pro);
+//		
+//		Group group = new Group();
+//		group.setIdLeader("b@gmail.com");
+//		@SuppressWarnings("unchecked")
+//		List<Project> proList = (List<Project>) PMF.getObjectList(Project.class, "idPm == 'c@yahoo.com'" );
+//		group.setIdProject(proList.get(0).getId());
+//		
+//		PMF.insertObject(group);
+//		
+//		
+//		Requirement req = new Requirement();
+//		@SuppressWarnings("unchecked")
+//		List<Group> groupList = (List<Group>) PMF.getObjectList(Group.class, "idProject == " + proList.get(0).getId());
+//		req.setIdGroup(groupList.get(0).getId());
+//		req.setIdProject(proList.get(0).getId());
+//		PMF.insertObject(req);
+//		
+//		Task task = new Task();
+//		task.setIdProject(proList.get(0).getId());
+//		task.setIdGroup(groupList.get(0).getId());
+//		@SuppressWarnings("unchecked")
+//		List<Requirement> reqList = (List<Requirement>) PMF.getObjectList(Requirement.class, "idProject == " + proList.get(0).getId() + "&& idGroup==" + groupList.get(0).getId());
+//		task.setIdReq(reqList.get(0).getId());
+//		task.setEmailEmployee("a@gmail.com");
+//		PMF.insertObject(task);
+////		
+//		@SuppressWarnings("unchecked")
+//		List<Group> groupList1 = (List<Group>) PMF.getObjectList(Group.class, Constant.DEFAULT_STATUS);
+//		groupList1.size();
+//		List<Requirement> reqList1 = (List<Requirement>) PMF.getObjectList(Requirement.class, Constant.DEFAULT_STATUS);
+//		List<Task> taskList = (List<Task>) PMF.getObjectList(Task.class, Constant.DEFAULT_STATUS);
 		
 		
 	}

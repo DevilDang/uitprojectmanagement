@@ -83,7 +83,7 @@ public class ReportDao {
 		if (projectList == null || projectList.size() == 0){
 			return null;
 		}
-		return projectList.get(0).getId();
+		return projectList.get(0).getIDproject();
 	}
 	
 	/*
