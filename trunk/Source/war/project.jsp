@@ -1,4 +1,13 @@
+<%@page import="sp.dao.GroupDao"%>
+<%@page import="sp.dao.UserDao"%>
+<%@page import="sp.dto.Group"%>
+<%@page import="sp.blo.UserBlo"%>
+<%@page import="sp.dto.User"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html; charset=utf-8" language="java" errorPage="" %>
+<%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%>
+<%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic"%>
+<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
 <html>
     <head>
         <title>Quản Lý Dự Án</title>
@@ -8,7 +17,8 @@
         <script src="javascripts/SpryMenuBar.js" type="text/javascript"></script>
         <script src="javascripts/MyJavaScripts.js" type="text/javascript"></script>
         <script src="javascripts/json.js" type="text/javascript"></script>
-        <script src="javascripts/check.js" type="text/javascript"></script>
+        <script src="javascripts/check.js" type="text/javascript"></script>      
+		<script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
     </head>
     <body>
         <div id="container">           
@@ -22,30 +32,40 @@
             <div id="content">
                 <div id="content_left">
                     <h3 align="center"> Quản lý danh sách </h3><br>
-                    <form name="danhsachmonhoc" id ="danhsachmonhoc" method="post" action="">
-
+                    <form name="listProject" id ="listProject" method="post" action="">
+                        <div class="chose3" align="center">
+                           Trạng thái:
+                         
+                            <select name="status" id="status" onchange="getListProject(1)">
+                            			<option value="-1" ></option>
+                                    	<option value="1" >Mở</option>
+                                    	<option value="0" >Đóng</option>                                 	
+                            </select>
+                        </div>
                         <p>&nbsp;</p>
                         <p><br>
                         </p>
                         <div id="table">
-                            <table id="table_danhsach_monhoc" cellspacing="0" cellpadding="0" border="1">
+                            <table id="table_danhsach_project" cellspacing="0" cellpadding="0" border="1">
                                 <thead>
                                     <tr align="center">
                                         <td width="20"><input type="checkbox" name="checkall" id="checkall" onClick="checkUncheckAll(this);"/></td>
-                                        <td width="70"><b>Mã Dự Án</b></td>
                                         <td width="130"><b>Tên Dự Án</b></td>
                                         <td width="130"><b>Người Quản lý</b></td>
                                         <td width="70"><b>Tiến Độ</b></td>                                     
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <logic:present name="project_list">
+									<logic:iterate id="element" name="project_list">
                                 	 <tr align="center">
-                                        <td width="20"><input type="checkbox" name="checkall" id="checkall" onClick="checkUncheckAll(this);"/></td>
-                                        <td width="70"><b><a href="#">PM1</a></b></td>
-                                        <td width="130"><b>Dự án 1</b></td>
-                                        <td width="130"><b>Đặng Tấn Lộc</b></td>
-                                        <td width="70"><b>100%</b></td>                                     
-                                    </tr>                               
+                                        <td width="20"><input type="checkbox" name="check" value="<bean:write name="element"  property="IDproject"/>"/></td>
+                                        <td width="130"><a href="#"><bean:write name="element"  property="projectname"/></a></td>
+                                        <td width="130"><b><bean:write name="element"  property="projectmanager"/></b></td>
+                                        <td width="70"><bean:write name="element"  property="process"/></td>                                     
+                                    </tr>
+                                    </logic:iterate>
+								</logic:present>                               
                                 </tbody>
                             </table>
                         </div>
@@ -65,98 +85,132 @@
 
                     </div>
                 </div> <!--end content left-->
-                <form name="form1" method="post" action="" id="form_monhoc">
+                  <html:form method="post" action="/editproject.do">
                     <div id="content_right">
                         <h3 align="center"> Chỉnh sửa </h3><br>
                         <table id="table_monhoc" class="table_right" cellspacing="5" cellpadding="0" border="0">
                             <thead>
-
+								
                             </thead>
                             <tr>
+							<td width="200"><html:errors /></td>
+							</tr>
+                            <tr>
                                 <td width="70">Mã dự án: </td>
-                                <td width="100">                    	                       	
-                                    <input name="mamon" type="text" id="mamon">                       
+                                <td width="100" id="EditAccount">
+                                    <html:text property="IDproject" readonly="true" value=""></html:text>                 
                                 </td>
                             </tr>
                             <tr>
                                 <td>Tên dự án: </td>
-                                <td><input type="text" name="tenmon" id="tenmon" >
+                                <td><html:text property="projectname" ></html:text> 
                                 </td>
                             </tr>
                             <tr>
                                 <td>Người quản lý: </td>
                                 <td>
-                                    <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')">
-                                    	 <option value="user1" >Đặng Tấn lộc</option>
-                                    </select>
+                                   <html:select property="projectmanager">
+                                   <%
+                                   		List<User> list_user = UserDao.getListAccountSorted(0);
+                                        if(list_user != null)
+                                        {
+                                        	for(int i = 0;i<list_user.size();i++)
+                                        	{
+                                        		
+                                        		
+                                   %>
+                                        	<option value="<%=list_user.get(i).getEmail() %>">  <%=list_user.get(i).getName() %> </option>
+                                   <%
+                                            }
+                                   		}
+                                   %>
+                                   
+										
+									 	
+                                   </html:select>                                   
                                 </td>
                             </tr>
                             <tr>
                                 <td>Các nhóm tham gia: </td>
                                  <td  align="justify">
-                                    <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')" size="4"  >
-                                    	 <option value="user1" >Nhóm 1</option>
-                                    	 <option value="user1" >Nhóm 1</option>
-                                    	 <option value="user1" >Nhóm 1</option>
+                                    <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')">
+                                      <%
+                                        GroupDao groupdao = new GroupDao();
+                                        String param_idproject = request.getParameter("IDproject");
+                                        if(param_idproject != null && param_idproject.length() > 1)
+                                        {
+	                                   		List<Group> list_group = groupdao.getGroupList("IDproject==" + param_idproject);
+	                                        if(list_group != null)
+	                                        {
+	                                        	for(int i = 0;i<list_group.size();i++)
+	                                        	{
+                                        		
+	                                        		
+	                                   %>
+	                                        	<option value="<%=list_group.get(i).getGroupID() %>">  <%=list_group.get(i).getGroupname() %> </option>
+	                                   <%
+	                                         	}
+	                                   		}
+                                        }
+	                                   %>
                                     </select>                                    
                                 </td>
                             </tr>
                             <tr>
                                 <td>Tiến Độ: </td>
-                                <td><input type="text" name="ghichu" id="thuchanh">
+                                <td><html:text property="process" ></html:text> 
                                 </td>
                             </tr>
                               <tr>
                                 <td>Ngày Bắt Đầu: </td>
-                                <td><input type="text" name="ghichu" id="thuchanh">
+                                <td><html:text property="startDate"></html:text> 
                                 </td>
                             </tr>  
                               <tr>
                                 <td>Ngày Kết Thúc: </td>
-                                <td><input type="text" name="ghichu" id="thuchanh">
+                                <td><html:text property="endDate"></html:text> 
                                 </td>
                             </tr>
                             <tr>
                                 <td>Các yêu cầu: </td>
                                 <td>
-                                    <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')" size="4">
-                                    	<option value="user1" >Yêu Cầu 1</option>
-                                    	<option value="user1" >Yêu Cầu 1</option>
-                                    	<option value="user1" >Yêu Cầu 1</option>
-                                    	<option value="user1" >Yêu Cầu 1</option>
-                                    	<option value="user1" >Yêu Cầu 1</option>
+                                    <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')">
                                     </select>
                                 </td>
                             </tr>
                              <tr>
                              <td> Trạng thái</td>
                              <td>
-                             	 <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')">
-                                    	<option value="0" >Đang hoạt động</option>
-                                    	<option value="1" >Đã hoàn thành</option>
-                               </select>
-                             </td>
-                              
+                             	<html:select property="status">                           	 
+                             		<html:option value="1" >Mở</html:option>                                  	
+                             		<html:option value="0" >Đóng</html:option>                   		
+                             	</html:select>
+                             </td>                          
                             </tr>
+                            <tr>
+							<td><input name="isEdit" type="radio" checked="checked" value="add" /> Thêm mới 
+							</td>
+							<td><input name="isEdit" type="radio" value="edit" /> Chỉnh sửa
+							</td>
+						</tr>
                         </table>
                         <table>
                             <tr>
                                 <td width="170" align="right"><div id="bt_reset">
-                                        <input type="reset" name="reset" id="reset" value="Reset" style="height: 25px; width: 100px" onClick="reset_validate_form_monhoc()">
+                                       <html:reset value="Làm mới" style="height: 25px; width: 100px"
+										onclick="xoa_errors();" ></html:reset>
                                     </div>
                                 </td>
                                 <td width="40"> </td>
                                 <td width="150" align="left">
                                     <div id="bt_submit">
-                                        <input type ="button" id="submit" value="OK" style="height: 25px; width: 100px" onClick="ajax_capnhatmonhoc()">
-                                        <input type ="hidden" name ="KEY" value="THEM_MONHOC">
-                                        <input type ="hidden" name="PAGE" value="0">
+                                        <html:submit value="OK" style="height: 25px; width: 100px"></html:submit>
                                     </div>
                                 </td>
                             </tr>
                         </table>           
                     </div><!--end content right-->
-                </form>
+                </html:form>
 
             </div>
 

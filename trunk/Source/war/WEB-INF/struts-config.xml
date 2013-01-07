@@ -2,9 +2,11 @@
 <!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd">
 <struts-config>
   <form-beans>
-  <!-- po form đăng nhập vào ứng dụng-->
+  <!-- po form -->
    <form-bean name="UserForm" type="sp.form.UserForm"/>
    <form-bean name="AccountForm" type="sp.form.AccountForm"/>
+   <form-bean name="ProjectForm" type="sp.form.ProjectForm"/>
+   
   <!-- po -->
   </form-beans>
   <global-forwards>
@@ -57,6 +59,17 @@
       <action path="/countpages" type="sp.action.countpages">
       </action>  
      <!-- Po -action xử lý việc tính số page khi view danh sách -->
+      
+      <!-- Po - action xử lý việc thêm, sửa project -->
+     <action input="/project.jsp" name="ProjectForm" path="/editproject" type="sp.action.Project.EditProject" scope="session" validate="true">
+       <forward name="success" path="/project.jsp"/>
+     </action>     
+     <!-- Po -action xử lý việc thêm, sửa project -->
+     
+      <!-- Po - action xử lý lấy danh sách các project -->
+     <action path="/getlistproject" type="sp.action.Project.GetListProject">
+     </action>     
+     <!-- Po -action xử lý lấy danh sách các project -->
        
        
     <!-- <action path="/promotionInfoWeekly" type="ebiz.action.mail.PromotionWeekly"-->

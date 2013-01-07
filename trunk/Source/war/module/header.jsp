@@ -22,9 +22,10 @@
             <li><a href="/displayTaskList.do">Công Việc</a></li>
             <li><a href="/displayOrgList.do">Đối Tác</a></li>
             <li><a href="group.jsp">Nhóm</a></li>
+            <li><a href="employer.jsp">Nhân Viên</a></li>          
+            <li><a href="/displayReportList.do">Báo Cáo</a></li>   
             <li><a href="account.jsp">Tài Khoản</a></li>
-            <li><a href="changepassword.jsp">Đổi Mật Khẩu</a></li>
-            <li><a href="/displayReportList.do">Báo Cáo</a></li>            
+            <li><a href="changepassword.jsp">Đổi Mật Khẩu</a></li>         
             <li><a href="logout.do">Đăng Xuất</a></li>
         </ul>
     </div> <!--end menu-->

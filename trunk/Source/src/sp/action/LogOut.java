@@ -8,11 +8,6 @@ import org.apache.struts.action.ActionMapping;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
-import sp.dto.User;
-
-import sp.dao.PMF;
-import sp.dao.UserDao;
-import sp.form.UserForm;
 import sp.util.Constant;
 
 public class LogOut extends org.apache.struts.action.Action  {

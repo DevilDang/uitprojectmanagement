@@ -1,6 +1,4 @@
-package sp.action.Account;
-
-
+package sp.action.Project;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,15 +7,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
-import sp.blo.UserBlo;
-import sp.dao.PMF;
+import sp.dao.ProjectDao;
 import sp.dao.UserDao;
-import sp.dto.User;
+import sp.dto.Project;
+import sp.form.ProjectForm;
 import sp.util.Constant;
 
-public class DeleteAccount extends org.apache.struts.action.Action{
-
+public class EditProject extends org.apache.struts.action.Action {
+	
 	 /*
      * forward name="success" path=""
      */
@@ -25,7 +24,7 @@ public class DeleteAccount extends org.apache.struts.action.Action{
 
     /**
      * This is the action called from the Struts framework.
-     * Class này dùng để xóa các tài khoản
+     * Action này dùng để lấy danh sách các dự án
      * @param mapping The ActionMapping used to select this instance.
      * @param form The optional ActionForm bean for this request.
      * @param request The HTTP Request we are processing.
@@ -34,28 +33,29 @@ public class DeleteAccount extends org.apache.struts.action.Action{
      * @return
      */
     
-    @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
+           	
+    	ProjectForm projectform = (ProjectForm)form;	
+ 		Project project = projectform.getProject();
+ 		String checkMode = request.getParameter("isEdit");
+        if("add".equals(checkMode))
+        {
+        	project.setIDproject(System.currentTimeMillis());
+        	ProjectDao.saveUser(project);
+        }else if("edit".equals(checkMode))
+        {
+        	ProjectDao.saveUser(project);
+        }
         
-    	String login_name_array[] = request.getParameterValues("check");
-    	   	 
-    	for(int i = 0;i<login_name_array.length;i++)
-    		PMF.deleteObject(User.class, login_name_array[i]);
-    	
-    	
-    	long group = Long.parseLong(request.getParameter("group"));
-        int page = Integer.parseInt(request.getParameter("PAGE"));
-        
-        List<User> list_user = UserDao.getListAccountSorted(group, page);
-    	request.setAttribute(Constant.ACCOUNT_LIST, list_user);
-    	request.setAttribute("group", group);
-    	request.setAttribute("page", page);
-    	
-    	
+        ProjectDao projectdao = new ProjectDao();
+        List<Project> list_project =  projectdao.getProjectListFilter(1, "status==" + project.getStatus(), "IDproject desc");
+        request.setAttribute(Constant.PROJECT_LIST, list_project);
+	        
         return mapping.findForward(SUCCESS);
     }
-    
+
 }
+
