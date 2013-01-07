@@ -441,7 +441,7 @@ function getListReport(flag,page)
 	ajax_getListReport(page,select.name,sort_value);
 	
 	
-	ajax_getCountAndCountPage(page,0);
+	ajax_getCountAndCountPageReport(page,0);
 }
 
 function getListReportByPage(page)
