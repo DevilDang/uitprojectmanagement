@@ -358,7 +358,7 @@ function getListReportByPage(page)
 }
 
 //tinh so page
-function ajax_getCountAndCountPage(page, flag)
+function ajax_getCountAndCountPageReport(page, flag)
 {
   var xhr = createXHR();
   xhr.onreadystatechange = function(){
