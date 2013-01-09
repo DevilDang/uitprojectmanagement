@@ -1,11 +1,19 @@
 package sp.form;
 
 import java.io.Serializable;
+import java.text.ParseException;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 import org.apache.struts.validator.ValidatorForm;
 
 import sp.dto.Requirement;
 import sp.util.CommonUtil;
+import sp.util.Constant;
+import sp.util.Validation;
 
 public class RequirementForm extends ValidatorForm implements Serializable{
 	
@@ -23,6 +31,7 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 	private int process;
 	private String status;
 	private int level;
+	private String mode;
 	/**
 	 * @return the id
 	 */
@@ -145,6 +154,19 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 	public void setLevel(int level) {
 		this.level = level;
 	}
+	
+	/**
+	 * @return the mode
+	 */
+	public String getMode() {
+		return mode;
+	}
+	/**
+	 * @param mode the mode to set
+	 */
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
 	/*
 	 * transfer Form -> DTO
 	 */
@@ -178,4 +200,53 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 		
 		
 	}
+	
+	@Override
+	 public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
+		 
+		ActionErrors errors = new ActionErrors();
+		
+			try {
+				if (Constant.MODE_INSERT.equals(mode)) {
+				if (!Validation.checkSysDate(startDate)
+						|| (!Validation.checkSysDate(endDate))) {
+					errors.add("date", new ActionMessage(
+							"error.req.invalidDate"));
+				} else {
+					if (!Validation.checkValueDate(startDate, endDate)) {
+						errors.add("compareDate", new ActionMessage(
+								"error.req.compareDate"));
+					}
+				}
+				}
+				else
+				{
+					if (!Validation.checkValueDate(startDate, endDate)) {
+						errors.add("compareDate", new ActionMessage(
+								"error.req.compareDate"));
+					}
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				errors.add("error", new ActionMessage(""));
+			}
+		return errors;
+	}
+	
+	public void clear(){
+		 id = null;
+		 nameReq = "";
+		content = "";
+		idProject = null;
+		idGroup = null;
+		startDate = null;
+		endDate = null;
+		process = 0;
+		status = "";
+		level = 0;
+		//set mode insert
+		mode = Constant.MODE_INSERT;
+	}
+	
 }

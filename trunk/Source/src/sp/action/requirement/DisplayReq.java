@@ -35,6 +35,9 @@ public class DisplayReq extends Action{
 			//get Report
 			if (id != null){
 				RequirementForm reqForm = RequirementBlo.getRequirementForm(Long.parseLong(id));
+				//set mode 
+				
+				reqForm.setMode(Constant.MODE_UPDATE);
 				
 //				//get group free
 				List<Long> idGroupFreeList = RequirementBlo.getGroupListFree(reqForm.getIdProject());
@@ -44,8 +47,8 @@ public class DisplayReq extends Action{
 				//save into session, name = name of bean config into file config struts
 				se.setAttribute(Constant.REQ, reqForm);
 				
-				//mode Update
-				se.setAttribute(Constant.RECORD_FLAG, Constant.MODE_UPDATE);
+//				//mode Update
+//				se.setAttribute(Constant.RECORD_FLAG, Constant.MODE_UPDATE);
 				
 			}
 			return mapping.findForward(Constant.SUCCESS);

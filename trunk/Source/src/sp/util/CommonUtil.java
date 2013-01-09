@@ -112,4 +112,15 @@ public class CommonUtil {
 		}
 		return null;
 	}
+	
+	public static String convertNVLFor(String value){
+		if (value == null){
+			return Constant.BLANK;
+		}
+		else
+		{
+			return value;
+		}
+	}
+	
 }

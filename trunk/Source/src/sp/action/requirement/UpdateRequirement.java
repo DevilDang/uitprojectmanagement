@@ -35,14 +35,14 @@ public class UpdateRequirement extends Action{
 			//get  session
 			HttpSession se = request.getSession();
 			RequirementForm sortForm = (RequirementForm) se.getAttribute(Constant.RECORD_SORT);
-			String mode = (String) se.getAttribute(Constant.RECORD_FLAG);
+//			String mode = (String) se.getAttribute(Constant.RECORD_FLAG);
 			Requirement req ;
 			
 			//set sortForm into  formReport
 			formReq.setIdProject(sortForm.getIdProject());
 			
 			//mode insert
-			if (Constant.MODE_INSERT.equals(mode)){
+			if (formReq.getMode().equals(Constant.MODE_INSERT)){
 				
 				//update status of Group = assign
 				RequirementBlo.updateStatusGroup(formReq.getIdGroup(), Constant.GROUP_ASSIGN_REQ);
@@ -75,7 +75,6 @@ public class UpdateRequirement extends Action{
 			//remove  from session
 			se.removeAttribute(Constant.REQ);
 				
-			
 			return mapping.findForward(Constant.SUCCESS);
 		}
 }

@@ -17,6 +17,9 @@ import org.apache.struts.action.ActionMapping;
 
 import sp.blo.ReportBlo;
 import sp.blo.RequirementBlo;
+import sp.dao.PMF;
+import sp.dto.Group;
+import sp.dto.Requirement;
 import sp.form.AccountForm;
 import sp.form.RequirementForm;
 import sp.util.CommonUtil;
@@ -40,14 +43,22 @@ public class DisplayReqList extends Action {
 
 		// start temp
 		user = new AccountForm();
-		user.setEmail("c@yahoo.com");
+		user.setEmail("c@gmail.com");
 		user.setPermission("2");
 		
-//		Group group = new Group();
-//		group.setIdLeader("b@gmail.com");
-//		group.setIdProject(1L);
-//		group.setStatus(Constant.GROUP_FREE_REQ);
-//		PMF.insertObject(group);
+//		ReportBlo.createData();
+		Group group = new Group();
+		group.setLeader("a@yahoo.com");
+		group.setIdProject(25L);
+		group.setStatus(Constant.GROUP_FREE_REQ);
+		PMF.insertObject(group);
+		
+		Requirement req = new Requirement();
+		req.setIdGroup(1L);
+		req.setIdProject(25L);
+		req.setStatus(Constant.OPEN);
+		PMF.insertObject(req);
+		
 		// end temp
 
 		// get permision

@@ -81,7 +81,7 @@ public class Constant {
 		
 		//default: status sort
 		public final static String DEFAULT_STATUS ="status != 'close'";
-		
+		public final static String DEFAULT_STATUS_INT ="status != 0";
 		
 		//REQUIREMENT
 	
