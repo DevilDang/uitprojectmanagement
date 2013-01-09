@@ -7,6 +7,7 @@ import sp.dao.RequirementDao;
 import sp.dto.Group;
 import sp.dto.Requirement;
 import sp.form.RequirementForm;
+import sp.util.CommonUtil;
 import sp.util.Constant;
 import sp.util.JSONObject;
 import sp.util.JSONObjectList;
@@ -230,7 +231,7 @@ public static JSONObject createJSONObject(RequirementForm req)
     
 	JSONObject uc = new JSONObject(keys);
     uc.getObject().put(keys[0], String.valueOf(req.getId()));
-    uc.getObject().put(keys[1], req.getNameReq());
+    uc.getObject().put(keys[1], CommonUtil.convertNVLFor(req.getNameReq()));
     uc.getObject().put(keys[2], String.valueOf(req.getIdGroup()));
     uc.getObject().put(keys[3], String.valueOf(req.getProcess()));
 

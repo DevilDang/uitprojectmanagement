@@ -9,6 +9,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import sp.form.RequirementForm;
 import sp.util.Constant;
 
 /**
@@ -22,14 +23,12 @@ public class ChangeModeReq extends Action{
 				throws Exception {
 			
 			HttpSession se = request.getSession();
-			//get mode 
-			String mode = request.getParameter("mode");
 			
 			//remove 
-			se.removeAttribute(Constant.REQ);
+			RequirementForm req = (RequirementForm) se.getAttribute(Constant.REQ);
 			
-			//mode Insert
-			se.setAttribute(Constant.RECORD_FLAG, mode);
+			//clear
+			req.clear();
 			
 			return mapping.findForward(Constant.SUCCESS);
 		}
