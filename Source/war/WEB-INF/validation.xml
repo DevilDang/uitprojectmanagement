@@ -98,13 +98,21 @@
             </field>
             <field
                 property="startDate"
-                depends="required">
+                depends="required,date">
                     <arg key="req.startDate"/>
+                    <var>
+                    <var-name>datePattern</var-name>
+                    <var-value>dd/MM/yyyy</var-value>
+                    </var>
             </field>
              <field
                 property="endDate"
-                depends="required">
+                depends="required,date">
                     <arg key="req.endDate"/>
+                    <var>
+                    <var-name>datePattern</var-name>
+                    <var-value>dd/MM/yyyy</var-value>
+                    </var>
             </field>
         </form>
         
@@ -132,13 +140,21 @@
             </field>
             <field
                 property="startDate"
-                depends="required">
+                depends="required,date">
                     <arg key="task.startDate"/>
+                    <var>
+                    <var-name>datePattern</var-name>
+                    <var-value>dd/MM/yyyy</var-value>
+                    </var>
             </field>
             <field
                 property="endDate"
-                depends="required">
+                depends="required,date">
                     <arg key="task.endDate"/>
+                    <var>
+                    <var-name>datePattern</var-name>
+                    <var-value>dd/MM/yyyy</var-value>
+                    </var>
             </field>
             <field
                 property="process"
