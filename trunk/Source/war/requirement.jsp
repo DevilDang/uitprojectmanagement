@@ -15,7 +15,14 @@
         <script src="javascripts/check.js" type="text/javascript"></script>
         <script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
        <script src="javascripts/requirement.js" type="text/javascript"></script> 
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/ui/ui.datepicker_vn.js"></script>
+<script type="text/javascript">
+  $(function() {
+      $("#datepicker").datepicker({dateFormat: 'dd/mm/yy'});
+  });
 
+</script>
     </head>
     <body>
         <div id="container">           
@@ -153,7 +160,8 @@
                             <select name="page" id="select_page" onchange="getListReqByPage(this.options[this.selectedIndex].text)" >
 							<logic:present name="record_page_list">
 							<logic:iterate id="item" name="record_page_list">
-							<option value="<bean:write name="item"/>" selected><bean:write name="item"/></option>
+				 <option value="<bean:write name="item"/>" ><bean:write name="item"/></option> 
+							
 							</logic:iterate>
 							</logic:present>
 						</select>
@@ -182,8 +190,13 @@
                             <thead>
 
                             </thead>
-                        <logic:present name="record_flag">
-							<logic:equal name="record_flag" value="2">
+                            <tr>
+							<td width="100"><html:errors />
+							<html:hidden property="mode"></html:hidden>
+							</td>
+						</tr>
+                        <logic:present name="req">
+							<logic:equal name="mode" value="2">
 								<tr >
 									<td width="100">Mã tập tin:</td>
 									<td width="300"><bean:write name="req" property="id" />
@@ -220,12 +233,12 @@
                             </tr>
                             <tr>
                                 <td>Ngày Bắt Đầu: </td>
-                                <td><html:text property="startDate"></html:text>
+                                <td><html:text property="startDate" styleId="datepicker"></html:text>
                                 </td>
                             </tr>  
                               <tr>
                                 <td>Ngày Kết Thúc: </td>
-                                <td><html:text property="endDate"></html:text>
+                                <td><html:text property="endDate" ></html:text>
                                 </td>
                             </tr>
                             <tr>

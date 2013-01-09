@@ -220,7 +220,7 @@
 					<div id="phantrang" class="chose3" align="center">
 						<select name="page" id="select_page" onchange="getListReportByPage(this.options[this.selectedIndex].text)" >
 							<logic:iterate id="item" name="record_page_list">
-							<option value="<bean:write name="item"/>" selected><bean:write name="item"/></option>
+							<option value="<bean:write name="item"/>" ><bean:write name="item"/></option>
 							<%-- <c:choose>
 							<c:when test="${item == record_page_number}">
 							<option value="" selected><bean:write name="item"/></option>
@@ -230,13 +230,6 @@
 							</c:otherwise>
 							</c:choose> --%>
 							
-							<%-- <logic:equal value="<bean:write name="item"/>" name="report_page_number">
-							<option value="/dislayReportListPaging.do?page=<bean:write name="item"/>" selected><bean:write name="item"/></option>
-							</logic:equal>
-							 --%>
-							<%-- <logic:notEqual value="<bean:write name="item"/>" name="report_page_number">
-							<option value="/dislayReportListPaging.do?page=<bean:write name="item"/>" ><bean:write name="item"/></option>
-							</logic:notEqual> --%>
 							</logic:iterate>
 						</select>
 
