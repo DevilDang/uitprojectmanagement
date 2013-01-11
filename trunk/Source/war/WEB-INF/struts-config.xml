@@ -40,7 +40,7 @@
      <!-- Po -action xử lý việc thêm, sửa tài khoản -->
      
       <!-- Po -action xử lý việc xóa tài khoản -->
-      <action path="/deleteaction" type="sp.action.Account.DeleteAccount">
+      <action path="/deleteaccount" type="sp.action.Account.DeleteAccount">
        <forward name="success" path="/account.jsp"/>
       </action>  
      <!-- Po -action xử lý việc xóa tài khoản -->
@@ -70,8 +70,19 @@
      <action path="/getlistproject" type="sp.action.Project.GetListProject">
      </action>     
      <!-- Po -action xử lý lấy danh sách các project -->
-       
-       
+      
+      <!-- Po -action xử lý việc xóa project -->
+      <action path="/deleteproject" type="sp.action.Project.DeleteProject">
+       <forward name="success" path="/project.jsp"/>
+      </action>  
+     <!-- Po -action xử lý việc xóa project -->  
+      
+       <!-- Po -action xử lý việc lây thông tin chi tiết 1 project -->
+      <action path="/getproject" type="sp.action.Project.GetProject">
+       <forward name="success" path="/project.jsp"/>
+      </action>  
+      <!-- Po -action xử lý việc lây thông tin chi tiết 1 project -->
+      
     <!-- <action path="/promotionInfoWeekly" type="ebiz.action.mail.PromotionWeekly"-->
 
   </action-mappings>

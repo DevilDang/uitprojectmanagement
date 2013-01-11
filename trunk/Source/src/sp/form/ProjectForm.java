@@ -150,7 +150,13 @@ public class ProjectForm  extends ValidatorForm implements Serializable {
 		/*
 		 * transfer DTO -> Form
 		 */
+		
+		
 		public void editForm(Project project){
+			
+		}
+		public ProjectForm(Project project) {
+			
 			this.IDproject = project.getIDproject();
 			this.endDate = project.getEndDate();
 			this.process = project.getProcess();

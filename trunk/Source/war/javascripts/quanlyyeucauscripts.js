@@ -153,7 +153,7 @@ function ajax_getCountAndCountPage(classname,filter,page)
         if (xhr.readyState == 4){
             if ((xhr.status  >= 200  &&  xhr.status  <  300) || xhr.status == 304){
 
-                var pageInfo = JSON.parse(xhr.responseText);              
+                var pageInfo = JSON.parse(xhr.responseText);
                 draw_phantrang(pageInfo,page);
 
             } else {
@@ -299,7 +299,6 @@ function getListProjectByPage()
 
 function ajax_getListProject(page)
 {
-	 //draw_loading();
     var form = document.getElementById("listProject");
     var select_status = form.elements["status"];
     
@@ -309,10 +308,7 @@ function ajax_getListProject(page)
             if ((xhr.status  >= 200  &&  xhr.status  <  300) || xhr.status == 304){
 
                 var list_project = JSON.parse(xhr.responseText);
-                
-                //draw_phantrang(list_Account[0].SOLUONG,page);
-                draw_table_danhsachProject(list_project,length,0)
-                //undraw_loading();
+                draw_table_danhsachProject(list_project,list_project.length,0)
             } else {
                 alert("Request was unsuccessful: " + xhr.status);
             }
@@ -330,6 +326,10 @@ function ajax_getListProject(page)
 
 function draw_table_danhsachProject(list_project,length,index)
 {
+    var form = document.getElementById("listProject");	
+	var select_page = form.elements["select_page"];
+	var select_status = form.elements["status"];
+	
 	// name của input checkbox
     var tr, td, i;
     var table = document.getElementById("table_danhsach_project");
@@ -342,6 +342,7 @@ function draw_table_danhsachProject(list_project,length,index)
     table.replaceChild(tbody,body);
     for (i = index; i<length; i++)
     {
+    	
     	
         tr = tbody.insertRow(tbody.rows.length);
         tr.setAttribute("align", "center");
@@ -357,8 +358,7 @@ function draw_table_danhsachProject(list_project,length,index)
 
         td = tr.insertCell(tr.cells.length);
         var a =  document.createElement("a");
-        a.setAttribute("href","javascript: void(0)");
-        a.setAttribute("onclick","ajax_getAccount('" +list_project[i].IDproject+"');");
+        a.setAttribute("href","/getproject.do?IDproject=" + list_project[i].IDproject+"&status="+select_status[select_status.selectedIndex].value+"&PAGE=" + select_page[select_page.selectedIndex].value);
         a.innerHTML = list_project[i].projectname;
         td.appendChild(a);
                

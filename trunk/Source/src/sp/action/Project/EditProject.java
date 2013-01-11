@@ -53,7 +53,8 @@ public class EditProject extends org.apache.struts.action.Action {
         ProjectDao projectdao = new ProjectDao();
         List<Project> list_project =  projectdao.getProjectListFilter(1, "status==" + project.getStatus(), "IDproject desc");
         request.setAttribute(Constant.PROJECT_LIST, list_project);
-	        
+        request.setAttribute("status", String.valueOf(project.getStatus()));
+        
         return mapping.findForward(SUCCESS);
     }
 

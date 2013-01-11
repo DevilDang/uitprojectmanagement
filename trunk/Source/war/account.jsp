@@ -37,7 +37,7 @@
 				<h3 align="center">Quản lý danh sách</h3>
 				<br>
 				<form name="listAccount" id="listAccount" method="post"
-					action="/deleteaction.do">
+					action="/deleteaccount.do">
 					
 					  <div class="chose3" align="center">
                             Nhóm:
@@ -89,7 +89,6 @@
 					<div class="chose3" align="center">
 						<input type="submit" id="submit" value="Xóa"
 							style="height: 25px; width: 100px" />
-						<input type="hidden" name="KEY" value="XOA_MONHOC"/>
 
 					</div>
 				</form>
