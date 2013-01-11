@@ -9,10 +9,8 @@
         <link rel="stylesheet" type="text/css" href="default.css"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
         <link rel="stylesheet" type="text/css" href="css/SpryMenuBarHorizontal.css"/>
+        <link rel="stylesheet"type="text/css" href="javascripts/ui/themes/base/ui.all.css"  />
         <script src="javascripts/SpryMenuBar.js" type="text/javascript"></script>
-        <script src="javascripts/MyJavaScripts.js" type="text/javascript"></script>
-        <script src="javascripts/json.js" type="text/javascript"></script>
-        <script src="javascripts/check.js" type="text/javascript"></script>
         <script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
        <script src="javascripts/requirement.js" type="text/javascript"></script> 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -20,6 +18,7 @@
 <script type="text/javascript">
   $(function() {
       $("#datepicker").datepicker({dateFormat: 'dd/mm/yy'});
+      $("#datepicker1").datepicker({dateFormat: 'dd/mm/yy'});
   });
 
 </script>
@@ -191,7 +190,15 @@
 
                             </thead>
                             <tr>
-							<td width="100"><html:errors />
+                            
+							<td width="100">
+							<html:errors />
+							<logic:messagesPresent message="true" >
+                <!-- display message return by action-->
+                <html:messages id="message" message="true">
+                  <bean:write name="message" />
+                </html:messages>
+          </logic:messagesPresent> 
 							<html:hidden property="mode"></html:hidden>
 							</td>
 						</tr>
@@ -233,12 +240,12 @@
                             </tr>
                             <tr>
                                 <td>Ngày Bắt Đầu: </td>
-                                <td><html:text property="startDate" styleId="datepicker"></html:text>
+                                <td><html:text property="startDate" styleId="datepicker" styleClass="validated"></html:text>
                                 </td>
                             </tr>  
                               <tr>
                                 <td>Ngày Kết Thúc: </td>
-                                <td><html:text property="endDate" ></html:text>
+                                <td><html:text property="endDate"  styleId="datepicker1"  ></html:text>
                                 </td>
                             </tr>
                             <tr>
