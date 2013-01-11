@@ -32,14 +32,40 @@
             <div id="content">
                 <div id="content_left">
                     <h3 align="center"> Quản lý danh sách </h3><br>
-                    <form name="listProject" id ="listProject" method="post" action="">
+                    <form name="listProject" id ="listProject" method="post" action="/deleteproject.do">
                         <div class="chose3" align="center">
                            Trạng thái:
                          
                             <select name="status" id="status" onchange="getListProject(1)">
-                            			<option value="-1" ></option>
-                                    	<option value="1" >Mở</option>
-                                    	<option value="0" >Đóng</option>                                 	
+                            			<%
+                            			String status = (String)request.getAttribute("status");
+                            			String Page= (String)request.getAttribute("PAGE");
+                            			if(status == null)
+                            			{
+                            				%>
+                            				<option value="-1" ></option>                            			
+	                                    	<option value="1" >Mở</option>
+	                                    	<option value="0" >Đóng</option>   
+                            				<% 
+                            			}
+                            			else if("1".equals(status))
+                            			{
+                            				%>
+                            				<option value="-1" ></option>                            			
+	                                    	<option value="1" selected="true">Mở</option>
+	                                    	<option value="0" >Đóng</option>   
+                            				<%
+                            			}
+                            			else if("0".equals(status))
+                            			{
+                            				%>
+                            				<option value="-1" ></option>                            			
+	                                    	<option value="1" >Mở</option>
+	                                    	<option value="0" selected="true">Đóng</option>   
+                            				<%
+                            			}
+                            			%>
+                            			                              	
                             </select>
                         </div>
                         <p>&nbsp;</p>
@@ -60,7 +86,8 @@
 									<logic:iterate id="element" name="project_list">
                                 	 <tr align="center">
                                         <td width="20"><input type="checkbox" name="check" value="<bean:write name="element"  property="IDproject"/>"/></td>
-                                        <td width="130"><a href="#"><bean:write name="element"  property="projectname"/></a></td>
+                                        <td width="130"><a href="/getproject.do?IDproject=<bean:write name="element"  property="IDproject"/>&status=<%=status%>&PAGE=<%=Page%>"><bean:write name="element"  property="projectname"/></a></td>
+                                        
                                         <td width="130"><b><bean:write name="element"  property="projectmanager"/></b></td>
                                         <td width="70"><bean:write name="element"  property="process"/></td>                                     
                                     </tr>
@@ -70,15 +97,31 @@
                             </table>
                         </div>
                         <div id="phantrang" class="chose3" align="center">
-                            <select name ="PAGE" id="select_page" onchange="ajax_load_page_danhsachmonhoc()">
-                                <option value="0" >1</option>
-                            </select>
+                           <select name="PAGE" id="select_page"
+							onchange="getListProjectByPage()">
+							
+							<%
+							   if(Page == null || Page.length() < 1 )
+							   {
+								 %>
+								 <option value="1">1</option>
+								 <%  
+							   }
+							   else
+							   {
+								   %>
+									 <option value="<%=Page%>"><%=Page%></option>
+								   <%  
+							   }
+							%>
+							
+							
+						</select>
 
                         </div>
-                        <div class="chose3" align="center">
-                            <input type="button" id="submit" value="Xóa" style="height: 25px; width: 100px" onClick="ajax_delete_monhoc()">
-                            <input type="hidden" name="KEY" value="XOA_MONHOC">
-
+                        <div class="chose3" align="center">                          
+						<input type="submit" id="submit" value="Xóa"
+							style="height: 25px; width: 100px" />
                         </div>
                     </form>
                     <div>
@@ -98,7 +141,7 @@
                             <tr>
                                 <td width="70">Mã dự án: </td>
                                 <td width="100" id="EditAccount">
-                                    <html:text property="IDproject" readonly="true" value=""></html:text>                 
+                                    <html:text property="IDproject" readonly="true" ></html:text>                 
                                 </td>
                             </tr>
                             <tr>
@@ -139,7 +182,7 @@
                                         String param_idproject = request.getParameter("IDproject");
                                         if(param_idproject != null && param_idproject.length() > 1)
                                         {
-	                                   		List<Group> list_group = groupdao.getGroupList("IDproject==" + param_idproject);
+	                                   		List<Group> list_group = groupdao.getGroupList("idProject==" + param_idproject);
 	                                        if(list_group != null)
 	                                        {
 	                                        	for(int i = 0;i<list_group.size();i++)

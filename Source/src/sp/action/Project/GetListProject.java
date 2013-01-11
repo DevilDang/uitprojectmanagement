@@ -10,11 +10,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import sp.blo.ProjectBlo;
-import sp.blo.UserBlo;
 import sp.dao.ProjectDao;
-import sp.dao.UserDao;
 import sp.dto.Project;
-import sp.dto.User;
 import sp.util.JSONObjectList;
 
 public class GetListProject extends org.apache.struts.action.Action {
@@ -44,6 +41,7 @@ public class GetListProject extends org.apache.struts.action.Action {
         long status = Integer.parseInt(request.getParameter("status"));
         int page = Integer.parseInt(request.getParameter("PAGE"));
         
+        System.out.println(status + "   " + page);
         ProjectDao projectdao = new ProjectDao();
         List<Project> list_project = projectdao.getProjectListFilter(page, "status=="+status, "IDproject desc");
         

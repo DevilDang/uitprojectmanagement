@@ -10,7 +10,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import sp.blo.UserBlo;
 import sp.dao.PMF;
 import sp.dao.UserDao;
 import sp.dto.User;
