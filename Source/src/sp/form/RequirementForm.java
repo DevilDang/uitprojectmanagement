@@ -201,7 +201,7 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 		
 	}
 	
-	@Override
+	/*@Override
 	 public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
 		 
 		ActionErrors errors = new ActionErrors();
@@ -232,7 +232,7 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 				errors.add("error", new ActionMessage(""));
 			}
 		return errors;
-	}
+	}*/
 	
 	public void clear(){
 		 id = null;

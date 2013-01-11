@@ -13,11 +13,13 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessages;
 
 import sp.blo.RequirementBlo;
 import sp.dto.Requirement;
 import sp.form.RequirementForm;
 import sp.util.Constant;
+import sp.util.Validation;
 
 /**
  * @author Thuy
@@ -32,6 +34,14 @@ public class UpdateRequirement extends Action{
 			//get form
 			RequirementForm formReq = (RequirementForm)form;
 			
+			if (Constant.BLANK.equals(formReq.getMode())){
+				formReq.setMode(Constant.MODE_INSERT);
+			}
+			
+			ActionMessages messages = Validation.checkDate(formReq.getMode(), formReq.getStartDate(), formReq.getEndDate());
+			 
+			if (messages.size() == 0){
+
 			//get  session
 			HttpSession se = request.getSession();
 			RequirementForm sortForm = (RequirementForm) se.getAttribute(Constant.RECORD_SORT);
@@ -74,7 +84,12 @@ public class UpdateRequirement extends Action{
 			
 			//remove  from session
 			se.removeAttribute(Constant.REQ);
-				
+			}
+			else
+			{
+				// storing messages as request attributes
+		        saveMessages(request.getSession(), messages);
+			}
 			return mapping.findForward(Constant.SUCCESS);
 		}
 }
