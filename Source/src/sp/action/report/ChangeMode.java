@@ -12,6 +12,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import sp.form.ReportForm;
 import sp.util.Constant;
 
 /**
@@ -24,16 +25,16 @@ public class ChangeMode extends Action{
 				HttpServletRequest request, HttpServletResponse response)
 				throws Exception {
 			HttpSession se = request.getSession();
-			//get mode 
-			String mode = request.getParameter("mode");
 			
 			//remove Report Bean out of session
-			se.removeAttribute(Constant.REPORT);
 			se.removeAttribute(Constant.REPORT_FILE_ID);
 			se.removeAttribute(Constant.REPORT_FILE_NAME);
 			
-			//mode Insert
-			se.setAttribute(Constant.RECORD_FLAG, mode);
+			//get req from session
+			ReportForm reportForm = (ReportForm) se.getAttribute(Constant.REPORT);
+			
+			//clear
+			reportForm.clear();
 			
 			return mapping.findForward(Constant.SUCCESS);
 		}
