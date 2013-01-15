@@ -68,7 +68,7 @@ function ajax_getListReportMine(page, sort_name, sort_value)
               var list_report = JSON.parse(xhr.responseText);
               //draw_phantrang(list_Account[0].SOLUONG,page);
 
-              draw_table_danhsach_report(list_report, list_report.length,0);
+              draw_table_danhsach_report_mine(list_report, list_report.length,0);
 
               //undraw_loading();
           } else {
