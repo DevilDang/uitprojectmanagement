@@ -34,10 +34,10 @@ public class UpdateRequirement extends Action{
 			//get form
 			RequirementForm formReq = (RequirementForm)form;
 			
-			if (Constant.BLANK.equals(formReq.getMode())){
-				formReq.setMode(Constant.MODE_INSERT);
-			}
-			
+//			if (Constant.BLANK.equals(formReq.getMode())){
+//				formReq.setMode(Constant.MODE_INSERT);
+//			}
+//			
 			ActionMessages messages = Validation.checkDate(formReq.getMode(), formReq.getStartDate(), formReq.getEndDate());
 			 
 			if (messages.size() == 0){
@@ -61,16 +61,18 @@ public class UpdateRequirement extends Action{
 			//mode update
 			else
 			{
-//				//if close Req
-//				if (Constant.CLOSE.equals(formReq.getStatus())){
-//					req = RequirementBlo.getRequirement(formReq.getId());
-//					req.setStatus(Constant.CLOSE);
-//				}
-//				else
-//				{
-					RequirementBlo.updateStatusGroup(formReq.getId(),formReq.getIdGroup());
-//					req = formReq.getRequirement();
-//				}
+				//update group
+				RequirementBlo.updateStatusGroup(formReq.getId(),formReq.getIdGroup());
+				
+				//update Group if status = close
+				if (Constant.CLOSE.equals(formReq.getStatus())){
+					RequirementBlo.updateStatusGroup(formReq.getIdGroup(), Constant.GROUP_FREE_REQ);
+				}
+				else
+				{
+					RequirementBlo.updateStatusGroup(formReq.getIdGroup(), Constant.GROUP_ASSIGN_REQ);
+				}
+				
 			}
 			
 			req = formReq.getRequirement();
@@ -82,12 +84,12 @@ public class UpdateRequirement extends Action{
 			
 			se.setAttribute(Constant.REQ_GROUP_FREE, idGroupFreeList);
 			
-			//remove  from session
-			se.removeAttribute(Constant.REQ);
+			//remove  REQ
+			formReq.clear();
 			}
 			else
 			{
-				// storing messages as request attributes
+				// storing messages 
 		        saveMessages(request.getSession(), messages);
 			}
 			return mapping.findForward(Constant.SUCCESS);

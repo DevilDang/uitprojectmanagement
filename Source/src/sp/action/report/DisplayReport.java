@@ -34,11 +34,10 @@ public class DisplayReport extends Action{
 			if (id != null){
 				ReportForm reportDisplay = ReportBlo.getReportForm(Long.parseLong(id));
 				
+				reportDisplay.setMode(Constant.MODE_UPDATE);
+				
 				//save into session, name = name of bean config into file config struts
 				se.setAttribute(Constant.REPORT, reportDisplay);
-				
-				//mode Update
-				se.setAttribute(Constant.RECORD_FLAG, Constant.MODE_UPDATE);
 				
 //				//remove REPORT_FILE
 				se.removeAttribute(Constant.REPORT_FILE_ID);

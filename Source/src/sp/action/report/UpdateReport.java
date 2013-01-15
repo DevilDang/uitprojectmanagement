@@ -53,7 +53,6 @@ public class UpdateReport extends Action{
 				formReport.setLevel(sortForm.getLevel());
 				formReport.setCreateDate(CommonUtil.getSystemDate());
 				formReport.setStatus(Constant.REPORT_NEW);
-				
 			}
 			
 			//get dto 

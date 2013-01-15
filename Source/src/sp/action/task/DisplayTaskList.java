@@ -39,20 +39,18 @@ public class DisplayTaskList extends Action {
 
 		// get user from session
 		AccountForm user = (AccountForm) se.getAttribute("user");
-		
-		// start temp
 		user = new AccountForm();
-		user.setEmail("c@yahoo.com");
-		user.setPermission("3");
-		user.setGroupCode(2);
-		// get permision
+		User u = (User)PMF.getObject(User.class, "a@yahoo.com");
+		user.editForm(u);
 		
-		User user1 = new User();
-		user1.setEmail("t@yahoo.com");
-		user1.setIdPermision("3");
-		user1.setGroupID(2);
-		user1.setStatusTask(Constant.USER_FREE_TASK);
-		PMF.insertObject(user1);
+//		// get permision
+//		
+//		User user1 = new User();
+//		user1.setEmail("t@yahoo.com");
+//		user1.setIdPermision("3");
+//		user1.setGroupID(1);
+//		user1.setStatusTask(Constant.USER_FREE_TASK);
+//		PMF.insertObject(user1);
 		
 		int permission = Integer.parseInt(user.getPermission());
 
@@ -155,9 +153,10 @@ public class DisplayTaskList extends Action {
 			se.setAttribute(Constant.RECORD_PAGE_NUMBER, "1");
 			se.setAttribute(Constant.RECORD_SORT, sortForm); // su dung khi //
 																// update/insert
-
+			TaskForm task = new TaskForm();
+			task.setMode(Constant.MODE_INSERT);
 			// set mode = insert
-			se.setAttribute(Constant.RECORD_FLAG, Constant.MODE_INSERT);
+			se.setAttribute(Constant.TASK, task);
 
 			// sort
 			se.setAttribute(Constant.IDPROJECTLIST, idProjectList);

@@ -6,6 +6,7 @@ import org.apache.struts.validator.ValidatorForm;
 
 import sp.dto.Task;
 import sp.util.CommonUtil;
+import sp.util.Constant;
 
 public class TaskForm extends ValidatorForm implements Serializable {
 	
@@ -26,6 +27,7 @@ public class TaskForm extends ValidatorForm implements Serializable {
 	private int process;
 	private String status;
 	private int level; 
+	private String mode;
 	/**
 	 * @return the id
 	 */
@@ -185,6 +187,19 @@ public class TaskForm extends ValidatorForm implements Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	/**
+	 * @return the mode
+	 */
+	public String getMode() {
+		return mode;
+	}
+	/**
+	 * @param mode the mode to set
+	 */
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
 	/*
 	 * transfer Form -> DTO
 	 */
@@ -220,6 +235,25 @@ public class TaskForm extends ValidatorForm implements Serializable {
 		this.status = task.getStatus();
 		this.process = task.getProcess();
 		this.content = task.getContent();
+	}
+	
+	public void clear()
+	{
+		this.id = null;
+		this.kind = "";
+		this.nameTask = "";
+		this.emailEmployee ="";
+		this.idProject = null;
+		this.idReq = null;
+		this.idGroup = null;
+		this.content = "";
+		this.startDate = null;
+		this.endDate = null;
+		this.process = 0;
+		this.status = "";
+		this.level = 0;
+		this.mode = Constant.MODE_INSERT;
+		
 	}
 	
 }

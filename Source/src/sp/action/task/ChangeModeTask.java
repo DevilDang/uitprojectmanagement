@@ -9,6 +9,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import sp.form.TaskForm;
 import sp.util.Constant;
 
 /**
@@ -22,14 +23,12 @@ public class ChangeModeTask extends Action{
 				throws Exception {
 			
 			HttpSession se = request.getSession();
-			//get mode 
-			String mode = request.getParameter("mode");
+
+			//get task from session
+			TaskForm task = (TaskForm) se.getAttribute(Constant.TASK);
 			
-			//remove 
-			se.removeAttribute(Constant.TASK);
-			
-			//mode Insert
-			se.setAttribute(Constant.RECORD_FLAG, mode);
+			//clear Task
+			task.clear();
 			
 			return mapping.findForward(Constant.SUCCESS);
 		}

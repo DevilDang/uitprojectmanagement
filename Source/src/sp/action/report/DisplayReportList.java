@@ -16,6 +16,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import sp.blo.ReportBlo;
+import sp.dao.PMF;
+import sp.dto.User;
 import sp.form.AccountForm;
 import sp.form.ReportForm;
 import sp.util.CommonUtil;
@@ -36,12 +38,12 @@ public class DisplayReportList extends Action {
 
 		// get user from session
 		AccountForm user = (AccountForm) se.getAttribute("user");
-
-		// start temp
 		user = new AccountForm();
-		user.setEmail("a@gmail.com");
-		user.setGroupCode(2);
-		user.setPermission("3");
+		User u = (User)PMF.getObject(User.class, "c@yahoo.com");
+		u.setGroupID(2);
+		PMF.insertObject(u);
+		u = (User)PMF.getObject(User.class, "c@yahoo.com");
+		user.editForm(u);
 		// end temp
 
 		// get permision
@@ -134,6 +136,10 @@ public class DisplayReportList extends Action {
 
 		} else if (Constant.EMPLOYEE == permission) {
 
+			//get idGroup
+			
+			idGroup = user.getGroupCode();
+			
 			// check member da duoc gan vo nhom chua
 			
 			if (idGroup != 0) {
@@ -195,9 +201,12 @@ public class DisplayReportList extends Action {
 			se.setAttribute(Constant.RECORD_SORT, sortForm); // su dung khi //
 																// update/insert
 
-			// set mode = insert
-			se.setAttribute(Constant.RECORD_FLAG, Constant.MODE_INSERT);
-
+			ReportForm reportForm = new ReportForm();
+			reportForm.setMode(Constant.MODE_INSERT);
+			
+			//save in session
+			se.setAttribute(Constant.REPORT, reportForm);
+			
 			// sort
 			se.setAttribute(Constant.IDPROJECTLIST, idProjectList);
 			se.setAttribute(Constant.IDREQLIST, idReqList);

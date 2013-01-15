@@ -341,7 +341,7 @@ public class ReportBlo {
 		sql.append(Constant.DEFAULT_STATUS);
 		@SuppressWarnings("unchecked")
 		List<Task> taskList = (List<Task>) PMF.getObjectList(Task.class, sql.toString());
-		if (taskList != null){
+		if (taskList != null && taskList.size() > 0){
 			return taskList.get(0).getId();
 		}
 		return null;
