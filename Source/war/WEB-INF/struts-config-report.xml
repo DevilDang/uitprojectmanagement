@@ -24,7 +24,7 @@
     
     <!-- display Report  -->
     <action path="/displayReport" type="sp.action.report.DisplayReport">  
-    	<forward name="success" path="report.jsp" redirect="true" />
+    	<forward name="success" path="/dislayReportListPaging.do" redirect="true" />
     </action>
     
     <!-- display Report List  -->

@@ -31,7 +31,7 @@
     
     <!-- display Detail-->
     <action path="/displayReq" type="sp.action.requirement.DisplayReq">  
-    	<forward name="success" path="requirement.jsp" redirect="true" />
+    	<forward name="success" path="/dislayReqListPaging.do" redirect="true" />
     </action>
     
       <!-- change Mode-->
