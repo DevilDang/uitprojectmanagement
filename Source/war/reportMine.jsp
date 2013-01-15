@@ -242,7 +242,17 @@
 			<html:form action="/updateReportMine.do" method="get">
 				<div id="content_right">
 					<h3 align="center">
-						Chỉnh sửa | <a href="/changeModeReportMine.do?mode=1">Thêm mới </a>
+					<logic:equal value="2" name="report" property="mode">
+						Chỉnh sửa
+					</logic:equal>
+					<logic:notEqual value="3" name="record_sort" property="level">
+						Chỉnh sửa
+					</logic:notEqual>
+						<logic:present name="record_sort">
+							<logic:equal value="3" name="record_sort" property="level">
+						<a href="/changeModeReportMine.do">Thêm mới </a>
+							</logic:equal>
+						</logic:present>
 					</h3>
 					<br>
 
@@ -259,13 +269,13 @@
 								
 								<!-- Update -->
 								<logic:notPresent name="report_file_name"> 
-							<logic:equal name="record_flag" value="2">
+							<logic:equal name="report" property="mode" value="2">
 							<bean:write name="report" property="fileName"/>
 							<html:hidden property="fileId" styleId="fileId"></html:hidden>
 						
 							<%-- <input type="hidden" id="fileName" value="<bean:write name="report" property="fileId" />"/> --%>
 							</logic:equal>
-							<logic:equal name="record_flag" value="1">
+							<logic:equal name="report" property="mode" value="1">
 								<input type="hidden" id="fileId" value=""/>
 							</logic:equal>
 							</logic:notPresent>
@@ -273,8 +283,8 @@
 							</td>
 						
 						</tr>
-						<logic:present name="record_flag">
-							<logic:equal name="record_flag" value="2">
+						<logic:present name="report">
+							<logic:equal name="report" property="mode" value="2">
 								<tr id="idReport">
 									<td width="100">Mã tập tin:</td>
 									<td width="300"><bean:write name="report" property="id" />
@@ -306,8 +316,8 @@
 							</td>
 						</tr>
 						</logic:equal> --%>
-						<logic:present name="report_flag">
-						<logic:equal name="report_flag" value="2">
+						<logic:present name="report">
+						<logic:equal name="report" property="mode" value="2">
 						<tr>
 							<td width="100">Trạng thái:</td>
 							<td width="300"><html:select property="status">
@@ -342,32 +352,46 @@
 						</logic:present>
 					</table>
 					<table>
-						<tr>
-							<td width="170" align="right"><div id="bt_reset" style="height: 25px; width: 50px">
-									<!-- <input type="reset" name="reset" id="reset" value="Reset"
+						
+								<logic:present name="record_sort" >
+								<!-- Leader, PM, Admin -->
+									<logic:equal value="New" name="record_sort" property="status">
+										<tr>
+							<td width="170" align="right"><div id="bt_reset">
+									<input type="reset" name="reset" id="reset" value="Reset"
 										style="height: 25px; width: 100px"
-										onClick="reset_validate_form_monhoc()"> -->
+										onClick="reset_validate_form_monhoc()">
 								</div>
 							</td>
 							<td width="40"></td>
 							<td width="150" align="left">
 								<div id="bt_submit">
-								<logic:present name="record_sort" >
-								<!-- Leader, PM, Admin -->
-									<logic:equal value="New" name="record_sort" property="status">
-										<input type="submit" id="idSubmit" value="OK"
-										style="height: 25px; width: 100px" >
+										<input type="submit"  value="OK" 
+										style="height: 25px; width: 100px"  >
+										</div>
+							</td>
+						</tr>
 									</logic:equal>
 									<logic:equal value="Request_update" name="record_sort" property="status">
-										<input type="submit" id="idSubmit" value="OK"
-										style="height: 25px; width: 100px" >
+										<tr>
+							<td width="170" align="right"><div id="bt_reset">
+									<input type="reset" name="reset" id="reset" value="Reset"
+										style="height: 25px; width: 100px"
+										onClick="reset_validate_form_monhoc()">
+								</div>
+							</td>
+							<td width="40"></td>
+							<td width="150" align="left">
+								<div id="bt_submit">
+										<input type="submit"  value="OK" 
+										style="height: 25px; width: 100px"  >
+										</div>
+							</td>
+						</tr>
 									</logic:equal>
 									
 									</logic:present>
-									
-								</div>
-							</td>
-						</tr>
+								
 					</table>
 
 				</div>
