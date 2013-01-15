@@ -35,14 +35,14 @@ public class UpdateReport extends Action{
 			HttpSession se = request.getSession();
 			String fileId = (String)se.getAttribute(Constant.REPORT_FILE_ID);
 			ReportForm sortForm = (ReportForm) se.getAttribute(Constant.RECORD_SORT);
-			String mode =(String) se.getAttribute(Constant.RECORD_FLAG);
+//			String mode =(String) se.getAttribute(Constant.RECORD_FLAG);
 			
 			// insert, thay doi file khi update
 			if (fileId != null){
 				formReport.setFileId(fileId);
 			}
 			//mode insert
-			if (Constant.MODE_INSERT.equals(mode)){
+			if (Constant.MODE_INSERT.equals(formReport.getMode())){
 				
 				//set sortForm into  formReport
 				formReport.setIdProject(sortForm.getIdProject());

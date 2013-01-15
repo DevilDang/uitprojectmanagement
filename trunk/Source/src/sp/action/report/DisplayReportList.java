@@ -39,10 +39,11 @@ public class DisplayReportList extends Action {
 		// get user from session
 		AccountForm user = (AccountForm) se.getAttribute("user");
 		user = new AccountForm();
-		User u = (User)PMF.getObject(User.class, "c@yahoo.com");
-		u.setGroupID(2);
-		PMF.insertObject(u);
-		u = (User)PMF.getObject(User.class, "c@yahoo.com");
+		String temp = "a@yahoo.com";
+		User u = (User)PMF.getObject(User.class, temp);
+//		u.setGroupID(2);
+//		PMF.insertObject(u);
+//		u = (User)PMF.getObject(User.class, "a@yahoo.com");
 		user.editForm(u);
 		// end temp
 
