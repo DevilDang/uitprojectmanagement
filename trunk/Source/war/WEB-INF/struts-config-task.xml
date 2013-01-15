@@ -30,7 +30,7 @@
     
     <!-- display Detail-->
     <action path="/displayTask" type="sp.action.task.DisplayTask">  
-    	<forward name="success" path="task.jsp" redirect="true" />
+    	<forward name="success" path="/displayTaskListPaging.do" redirect="true" />
     </action>
     
     
