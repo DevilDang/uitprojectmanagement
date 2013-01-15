@@ -24,7 +24,7 @@ public class ChangeModeReq extends Action{
 			
 			HttpSession se = request.getSession();
 			
-			//remove 
+			//get req from session
 			RequirementForm req = (RequirementForm) se.getAttribute(Constant.REQ);
 			
 			//clear

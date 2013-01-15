@@ -32,11 +32,11 @@ public class DisplayReq extends Action{
 			//get id
 			String id = request.getParameter("id");
 			
-			//get Report
+			//get Req
 			if (id != null){
 				RequirementForm reqForm = RequirementBlo.getRequirementForm(Long.parseLong(id));
-				//set mode 
 				
+				//set mode 
 				reqForm.setMode(Constant.MODE_UPDATE);
 				
 //				//get group free
@@ -46,9 +46,6 @@ public class DisplayReq extends Action{
 				
 				//save into session, name = name of bean config into file config struts
 				se.setAttribute(Constant.REQ, reqForm);
-				
-//				//mode Update
-//				se.setAttribute(Constant.RECORD_FLAG, Constant.MODE_UPDATE);
 				
 			}
 			return mapping.findForward(Constant.SUCCESS);

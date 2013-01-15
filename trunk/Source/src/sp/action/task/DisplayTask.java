@@ -29,6 +29,8 @@ public class DisplayTask extends Action{
 		if (id != null){
 			TaskForm formTask = TaskBlo.getTaskForm(Long.parseLong(id));
 			
+			formTask.setMode(Constant.MODE_UPDATE);
+			
 			//get task free
 			List<String> idUserFree = TaskBlo.getUserFreeTask(formTask.getIdGroup());
 			
@@ -37,9 +39,6 @@ public class DisplayTask extends Action{
 			
 			//save into session, name = name of bean config into file config struts
 			se.setAttribute(Constant.TASK, formTask);
-			
-			//mode Update
-			se.setAttribute(Constant.RECORD_FLAG, Constant.MODE_UPDATE);
 			
 		}
 		return mapping.findForward(Constant.SUCCESS);

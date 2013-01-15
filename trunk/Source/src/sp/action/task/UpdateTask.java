@@ -13,11 +13,13 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessages;
 
 import sp.blo.TaskBlo;
 import sp.dto.Task;
 import sp.form.TaskForm;
 import sp.util.Constant;
+import sp.util.Validation;
 
 /**
  * @author Thuy
@@ -32,12 +34,17 @@ public class UpdateTask extends Action{
 			//get form
 			TaskForm formTask = (TaskForm)form;
 			
+			ActionMessages messages = Validation.checkDate(formTask.getMode(), formTask.getStartDate(), formTask.getEndDate());
+			
+			if (messages.size() == 0){
+			
 			//get  session
 			HttpSession se = request.getSession();
-			TaskForm sortForm = (TaskForm) se.getAttribute(Constant.RECORD_SORT);
-			String mode = (String) se.getAttribute(Constant.RECORD_FLAG);
-			Task task ;
 			
+			
+			TaskForm sortForm = (TaskForm) se.getAttribute(Constant.RECORD_SORT);
+//			String mode = (String) se.getAttribute(Constant.RECORD_FLAG);
+			Task task ;
 
 			//set sortForm into  formReport
 			formTask.setIdProject(sortForm.getIdProject());
@@ -49,16 +56,24 @@ public class UpdateTask extends Action{
 			formTask.setIdGroup(sortForm.getIdGroup());
 			
 			//mode insert
-			if (Constant.MODE_INSERT.equals(mode)){
+			if (Constant.MODE_INSERT.equals(formTask.getMode())){
 				
 				//update status of emplooyee
 				TaskBlo.updateStatusTask(formTask.getEmailEmployee(), Constant.USER_ASSIGN_TASK);
-				
 			}
 			//update
 			else
 			{
 				TaskBlo.updateStatusUser(formTask.getId(), formTask.getEmailEmployee());
+				
+				// open -> close
+				if (Constant.CLOSE.equals(formTask.getStatus())){
+					TaskBlo.updateStatusTask(formTask.getEmailEmployee(), Constant.USER_FREE_TASK);
+				}
+				else
+				{
+					TaskBlo.updateStatusTask(formTask.getEmailEmployee(), Constant.USER_ASSIGN_TASK);
+				}
 			}
 			
 			task = formTask.getTask();
@@ -73,9 +88,14 @@ public class UpdateTask extends Action{
 			se.setAttribute(Constant.TASK_USER_FREE, idUserFree);
 			
 			//remove from session
-			se.removeAttribute(Constant.TASK);
+			formTask.clear();
 				
-			
+			}
+			else
+			{
+				// storing messages 
+		        saveMessages(request.getSession(), messages);
+			}
 			return mapping.findForward(Constant.SUCCESS);
 		}
 }

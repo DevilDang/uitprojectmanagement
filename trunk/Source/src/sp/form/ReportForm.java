@@ -6,6 +6,7 @@ import java.util.Date;
 import org.apache.struts.validator.ValidatorForm;
 
 import sp.dto.Report;
+import sp.util.Constant;
 
 public class ReportForm extends ValidatorForm implements Serializable {
 	
@@ -28,6 +29,7 @@ public class ReportForm extends ValidatorForm implements Serializable {
 	private String fileId;
 	private String fileName;
 	private int level;
+	private String mode;
 	/**
 	 * @return the id
 	 */
@@ -243,5 +245,34 @@ public class ReportForm extends ValidatorForm implements Serializable {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+	/**
+	 * @return the mode
+	 */
+	public String getMode() {
+		return mode;
+	}
+	/**
+	 * @param mode the mode to set
+	 */
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
 
+	public void clear(){
+		this.id = null;
+		this.title = Constant.BLANK;
+		this.idProject = null;
+		this.idReq = null;
+		this.idGroup = null;
+		this.idTask = null;
+		this.idUser = Constant.BLANK;
+		this.createDate = null;
+		this.comment = Constant.BLANK;
+		this.status = Constant.BLANK;
+		this.content  = Constant.BLANK;
+		this.fileId = Constant.BLANK;
+		this.fileName = Constant.BLANK;
+		this.level = 0;
+		this.mode = Constant.MODE_INSERT;
+	}
 }

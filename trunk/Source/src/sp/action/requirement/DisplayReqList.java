@@ -15,13 +15,19 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+
+import sp.blo.CommonBlo;
 import sp.blo.ReportBlo;
 import sp.blo.RequirementBlo;
+import sp.blo.UserBlo;
 import sp.dao.PMF;
 import sp.dto.Group;
+import sp.dto.Project;
 import sp.dto.Requirement;
+import sp.dto.User;
 import sp.form.AccountForm;
 import sp.form.RequirementForm;
+import sp.form.TaskForm;
 import sp.util.CommonUtil;
 import sp.util.Constant;
 
@@ -40,26 +46,10 @@ public class DisplayReqList extends Action {
 
 		// get user from session
 		AccountForm user = (AccountForm) se.getAttribute("user");
-
-		// start temp
 		user = new AccountForm();
-		user.setEmail("c@gmail.com");
-		user.setPermission("2");
-		
-//		ReportBlo.createData();
-		Group group = new Group();
-		group.setLeader("a@yahoo.com");
-		group.setIdProject(25L);
-		group.setStatus(Constant.GROUP_FREE_REQ);
-		PMF.insertObject(group);
-		
-		Requirement req = new Requirement();
-		req.setIdGroup(1L);
-		req.setIdProject(25L);
-		req.setStatus(Constant.OPEN);
-		PMF.insertObject(req);
-		
-		// end temp
+		User u = (User)PMF.getObject(User.class, "b@yahoo.com");
+	
+		user.editForm(u);
 
 		// get permision
 		int permission = Integer.parseInt(user.getPermission());
@@ -69,7 +59,6 @@ public class DisplayReqList extends Action {
 		Long idProject = null;
 		Long idReq = null;
 		Long idGroup = 0L;
-//		String status = Constant.BLANK;
 		String idUser = user.getEmail();
 
 		// value into session
@@ -159,6 +148,7 @@ public class DisplayReqList extends Action {
 
 			//get group free
 			List<Long> idGroupFreeList = RequirementBlo.getGroupListFree(idProject);
+			
 			// save session
 			se.setAttribute(Constant.REQ_GROUP_FREE, idGroupFreeList);
 			se.setAttribute(Constant.RECORD_LIST, reportList);
@@ -167,8 +157,11 @@ public class DisplayReqList extends Action {
 			se.setAttribute(Constant.RECORD_SORT, sortForm); // su dung khi //
 																// update/insert
 
+			RequirementForm req = new RequirementForm();
+			req.setMode(Constant.MODE_INSERT);
+			
 			// set mode = insert
-			se.setAttribute(Constant.RECORD_FLAG, Constant.MODE_INSERT);
+			se.setAttribute(Constant.REQ, req);
 
 			// sort
 			se.setAttribute(Constant.IDPROJECTLIST, idProjectList);
