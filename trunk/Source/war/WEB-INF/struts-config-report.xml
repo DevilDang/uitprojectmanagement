@@ -77,7 +77,7 @@
     </action>
     
     <action path="/displayReportMine" type="sp.action.report.DisplayReport">  
-    	<forward name="success" path="reportMine.jsp" redirect="true" />
+    	<forward name="success" path="/dislayReportListPagingMine.do" redirect="true" />
     </action>
     
     <action path="/changeModeReportMine" type="sp.action.report.ChangeMode">  
