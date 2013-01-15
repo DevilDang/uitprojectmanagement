@@ -5,16 +5,23 @@
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
 <html>
     <head>
-        <title>Quản Lý Công Việc</title>
+        <title>Quản Lý Yêu Cầu</title>
         <link rel="stylesheet" type="text/css" href="default.css"/>
         <link rel="stylesheet" type="text/css" href="css/style.css"/>
         <link rel="stylesheet" type="text/css" href="css/SpryMenuBarHorizontal.css"/>
+        <link rel="stylesheet"type="text/css" href="javascripts/ui/themes/base/ui.all.css"  />
         <script src="javascripts/SpryMenuBar.js" type="text/javascript"></script>
-        <script src="javascripts/MyJavaScripts.js" type="text/javascript"></script>
-        <script src="javascripts/json.js" type="text/javascript"></script>
-        <script src="javascripts/check.js" type="text/javascript"></script>
         <script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
        <script src="javascripts/task.js" type="text/javascript"></script> 
+<script type="text/javascript" src="javascripts/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="javascripts/ui/ui.datepicker_vn.js"></script>
+<script type="text/javascript">
+  $(function() {
+      $("#datepicker").datepicker({dateFormat: 'dd/mm/yy'});
+      $("#datepicker1").datepicker({dateFormat: 'dd/mm/yy'});
+  });
+
+</script>
     </head>
     <body>
         <div id="container">           
@@ -180,20 +187,31 @@
                 <html:form action="/updateTask.do" method="get">
                     <div id="content_right">
                       <h3 align="center">
-						Chỉnh sửa 
-						<logic:present name="record_sort" >
-						<logic:equal value="3" name="record_sort"  property="level">
-						| <a href="/changeModeTask.do?mode=1">Thêm mới </a>
-						</logic:equal>
+					<logic:equal value="2" name="task" property="mode">
+						Chỉnh sửa| 
+					</logic:equal>
+						<logic:present name="record_sort">
+							<logic:equal value="2" name="record_sort" property="level">
+						<a href="/changeModeTask.do">Thêm mới </a>
+							</logic:equal>
 						</logic:present>
-						
 					</h3><br>
                         <table id="table_monhoc" class="table_right" cellspacing="5" cellpadding="0" border="0">
                             <thead>
 
                             </thead>
-                            <logic:present name="record_flag">
-							<logic:equal name="record_flag" value="2">
+                            <tr>
+                            
+							<td width="100"><html:errors /> <logic:messagesPresent
+									message="true">
+									<!-- display message return by action-->
+									<html:messages id="message" message="true">
+										<bean:write name="message" />
+									</html:messages>
+								</logic:messagesPresent> <html:hidden property="mode"></html:hidden></td>
+                            </tr>
+                            <logic:present name="task">
+							<logic:equal name="task" value="2" property="mode">
 								<tr >
 									<td width="100">Mã công việc:</td>
 									<td width="300"><bean:write name="task" property="id" />
@@ -252,16 +270,28 @@
                             <tr>
                                 <td>Người thực hiện: </td>
                                 <td>
+                              <%--   <logic:equal name="task" property="mode" value="2"> --%>
                                      <html:select property="emailEmployee" >
                                     <option value="<bean:write name="task" property="emailEmployee"/>"><bean:write name="task" property="emailEmployee"/></option>
+                                   <logic:equal value="Open" name ="record_sort" property="status">
                                    <logic:equal value="3" name="record_sort" property="level">
+                                    
                                     <logic:notEmpty name="task_user_free">
+                                    
                                      <logic:iterate id="item" name="task_user_free">
                                      <option value="<bean:write name="item" />"><bean:write name="item" /></option>
                                     </logic:iterate>
                                     </logic:notEmpty>
                                     </logic:equal>
+                                    </logic:equal>
                                     </html:select>
+                                  <%--   </logic:equal> --%>
+                                    
+                                    <logic:empty name="task_user_free">
+									<logic:equal name="task" property="mode" value="1">
+										<span style="color: red">Mọi người đều đã có task</span>
+									</logic:equal>
+								</logic:empty>
                                 </td>
                             </tr>
                             <tr>
@@ -272,17 +302,17 @@
                             </tr>
                             <tr>
                                 <td>Ngày Bắt Đầu: </td>
-                                <td><html:text property="startDate"></html:text>
+                                <td><html:text property="startDate" styleId="datepicker" ></html:text>
                                 </td>
                             </tr>  
                               <tr>
                                 <td>Ngày Kết Thúc: </td>
-                                <td><html:text property="endDate"></html:text>
+                                <td><html:text property="endDate" styleId="datepicker1" ></html:text>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Tiến Độ: </td>
-                                <td><html:text property="process"></html:text>%
+                                <td><html:text property="process" ></html:text>%
                                 </td>
                             </tr>
                             <tr>
@@ -304,27 +334,48 @@
                               
                             </tr>  
                             <tr>
-                             <!-- display error checked by XML -->
-              <html:messages id="error">
-                <%=error%>
-              </html:messages> 
               </tr>
                         </table>
                         <table>
+                        <logic:equal name="task" property="mode" value="1">
+							<logic:notEmpty name="task_user_free">
+								<logic:equal value="3" name="record_sort" property="level">
                             <tr>
-                                <td width="170" align="right"><div id="bt_reset">
-                                        <input type="reset" name="reset" id="reset" value="Reset" style="height: 25px; width: 100px" onClick="reset_validate_form_monhoc()">
-                                    </div>
-                                </td>
-                                <td width="40"> </td>
-                                 <logic:equal value="3" name="record_sort" property="level">
-                                <td width="150" align="left">
-                                    <div id="bt_submit">
-                                        <input type ="submit" id="submit" value="OK" style="height: 25px; width: 100px">
-                                    </div>
-                                </td>
-                                </logic:equal>
-                            </tr>
+										<td width="170" align="right"><div id="bt_reset">
+												<input type="reset" name="reset" id="reset" value="Reset"
+													style="height: 25px; width: 100px"
+													>
+											</div></td>
+										<td width="40"></td>
+										<td width="150" align="left">
+
+											<div id="bt_submit">
+												<input type="submit" id="submit" value="OK"
+													style="height: 25px; width: 100px">
+											</div></td>
+									</tr>
+									</logic:equal>
+									</logic:notEmpty>
+						</logic:equal>
+									
+									<logic:equal name="task" property="mode" value="2">
+						<logic:equal value="3" name="record_sort" property="level">
+									<tr>
+										<td width="170" align="right"><div id="bt_reset">
+												<input type="reset" name="reset" id="reset" value="Reset"
+													style="height: 25px; width: 100px"
+													onClick="reset_validate_form_monhoc()">
+											</div></td>
+										<td width="40"></td>
+										<td width="150" align="left">
+
+											<div id="bt_submit">
+												<input type="submit" id="submit" value="OK"
+													style="height: 25px; width: 100px">
+											</div></td>
+									</tr>
+								</logic:equal>
+						</logic:equal>
                         </table>           
                     </div><!--end content right-->
                 </html:form>

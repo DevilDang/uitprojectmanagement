@@ -258,13 +258,14 @@
 			<html:form action="/updateReport.do" method="get">
 				<div id="content_right">
 					<h3 align="center">
-						Chỉnh sửa 
-						<logic:present name="record_sort" >
-						<logic:equal value="4" name="record_sort"  property="level">
-						| <a href="/changeModeReport.do?mode=1">Thêm mới </a>
-						</logic:equal>
+					<logic:equal value="2" name="report" property="mode">
+						Chỉnh sửa| 
+					</logic:equal>
+						<logic:present name="record_sort">
+							<logic:equal value="4" name="record_sort" property="level">
+						<a href="/changeModeReport.do">Thêm mới </a>
+							</logic:equal>
 						</logic:present>
-						
 					</h3>
 					<br>
 
@@ -281,13 +282,13 @@
 								
 								<!-- Update -->
 								<logic:notPresent name="report_file_name"> 
-							<logic:equal name="record_flag" value="2">
+							<logic:equal name="report" property="mode" value="2">
 							<bean:write name="report" property="fileName"/>
 							<html:hidden property="fileId" styleId="fileId"></html:hidden>
 						
 							<%-- <input type="hidden" id="fileName" value="<bean:write name="report" property="fileId" />"/> --%>
 							</logic:equal>
-							<logic:equal name="record_flag" value="1">
+							<logic:equal name="report" property="mode" value="1">
 								<input type="hidden" id="fileId" value=""/>
 							</logic:equal>
 							</logic:notPresent>
@@ -295,8 +296,8 @@
 							</td>
 						
 						</tr>
-						<logic:present name="record_flag">
-							<logic:equal name="record_flag" value="2">
+						<logic:present name="report">
+							<logic:equal name="report" property="mode" value="2">
 								<tr >
 									<td width="100">Mã tập tin:</td>
 									<td width="300"><bean:write name="report" property="id" />
@@ -332,8 +333,8 @@
 						</logic:equal>
 						</logic:notEqual>
 						</logic:present>
-						<logic:present name="record_flag">
-						<logic:equal name="record_flag" value="2">
+						<logic:present name="report">
+						<logic:equal name="report" property="mode" value="2">
 						<tr>
 							<td width="100">Trạng thái:</td>
 							<td width="300"><html:select property="status">
@@ -419,11 +420,11 @@
 								
 								<logic:equal value="4" name="record_sort" property="level">
 									<logic:equal value="New" name="record_sort" property="status">
-									<logic:equal value="1" name="record_flag">
+									<logic:equal name="report" property="mode" value="1" >
 									<input type="submit" id="idSubmit" value="OK"
 									style="height: 25px; width: 100px" >
 									</logic:equal>
-									<logic:equal value="2" name="record_flag">
+									<logic:equal name="report" property="mode" value="2" >
 									<input type="submit" id="submit" value="OK"
 									style="height: 25px; width: 100px" >
 									</logic:equal>
