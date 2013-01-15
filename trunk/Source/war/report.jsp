@@ -259,8 +259,11 @@
 				<div id="content_right">
 					<h3 align="center">
 					<logic:equal value="2" name="report" property="mode">
-						Chỉnh sửa| 
+						Chỉnh sửa
 					</logic:equal>
+					<logic:notEqual value="4" name="record_sort" property="level">
+						Chỉnh sửa
+					</logic:notEqual>
 						<logic:present name="record_sort">
 							<logic:equal value="4" name="record_sort" property="level">
 						<a href="/changeModeReport.do">Thêm mới </a>
@@ -390,7 +393,12 @@
 						</logic:present>
 					</table>
 					<table>
-						<tr>
+						
+								<logic:present name="record_sort" >
+								<!-- Leader, PM,Admin -->
+								<logic:notEqual value="4" name="record_sort" property="level">
+									<logic:equal value="New" name="record_sort" property="status">
+										<tr>
 							<td width="170" align="right"><div id="bt_reset">
 									<input type="reset" name="reset" id="reset" value="Reset"
 										style="height: 25px; width: 100px"
@@ -400,46 +408,108 @@
 							<td width="40"></td>
 							<td width="150" align="left">
 								<div id="bt_submit">
-								<logic:present name="record_sort" >
-								<!-- Leader, PM,Admin -->
-								<logic:notEqual value="4" name="record_sort" property="level">
-									<logic:equal value="New" name="record_sort" property="status">
 										<input type="submit"  value="OK" 
 										style="height: 25px; width: 100px"  >
+										</div>
+							</td>
+						</tr>
 									</logic:equal>
 									<logic:equal value="Review" name="record_sort" property="status">
-										<input type="submit" id="submit" value="OK"
+										<tr>
+							<td width="170" align="right"><div id="bt_reset">
+									<input type="reset" name="reset" id="reset" value="Reset"
+										style="height: 25px; width: 100px"
+										onClick="reset_validate_form_monhoc()">
+								</div>
+							</td>
+							<td width="40"></td>
+							<td width="150" align="left">
+								<div id="bt_submit">
+										<input type="submit"  value="OK" 
 										style="height: 25px; width: 100px"  >
+										</div>
+							</td>
+						</tr>
 									</logic:equal>
 									
 									<logic:equal value="Updated" name="record_sort" property="status">
-										<input type="submit" id="submit" value="OK" 
-										style="height: 25px; width: 100px" >
+										<tr>
+							<td width="170" align="right"><div id="bt_reset">
+									<input type="reset" name="reset" id="reset" value="Reset"
+										style="height: 25px; width: 100px"
+										onClick="reset_validate_form_monhoc()">
+								</div>
+							</td>
+							<td width="40"></td>
+							<td width="150" align="left">
+								<div id="bt_submit">
+										<input type="submit"  value="OK" 
+										style="height: 25px; width: 100px"  >
+										</div>
+							</td>
+						</tr>
 									</logic:equal>
 								</logic:notEqual> 
 								
 								<logic:equal value="4" name="record_sort" property="level">
 									<logic:equal value="New" name="record_sort" property="status">
 									<logic:equal name="report" property="mode" value="1" >
-									<input type="submit" id="idSubmit" value="OK"
-									style="height: 25px; width: 100px" >
+									<tr>
+							<td width="170" align="right"><div id="bt_reset">
+									<input type="reset" name="reset" id="reset" value="Reset"
+										style="height: 25px; width: 100px"
+										onClick="reset_validate_form_monhoc()">
+								</div>
+							</td>
+							<td width="40"></td>
+							<td width="150" align="left">
+								<div id="bt_submit">
+										<input type="submit"  value="OK" 
+										style="height: 25px; width: 100px"  >
+										</div>
+							</td>
+						</tr>
 									</logic:equal>
 									<logic:equal name="report" property="mode" value="2" >
-									<input type="submit" id="submit" value="OK"
-									style="height: 25px; width: 100px" >
+									<tr>
+							<td width="170" align="right"><div id="bt_reset">
+									<input type="reset" name="reset" id="reset" value="Reset"
+										style="height: 25px; width: 100px"
+										onClick="reset_validate_form_monhoc()">
+								</div>
+							</td>
+							<td width="40"></td>
+							<td width="150" align="left">
+								<div id="bt_submit">
+										<input type="submit"  value="OK" 
+										style="height: 25px; width: 100px"  >
+										</div>
+							</td>
+						</tr>
 									</logic:equal>
 									</logic:equal>
 									<logic:equal value="Request_update" name="record_sort" property="status">
-										<input type="submit" id="submit" value="OK"
-										style="height: 25px; width: 100px" >
+										<tr>
+							<td width="170" align="right"><div id="bt_reset">
+									<input type="reset" name="reset" id="reset" value="Reset"
+										style="height: 25px; width: 100px"
+										onClick="reset_validate_form_monhoc()">
+								</div>
+							</td>
+							<td width="40"></td>
+							<td width="150" align="left">
+								<div id="bt_submit">
+										<input type="submit"  value="OK" 
+										style="height: 25px; width: 100px"  >
+										</div>
+							</td>
+						</tr>
 									</logic:equal>
 									
 								</logic:equal>
 									</logic:present>
 									
-								</div>
-							</td>
-						</tr>
+								
 					</table>
 
 				</div>
