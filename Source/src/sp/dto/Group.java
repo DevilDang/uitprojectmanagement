@@ -12,7 +12,7 @@ import javax.jdo.annotations.PrimaryKey;
 public class Group implements Serializable{
 	
 	static  public final String STATUS_FREE = "free";
-	static  public final String STATUS_OWN_A_GROUP = "own_a_group";
+	static  public final String STATUS_OWN_A_GROUP = "unfree";
 	static  public final Boolean ISBUSY = false;
 	/**
 	 * 
@@ -25,8 +25,6 @@ public class Group implements Serializable{
 	
 	@Persistent
 	private Long idProject; //1
-	@Persistent
-	private String groupID;
 	@Persistent
 	private String groupname;
 	@Persistent
@@ -49,12 +47,6 @@ public class Group implements Serializable{
 	}
 	public void setIdProject(Long idProject) {
 		this.idProject = idProject;
-	}
-	public String getGroupID() {
-		return groupID;
-	}
-	public void setGroupID(String groupID) {
-		this.groupID = groupID;
 	}
 	public String getGroupname() {
 		return groupname;

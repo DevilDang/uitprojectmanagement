@@ -11,6 +11,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import sp.blo.ProjectBlo;
+import sp.dao.PMF;
 import sp.dao.ProjectDao;
 import sp.dto.Project;
 import sp.form.ProjectForm;
@@ -54,7 +55,13 @@ public class GetProject  extends org.apache.struts.action.Action {
         List<Project> list_project =  projectdao.getProjectListFilter(page, "status==" + project.getStatus(), "IDproject desc");
         request.setAttribute(Constant.PROJECT_LIST, list_project);
         request.setAttribute("status", String.valueOf(project.getStatus()));
-        request.setAttribute("PAGE", String.valueOf(project.getStatus()));
+        request.setAttribute("page_pos", page);
+        
+        
+        int count = PMF.countNumberAll(Class.forName("sp.dto.Project"), "status==" + project.getStatus());
+    	int countpage = (count < Constant.RECORD ? 1 : (count % Constant.RECORD == 0 ? count/Constant.RECORD : count/Constant.RECORD + 1));
+    
+        request.setAttribute("PAGE",countpage );
         
         
         return mapping.findForward(SUCCESS);

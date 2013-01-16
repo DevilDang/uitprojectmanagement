@@ -114,5 +114,7 @@ public class Constant {
 	public final static int STATUS_OPEN = 1;   
 	public final static int STATUS_CLOSE = 0;
 	public final static String PROJECT_LIST ="project_list";
+	public final static String GROUP_LIST ="group_list";
+	
 	
 }

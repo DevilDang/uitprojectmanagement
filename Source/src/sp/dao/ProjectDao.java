@@ -17,7 +17,7 @@ public boolean checkExistproject(Long id){
 	}
 	
 	// insert, update organization into DB
-	public static boolean saveUser(Project project) {
+	public static boolean saveProject(Project project) {
 		return PMF.insertObject(project);
 	}
 
@@ -37,6 +37,12 @@ public boolean checkExistproject(Long id){
 		return resultList;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Project> getProjectListFilter(String filter, String sort) {
+		List<Project> resultList = new ArrayList<Project>();
+		resultList = (List<Project>) PMF.getObjectList(Project.class, filter, sort);
+		return resultList;
+	}
 	
 	public void deleteProjectlist(long project_name_array[])
 	{
