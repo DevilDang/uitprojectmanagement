@@ -39,7 +39,25 @@
                             <select name="status" id="status" onchange="getListProject(1)">
                             			<%
                             			String status = (String)request.getAttribute("status");
-                            			String Page= (String)request.getAttribute("PAGE");
+                            			Integer Page= (Integer)request.getAttribute("PAGE"); // dành cho phân trang
+                            			Integer page_pos = (Integer)request.getAttribute("page_pos"); // dành cho định vị trí project
+                            			
+                            			if(page_pos == null)
+                            			{
+                            				if(request.getParameter("page_pos") != null)
+                            				{
+                            					page_pos = Integer.parseInt(request.getParameter("page_pos"));
+                            				}
+                            			}
+                            			
+                            			String isedit = (String)request.getAttribute("isEdit");
+                            			if(isedit == null)
+                            			{
+                            				
+                            				isedit = request.getParameter("isEdit");
+                            				
+                            			}
+                            			
                             			if(status == null)
                             			{
                             				%>
@@ -86,7 +104,7 @@
 									<logic:iterate id="element" name="project_list">
                                 	 <tr align="center">
                                         <td width="20"><input type="checkbox" name="check" value="<bean:write name="element"  property="IDproject"/>"/></td>
-                                        <td width="130"><a href="/getproject.do?IDproject=<bean:write name="element"  property="IDproject"/>&status=<%=status%>&PAGE=<%=Page%>"><bean:write name="element"  property="projectname"/></a></td>
+                                        <td width="130"><a href="/getproject.do?IDproject=<bean:write name="element"  property="IDproject"/>&status=<%=status%>&PAGE=<%=page_pos%>"><bean:write name="element"  property="projectname"/></a></td>
                                         
                                         <td width="130"><b><bean:write name="element"  property="projectmanager"/></b></td>
                                         <td width="70"><bean:write name="element"  property="process"/></td>                                     
@@ -101,7 +119,7 @@
 							onchange="getListProjectByPage()">
 							
 							<%
-							   if(Page == null || Page.length() < 1 )
+							   if(Page == null || Page < 1 )
 							   {
 								 %>
 								 <option value="1">1</option>
@@ -109,9 +127,22 @@
 							   }
 							   else
 							   {
-								   %>
-									 <option value="<%=Page%>"><%=Page%></option>
-								   <%  
+								   for(int i = 0;i<Page;i++)
+								   {
+									   if(page_pos == i + 1)
+									   {
+										   %>
+											 <option value="<%=i+ 1%>" selected="selected"><%=i + 1%></option>
+										   <%  
+									   }else
+									   {
+										   %>
+											 <option value="<%=i+ 1%>"><%=i + 1%></option>
+										   <%  
+									   }
+									   
+								   }
+								  
 							   }
 							%>
 							
@@ -128,7 +159,7 @@
 
                     </div>
                 </div> <!--end content left-->
-                  <html:form method="post" action="/editproject.do">
+                  <html:form method="post" action="/editproject.do" >
                     <div id="content_right">
                         <h3 align="center"> Chỉnh sửa </h3><br>
                         <table id="table_monhoc" class="table_right" cellspacing="5" cellpadding="0" border="0">
@@ -182,7 +213,7 @@
                                         String param_idproject = request.getParameter("IDproject");
                                         if(param_idproject != null && param_idproject.length() > 1)
                                         {
-	                                   		List<Group> list_group = groupdao.getGroupList("idProject==" + param_idproject);
+	                                   		List<Group> list_group = groupdao.getGroupListFilter("idProject==" + param_idproject,"IDgroup desc");
 	                                        if(list_group != null)
 	                                        {
 	                                        	for(int i = 0;i<list_group.size();i++)
@@ -190,7 +221,7 @@
                                         		
 	                                        		
 	                                   %>
-	                                        	<option value="<%=list_group.get(i).getGroupID() %>">  <%=list_group.get(i).getGroupname() %> </option>
+	                                        	<option value="<%=list_group.get(i).getIDgroup() %>">  <%=list_group.get(i).getGroupname() %> </option>
 	                                   <%
 	                                         	}
 	                                   		}
@@ -230,18 +261,11 @@
                              	</html:select>
                              </td>                          
                             </tr>
-                            <tr>
-							<td><input name="isEdit" type="radio" checked="checked" value="add" /> Thêm mới 
-							</td>
-							<td><input name="isEdit" type="radio" value="edit" /> Chỉnh sửa
-							</td>
-						</tr>
                         </table>
                         <table>
                             <tr>
                                 <td width="170" align="right"><div id="bt_reset">
-                                       <html:reset value="Làm mới" style="height: 25px; width: 100px"
-										onclick="xoa_errors();" ></html:reset>
+                                       <a href="/changemode.do">Thêm Mới</a>
                                     </div>
                                 </td>
                                 <td width="40"> </td>
@@ -251,8 +275,17 @@
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                            <td>
+							<td><input name="page_pos" type="hidden" value="<%=page_pos!=null?page_pos:"1" %>" />
+							</td>
+							<td>
+							<td><input name="isEdit" type="hidden" value="<%="edit".equals(isedit)?"edit":"add" %>" />
+							</td>
+                            </tr>
                         </table>           
                     </div><!--end content right-->
+                    
                 </html:form>
 
             </div>

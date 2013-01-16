@@ -95,10 +95,14 @@ function createXHR()
 function xoa_errors()
 {
 	var ul = document.getElementById("errors");
-	while(ul.firstChild)
-    {
-		 ul.removeChild(ul.firstChild);
-    }
+	if(ul != null)
+	{
+		while(ul.firstChild)
+	    {
+			 ul.removeChild(ul.firstChild);
+	    }
+	}
+	
 }
 //--- Po -- xóa các thông báo lỗi khi nhấn button reset
 
@@ -286,7 +290,7 @@ function getListProject(page)
 	var select_status = form.elements["status"];	    
     ajax_getCountAndCountPage("sp.dto.Project","status==" + select_status[select_status.selectedIndex].value,page);
     
-    ajax_getListProject(page)
+    ajax_getListProject(page);
 }
 
 function getListProjectByPage()
@@ -299,6 +303,7 @@ function getListProjectByPage()
 
 function ajax_getListProject(page)
 {
+	
     var form = document.getElementById("listProject");
     var select_status = form.elements["status"];
     
@@ -373,6 +378,96 @@ function draw_table_danhsachProject(list_project,length,index)
 }
 //------------------các hàm xử lý trong trang project.jsp
 
+//------------------các hàm xử lý trong trang group.jsp
+function getListGroup(page)
+{
+	var form = document.getElementById("listGroup");
+	var select_idProject = form.elements["idProject"];	    
+    ajax_getCountAndCountPage("sp.dto.Group","idProject==" + select_idProject[select_idProject.selectedIndex].value,page);
+    
+    ajax_getListGroup(page);
+}
+
+function getListGroupByPage()
+{
+	var form = document.getElementById("listGroup");
+	
+	var select_page = form.elements["select_page"];
+	ajax_getListGroup(select_page[select_page.selectedIndex].value);
+}
+
+function ajax_getListGroup(page)
+{
+    var form = document.getElementById("listGroup");
+    var select_idProject = form.elements["idProject"];
+    
+    var xhr = createXHR();
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState == 4){
+            if ((xhr.status  >= 200  &&  xhr.status  <  300) || xhr.status == 304){
+
+                var list_group = JSON.parse(xhr.responseText);
+                draw_table_danhsachGroup(list_group,list_group.length,0)
+            } else {
+                alert("Request was unsuccessful: " + xhr.status);
+            }
+        }
+    };
+
+    
+    var url = "getlistgroup.do";
+    url = addURLParam(url, "PAGE", page);
+    url = addURLParam(url, select_idProject.name, select_idProject[select_idProject.selectedIndex].value);
+    
+    xhr.open("get", url, true);
+    xhr.send(null);
+}
+
+function draw_table_danhsachGroup(list_group,length,index)
+{
+    var form = document.getElementById("listGroup");	
+	var select_page = form.elements["select_page"];
+	var select_idProject = form.elements["idProject"];
+	
+	// name của input checkbox
+    var tr, td, i;
+    var table = document.getElementById("table_danhsach_group");
+
+    // thẻ body cũ
+    var body = table. tBodies[0];
+
+    // vẽ một thủ body mới chứa dữ liệu
+    var tbody = document.createElement("tbody");
+    table.replaceChild(tbody,body);
+    for (i = index; i<length; i++)
+    {
+    	
+    	
+        tr = tbody.insertRow(tbody.rows.length);
+        tr.setAttribute("align", "center");
+
+        td = tr.insertCell(tr.cells.length);
+        var input = document.createElement("input");
+        input.setAttribute("type","checkbox");
+        input.setAttribute("name","check");
+        input.setAttribute("value",list_group[i].IDgroup);
+        td.appendChild(input);
+       
+        
+
+        td = tr.insertCell(tr.cells.length);
+        var a =  document.createElement("a");
+        a.setAttribute("href","/getproject.do?IDgroup=" + list_group[i].IDgroup+"&idProject="+select_idProject[select_idProject.selectedIndex].value+"&PAGE=" + select_page[select_page.selectedIndex].value);
+        a.innerHTML = list_group[i].groupname;
+        td.appendChild(a);
+               
+        
+        td = tr.insertCell(tr.cells.length);
+        td.innerHTML = list_group[i].leader;
+        
+    }
+}
+//------------------các hàm xử lý trong trang group.jsp
 
 // ------------- Các hàm xử lý trong trang login.jsp
 

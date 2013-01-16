@@ -4,70 +4,32 @@ import java.util.List;
 
 import sp.dao.PMF;
 import sp.dao.UserDao;
+import sp.dto.Group;
+import sp.dto.Project;
 import sp.dto.User;
 import sp.util.JSONObject;
 import sp.util.JSONObjectList;
 
 public class GroupBlo {
 	
-	private static UserDao userDao = new UserDao();
-
-	/**
-	 * checkUser
-	 * @param id
-	 * @return int
-	 */
-	public static int checkUser(String id, String password) {
-		User user = new User();
-		if (userDao.checkExistUser(id)) {
-			user = userDao.getUser(id);
-			if (user != null) {
-				if (user.getPassword().equals(password)) {
-					// success
-					return 2;
-				} else {
-					// password bi sai
-					return 1;
-				}
-			}
-		}
-		// user ko ton tai
-		return 0;
-	}
-	
-	public static boolean isExistUser_byEmail(String id) {
-		// user ton tai
-		if (userDao.checkExistUser(id)) {
-				return true;
-		}
-		// user ko ton tai
-		return false;
-	}
-	
-	public static int checkRole(String value){
-		return 1;
-	}
-	
-	public static JSONObject createJSONObject(User user)
+	public static JSONObject createJSONObject(Group group)
 	{
-		String keys[] = {"Email", "Name","IdPermision"};
-		//String keys[] = {"key0", "key1","key2"};
+		String keys[] = {"IDgroup", "groupname","leader"};
         
 		JSONObject uc = new JSONObject(keys);
-        uc.getObject().put(keys[0], user.getEmail());
-        uc.getObject().put(keys[1], user.getName());
-        uc.getObject().put(keys[2], user.getIdPermision());
-
+        uc.getObject().put(keys[0], String.valueOf(group.getIDgroup()));
+        uc.getObject().put(keys[1], group.getGroupname());
+        uc.getObject().put(keys[2], group.getLeader());
+        
        return uc;     
     }
 	
-	public static JSONObjectList createJSONObjectList(List<User> list_user)
+	public static JSONObjectList createJSONObjectList(List<Group> list_Group)
 	{
 		JSONObjectList jsonlist = new JSONObjectList();
-        int length = list_user.size();
+        int length = list_Group.size();
         for (int i = 0; i < length; i++) {
-            JSONObject uc =createJSONObject(list_user.get(i));
-
+            JSONObject uc =createJSONObject(list_Group.get(i));
             jsonlist.getListobject().add(uc);
 
         }
