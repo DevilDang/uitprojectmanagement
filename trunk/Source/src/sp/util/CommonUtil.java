@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -122,5 +123,20 @@ public class CommonUtil {
 			return value;
 		}
 	}
+	
+	/**
+	 * get date late : endDate - startDate
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	public static int getDateLate(Date sysDate, Date endDate){
+		
+		int result = 0;
+		long dateDiff = sysDate.getTime() - endDate.getTime();
+		result = (int) (dateDiff/(1000 * 60 * 60 * 24));
+		return result;
+	}
+	
 	
 }
