@@ -1,4 +1,4 @@
-package sp.util;
+﻿package sp.util;
 
 public class Constant {
 	
@@ -97,6 +97,10 @@ public class Constant {
 		public final static String USER_ASSIGN_TASK= "assignTask"; // nhan vien da duoc set task
 		public final static String TASK_USER_FREE= "task_user_free";
 		public final static String TASK= "task";
+		
+		//
+		public final static String STATUS_LATE = "Đang trễ";
+		public final static String STATUS_GOOD = "Tốt";
 //-- end Thuy --	
 		
 	// Po
