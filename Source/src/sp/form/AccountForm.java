@@ -35,15 +35,7 @@ public class AccountForm extends ValidatorForm implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-//	public String getiTypeAction() {
-//		return iTypeAction;
-//	}
-//
-//
-//
-//	public void setiTypeAction(String iTypeAction) {
-//		this.iTypeAction = iTypeAction;
-//	}
+
 
 
 
@@ -156,7 +148,7 @@ public class AccountForm extends ValidatorForm implements Serializable{
 	/*
 	 * transfer DTO -> Form
 	 */
-	public void editForm(User user){
+	public AccountForm(User user){
 		this.email = user.getEmail();
 		this.permission = user.getIdPermision();
 		this.password = user.getPassword();

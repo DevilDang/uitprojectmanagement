@@ -39,9 +39,9 @@ public class DisplayTaskList extends Action {
 
 		// get user from session
 		AccountForm user = (AccountForm) se.getAttribute("user");
-		user = new AccountForm();
+		
 		User u = (User)PMF.getObject(User.class, "a@yahoo.com");
-		user.editForm(u);
+		user = new AccountForm(u);
 		
 //		// get permision
 //		

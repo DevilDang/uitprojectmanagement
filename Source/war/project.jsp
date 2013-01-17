@@ -245,13 +245,6 @@
                                 <td><html:text property="endDate"></html:text> 
                                 </td>
                             </tr>
-                            <tr>
-                                <td>Các yêu cầu: </td>
-                                <td>
-                                    <select name="makhoa" id="manhom" onchange="reset_page('form_monhoc')">
-                                    </select>
-                                </td>
-                            </tr>
                              <tr>
                              <td> Trạng thái</td>
                              <td>
@@ -265,7 +258,7 @@
                         <table>
                             <tr>
                                 <td width="170" align="right"><div id="bt_reset">
-                                       <a href="/changemode.do">Thêm Mới</a>
+                                       <a href="/changemodeproject.do">Thêm Mới</a>
                                     </div>
                                 </td>
                                 <td width="40"> </td>

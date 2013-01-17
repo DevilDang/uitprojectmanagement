@@ -1,3 +1,6 @@
+<%@page import="sp.dto.Group"%>
+<%@page import="java.util.List"%>
+<%@page import="sp.dao.GroupDao"%>
 <%@ page contentType="text/html; charset=utf-8" language="java"
 	errorPage=""%>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%>
@@ -35,17 +38,76 @@
 		<div id="content">
 			<div id="content_left">
 				<h3 align="center">Quản lý danh sách</h3>
+				<%
+                    	String groupID = (String)request.getAttribute("groupID");
+	                    Integer Page= (Integer)request.getAttribute("PAGE"); // dành cho phân trang
+	        			Integer page_pos = (Integer)request.getAttribute("page_pos"); // dành cho định vị trí project
+	        			
+	        			if(page_pos == null)
+	        			{
+	        				if(request.getParameter("page_pos") != null)
+	        				{
+	        					page_pos = Integer.parseInt(request.getParameter("page_pos"));
+	        				}
+	        			}
+	        			
+	        			String isedit = (String)request.getAttribute("isEdit");
+	        			if(isedit == null)
+	        			{
+	        				
+	        				isedit = request.getParameter("isEdit");
+	        				
+	        			}
+                   %>
 				<br>
 				<form name="listAccount" id="listAccount" method="post"
 					action="/deleteaccount.do">
-					
+					  <%
+                          		GroupDao groupDao = new GroupDao();
+                                
+                          		List<Group> list_Group = groupDao.getGroupList("IDgroup desc");
+                                int length = list_Group.size();                        
+                          %>
 					  <div class="chose3" align="center">
                             Nhóm:
                          
-                            <select name="group" id="box" onChange="getListAccount(1)">
+                            <select name="groupID" id="box" onChange="getListAccount(1)">
                                 <option value="" selected="selected"></option>
-                                <option value="-1">Tất cả</option>
-                                <option value="0">Chưa phân nhóm</option>
+                                                             
+                                <%
+                
+                                if("0".equals(groupID))
+                                {
+                                	%>
+                                	<option value="0" selected="selected">Chưa phân nhóm</option>
+                                	<%
+                                }
+                                else
+                                {
+                                	%>
+                                	<option value="0">Chưa phân nhóm</option>
+                                	<%
+                                }
+                                %>
+                                
+                                <%
+                                	for(int i = 0;i< length;i++)
+                                	{
+                                		if(groupID != null && groupID.equals(String.valueOf(list_Group.get(i).getIDgroup())))
+                                		{
+                                			%>
+                                				<option value="<%= list_Group.get(i).getIDgroup() %>" selected="selected" ><%= list_Group.get(i).getGroupname() %></option>	
+                                			<%
+                                		}
+                                		else
+                                		{
+	                                		%>
+	                                		  
+	                                			<option value="<%= list_Group.get(i).getIDgroup() %>" ><%= list_Group.get(i).getGroupname() %></option>		
+	                                		<%
+                                		}
+                                	}
+                                %>
                               
                             </select>
                         </div>
@@ -136,35 +198,65 @@
 						<tr>
 							<td>Thuộc nhóm:</td>
 							<td>
-							<html:select property="groupCode">
-									<html:option value="0">Chưa phân nhóm</html:option>
-									<html:option value="2">Nhóm 1</html:option>
-									<html:option value="3">Nhóm 2</html:option>
-									<html:option value="4">Nhóm 3</html:option>
+							<html:select property="groupCode">                             
+                                <%
+                
+                                if("0".equals(groupID))
+                                {
+                                	%>
+                                	<option value="0" selected="selected">Chưa phân nhóm</option>
+                                	<%
+                                }
+                                else
+                                {
+                                	%>
+                                	<option value="0">Chưa phân nhóm</option>
+                                	<%
+                                }
+                                %>
+                                
+                                <%
+                                	for(int i = 0;i< length;i++)
+                                	{
+                                		if(groupID != null && groupID.equals(String.valueOf(list_Group.get(i).getIDgroup())))
+                                		{
+                                			%>
+                                				<option value="<%= list_Group.get(i).getIDgroup() %>" selected="selected" ><%= list_Group.get(i).getGroupname() %></option>	
+                                			<%
+                                		}
+                                		else
+                                		{
+	                                		%>
+	                                		  
+	                                			<option value="<%= list_Group.get(i).getIDgroup() %>" ><%= list_Group.get(i).getGroupname() %></option>		
+	                                		<%
+                                		}
+                                	}
+                                %>
 								</html:select></td>
-						</tr>
-						<tr>
-							<td><input name="isEdit" type="radio" checked="checked" value="add" onclick="selectMode(false);"/> Thêm mới 
-							</td>
-							<td><input name="isEdit" type="radio" value="edit" onclick="selectMode(true);"/> Chỉnh sửa
-							</td>
 						</tr>
 					</table>
 					<table>
 						<tr>
-							<td width="170" align="right"><div id="bt_reset">
-									<html:reset value="Reset" style="height: 25px; width: 100px"
-										onclick="xoa_errors();" />
-								</div></td>
-							<td width="40"></td>
-							<td width="150" align="left">
-								<div id="bt_submit">
-									<html:submit value="OK" style="height: 25px; width: 100px" />
-									<input type="hidden" name="KEY" value="THEM_MONHOC"> <input
-										type="hidden" name="PAGE" value="0">
-								</div>
+                               <td width="170" align="right"><div id="bt_reset">
+                                       <a href="/changemodeuser.do">Thêm Mới</a>
+                                    </div>
+                                </td>
+                                <td width="40"> </td>
+                                <td width="150" align="left">
+                                    <div id="bt_submit">
+                                        <html:submit value="OK" style="height: 25px; width: 100px"></html:submit>
+                                    </div>
+                                </td>
+                            </tr>
+						  <tr>
+                            <td>
+							<td><input name="page_pos" type="hidden" value="<%=page_pos!=null?page_pos:"1" %>" />
 							</td>
-						</tr>
+							<td>
+							<td><input name="isEdit" type="hidden" value="<%="edit".equals(isedit)?"edit":"add" %>" />
+							</td>
+                            </tr>
 					</table>
 				</div>
 				<!--end content right-->

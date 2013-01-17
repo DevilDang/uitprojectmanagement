@@ -9,6 +9,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.validator.ValidatorForm;
 
+import sp.dao.GroupDao;
 import sp.dao.ProjectDao;
 import sp.dto.Group;
 import sp.dto.Project;
@@ -82,8 +83,8 @@ public class GroupForm extends ValidatorForm implements Serializable {
 	        {
 	        	if(getIDgroup() != 0)
 	        	{
-	        		ProjectDao projectdao = new ProjectDao();
-	        		if(projectdao.checkExistproject(getIDgroup()))
+	        		GroupDao groupdao = new GroupDao();
+	        		if(groupdao.checkExistgroup(getIDgroup()))
 	        		{
 	        			errors.add("idgroup", new ActionMessage("error.idgroup.isexist"));
 	        		}
@@ -92,8 +93,8 @@ public class GroupForm extends ValidatorForm implements Serializable {
 	        {
 	        	if(getIDgroup() != 0)
 	        	{
-	        		ProjectDao projectdao = new ProjectDao();
-	        		if(!projectdao.checkExistproject(getIDgroup()))
+	        		GroupDao groupdao = new GroupDao();
+	        		if(!groupdao.checkExistgroup(getIDgroup()))
 	        		{
 	        			errors.add("idgroup", new ActionMessage("error.idgroup.unexist"));
 	        		}
@@ -102,7 +103,6 @@ public class GroupForm extends ValidatorForm implements Serializable {
 	        
 	        
 	        if (getGroupname() == null || getGroupname().length() < 1) {
-	        	System.out.println(" Dang tấn lộc là trùm" + getGroupname() + "hhhhh");
 	            errors.add("groupname", new ActionMessage("error.groupname.required"));
 	            // TODO: add 'error.name.required' key to your resources
 	        }

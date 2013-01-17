@@ -10,9 +10,12 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import sp.blo.GroupBlo;
 import sp.blo.UserBlo;
+import sp.dao.GroupDao;
 import sp.dao.PMF;
 import sp.dao.UserDao;
+import sp.dto.Group;
 import sp.dto.User;
 import sp.util.JSONObjectList;
 
@@ -37,18 +40,27 @@ public class GetListAccount extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-    	// lấy ra mã nhóm
-    	PrintWriter out = response.getWriter();
-        long group = Long.parseLong(request.getParameter("group"));
+    	response.setCharacterEncoding("utf-8");
+    	PrintWriter out = response.getWriter();	
+        long groupID = Long.parseLong(request.getParameter("groupID"));
         int page = Integer.parseInt(request.getParameter("PAGE"));
         
-        List<User> list_user = UserDao.getListAccountSorted(group, page);
+        UserDao userdao = new UserDao();
+        List<User> list_user;
+        if(groupID == -1)
+        {
+        	list_user = userdao.getUserList(page,"id desc");
+        }
+        else
+        {
+        	list_user = userdao.getUserListFilter(page, "groupID=="+groupID, "id desc");
+        }
         
         JSONObjectList jsonlist = UserBlo.createJSONObjectList(list_user);
         
         out.write(jsonlist.toJSONtextString());
         out.close();
-        
-        return null;
+    	
+        return mapping.findForward(SUCCESS);
     }
 }

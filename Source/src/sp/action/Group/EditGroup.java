@@ -8,14 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.tools.ant.taskdefs.Sleep;
 
 import sp.dao.GroupDao;
-import sp.dao.ProjectDao;
+import sp.dao.PMF;
 import sp.dto.Group;
-import sp.dto.Project;
 import sp.form.GroupForm;
-import sp.form.ProjectForm;
 import sp.util.Constant;
 
 public class EditGroup extends org.apache.struts.action.Action{
@@ -42,6 +39,8 @@ public class EditGroup extends org.apache.struts.action.Action{
     	GroupForm groupform = (GroupForm)form;	
  		Group group = groupform.getGroup();
  		String checkMode = request.getParameter("isEdit");
+ 		String page_pos = request.getParameter("page_pos");
+ 		
         if("add".equals(checkMode))
         {
         	if(group.getIdProject() == 0)
@@ -69,9 +68,16 @@ public class EditGroup extends org.apache.struts.action.Action{
         
         
         GroupDao grouptdao = new GroupDao();
-        List<Group> list_group =  grouptdao.getGroupListFilter(1, "idProject==" + group.getIdProject(), "IDgroup desc");
+        List<Group> list_group =  grouptdao.getGroupListFilter(Integer.parseInt(page_pos), "idProject==" + group.getIdProject(), "IDgroup desc");
         request.setAttribute(Constant.GROUP_LIST, list_group);
         request.setAttribute("idProject", String.valueOf(group.getIdProject()));
+        
+        request.setAttribute("page_pos", Integer.parseInt(page_pos));
+               
+        int count = PMF.countNumberAll(Class.forName("sp.dto.Group"), "idProject==" + group.getIdProject());
+    	int countpage = (count < Constant.RECORD ? 1 : (count % Constant.RECORD == 0 ? count/Constant.RECORD : count/Constant.RECORD + 1));
+    
+        request.setAttribute("PAGE",countpage );
         
         return mapping.findForward(SUCCESS);
     	

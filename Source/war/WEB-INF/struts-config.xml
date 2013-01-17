@@ -53,8 +53,17 @@
 	
 	<!-- Po -action xử lý việc lấy chi tiết một tài khoản -->
       <action path="/getaccount" type="sp.action.Account.GetAccount">
+          <forward name="success" path="/account.jsp"/>
       </action>  
      <!-- Po -action xử lý việc lấy chi tiết một tài khoản -->
+     
+      <!-- Po -action xử lý việc chuyển sang chế độ thêm mới 1 account -->
+      <action path="/changemodeuser" type="sp.action.Account.changemode">
+       <forward name="success" path="/account.jsp"/>
+      </action>  
+      <!-- Po -action xử lý việc chuyển sang chế độ thêm mới 1 account -->
+      
+      
      
      <!-- Po -action xử lý việc tính số page khi view danh sách -->
       <action path="/countpages" type="sp.action.countpages">
@@ -85,7 +94,7 @@
       <!-- Po -action xử lý việc lây thông tin chi tiết 1 project -->
       
        <!-- Po -action xử lý việc chuyển sang giao diện thêm mới 1 project -->
-      <action path="/changemode" type="sp.action.Project.changeMode">
+      <action path="/changemodeproject" type="sp.action.Project.changeMode">
        <forward name="success" path="/project.jsp"/>
       </action>  
       <!-- Po -action xử lý việc chuyển sang giao diện thêm mới 1 project -->
@@ -97,23 +106,28 @@
      </action>     
      <!-- Po -action xử lý việc thêm, sửa group -->
      
-      <!-- Po - action xử lý lấy danh sách các project -->
+      <!-- Po - action xử lý lấy danh sách các nhóm -->
      <action path="/getlistgroup" type="sp.action.Group.GetListGroup">
      </action>     
-     <!-- Po -action xử lý lấy danh sách các project -->
+     <!-- Po -action xử lý lấy danh sách các nhóm -->
       
-      <!-- Po -action xử lý việc xóa project -->
+      <!-- Po -action xử lý việc xóa nhóm -->
       <action path="/deletegroup" type="sp.action.Group.DeleteGroup">
        <forward name="success" path="/group.jsp"/>
       </action>  
-     <!-- Po -action xử lý việc xóa project -->  
+     <!-- Po -action xử lý việc xóa nhóm -->  
       
-       <!-- Po -action xử lý việc lây thông tin chi tiết 1 project -->
+       <!-- Po -action xử lý việc lây thông tin chi tiết 1 nhóm -->
       <action path="/getgroup" type="sp.action.Group.GetGroup">
        <forward name="success" path="/group.jsp"/>
       </action>  
-      <!-- Po -action xử lý việc lây thông tin chi tiết 1 project -->
+      <!-- Po -action xử lý việc lây thông tin chi tiết 1 nhóm -->
       
+       <!-- Po -action xử lý việc xử lý chuyển sang chế độ thêm mới 1 nhóm -->
+      <action path="/changemodegroup" type="sp.action.Group.ChangeMode">
+       <forward name="success" path="/group.jsp"/>
+      </action>  
+       <!-- Po -action xử lý việc xử lý chuyển sang chế độ thêm mới 1 nhóm -->
       
     <!-- <action path="/promotionInfoWeekly" type="ebiz.action.mail.PromotionWeekly"-->
 
