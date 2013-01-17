@@ -182,7 +182,7 @@ function ajax_getCountAndCountPage(classname,filter,page)
 function getListAccount(page)
 {
 	var form = document.getElementById("listAccount");
-	var select_group = form.elements["group"];	    
+	var select_group = form.elements["groupID"];	    
     ajax_getCountAndCountPage("sp.dto.User","groupID==" + select_group[select_group.selectedIndex].value,page);
     
 	ajax_getListAccount(page)
@@ -201,7 +201,7 @@ function ajax_getListAccount(page)
 	
     //draw_loading();
     var form = document.getElementById("listAccount");
-    var select_group = form.elements["group"];
+    var select_group = form.elements["groupID"];
     
     var xhr = createXHR();
     xhr.onreadystatechange = function(){
@@ -223,7 +223,6 @@ function ajax_getListAccount(page)
 
     
     var url = "getlistaccount.do";
-    url = addURLParam(url, "KEY", "LIST_MONHOC");
     url = addURLParam(url, "PAGE", page);
     url = addURLParam(url, select_group.name, select_group[select_group.selectedIndex].value);
     
@@ -235,6 +234,9 @@ function ajax_getListAccount(page)
 //--- Po draw table
 function draw_table_danhsachaccount(list_account,length,index)
 {
+	var form = document.getElementById("listAccount");	
+	var select_page = form.elements["select_page"];
+	var select_groupID = form.elements["groupID"];
 	// name của input checkbox
     var tr, td, i;
     var table = document.getElementById("table_danhsach_account");
@@ -262,8 +264,7 @@ function draw_table_danhsachaccount(list_account,length,index)
 
         td = tr.insertCell(tr.cells.length);
         var a =  document.createElement("a");
-        a.setAttribute("href","javascript: void(0)");
-        a.setAttribute("onclick","ajax_getAccount('" +list_account[i].Email+"');");
+        a.setAttribute("href","/getaccount.do?email=" + list_account[i].Email+"&groupID="+select_groupID[select_groupID.selectedIndex].value+"&PAGE=" + select_page[select_page.selectedIndex].value);
         a.innerHTML = list_account[i].Email;
         td.appendChild(a);
                
@@ -457,7 +458,7 @@ function draw_table_danhsachGroup(list_group,length,index)
 
         td = tr.insertCell(tr.cells.length);
         var a =  document.createElement("a");
-        a.setAttribute("href","/getproject.do?IDgroup=" + list_group[i].IDgroup+"&idProject="+select_idProject[select_idProject.selectedIndex].value+"&PAGE=" + select_page[select_page.selectedIndex].value);
+        a.setAttribute("href","/getgroup.do?IDgroup=" + list_group[i].IDgroup+"&idProject="+select_idProject[select_idProject.selectedIndex].value+"&PAGE=" + select_page[select_page.selectedIndex].value);
         a.innerHTML = list_group[i].groupname;
         td.appendChild(a);
                

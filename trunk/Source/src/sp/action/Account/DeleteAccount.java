@@ -10,8 +10,10 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import sp.dao.GroupDao;
 import sp.dao.PMF;
 import sp.dao.UserDao;
+import sp.dto.Group;
 import sp.dto.User;
 import sp.util.Constant;
 
@@ -39,22 +41,30 @@ public class DeleteAccount extends org.apache.struts.action.Action{
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
-    	String login_name_array[] = request.getParameterValues("check");
-    	   	 
-    	for(int i = 0;i<login_name_array.length;i++)
-    		PMF.deleteObject(User.class, login_name_array[i]);
-    	
-    	
-    	long group = Long.parseLong(request.getParameter("group"));
-        int page = Integer.parseInt(request.getParameter("PAGE"));
-        
-        List<User> list_user = UserDao.getListAccountSorted(group, page);
-    	request.setAttribute(Constant.ACCOUNT_LIST, list_user);
-    	request.setAttribute("group", group);
-    	request.setAttribute("page", page);
-    	
-    	
-        return mapping.findForward(SUCCESS);
+    	String user_name_array[] = request.getParameterValues("check");
+
+		for (int i = 0; i < user_name_array.length; i++)
+			PMF.deleteObject(User.class, user_name_array[i]);
+
+		int IDgroup = Integer.parseInt(request.getParameter("IDgroup"));
+		int page = Integer.parseInt(request.getParameter("PAGE"));
+
+		UserDao userdao = new UserDao();
+		List<User> list_user = userdao.getUserListFilter(page,
+				"IDgroup==" + IDgroup, "id desc");
+		
+		request.setAttribute(Constant.ACCOUNT_LIST, list_user);
+		
+		request.setAttribute("IDgroup", String.valueOf(IDgroup));
+		
+		 request.setAttribute("page_pos", page);
+         
+        int count = PMF.countNumberAll(Class.forName("sp.dto.User"), "IDgroup==" + IDgroup);
+    	int countpage = (count < Constant.RECORD ? 1 : (count % Constant.RECORD == 0 ? count/Constant.RECORD : count/Constant.RECORD + 1));
+    
+        request.setAttribute("PAGE",countpage );
+
+		return mapping.findForward(SUCCESS);
     }
     
 }

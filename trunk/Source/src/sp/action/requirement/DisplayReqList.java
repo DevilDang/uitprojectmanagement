@@ -16,7 +16,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 
-import sp.blo.CommonBlo;
+//import sp.blo.CommonBlo;
 import sp.blo.ReportBlo;
 import sp.blo.RequirementBlo;
 import sp.blo.UserBlo;
@@ -46,10 +46,10 @@ public class DisplayReqList extends Action {
 
 		// get user from session
 		AccountForm user = (AccountForm) se.getAttribute("user");
-		user = new AccountForm();
+		
 		User u = (User)PMF.getObject(User.class, "b@yahoo.com");
 	
-		user.editForm(u);
+		user = new AccountForm(u);
 
 		// get permision
 		int permission = Integer.parseInt(user.getPermission());

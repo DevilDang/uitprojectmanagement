@@ -36,7 +36,7 @@ public class GetListProject extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-    	
+    	response.setCharacterEncoding("utf-8");
     	PrintWriter out = response.getWriter();
         long status = Integer.parseInt(request.getParameter("status"));
         int page = Integer.parseInt(request.getParameter("PAGE"));

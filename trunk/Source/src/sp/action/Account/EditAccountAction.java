@@ -10,10 +10,13 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import sp.blo.UserBlo;
+import sp.dao.GroupDao;
 import sp.dao.PMF;
 import sp.dao.UserDao;
+import sp.dto.Group;
 import sp.dto.User;
 import sp.form.AccountForm;
+import sp.form.GroupForm;
 import sp.util.Constant;
 
 public class EditAccountAction extends org.apache.struts.action.Action{
@@ -37,19 +40,34 @@ public class EditAccountAction extends org.apache.struts.action.Action{
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        
+    	
     	AccountForm accountForm = (AccountForm)form;
     	User user = accountForm.getUser();
-    	if(!UserBlo.isExistUser_byEmail(user.getEmail()))
-    	{
-    		// thêm mới
-    		user.setId(System.currentTimeMillis());
-    		UserDao.saveUser(user);
-    	}
-    	
-    	List<User> list_user = (List<User>)PMF.getObjectList(User.class, "groupID==" +user.getGroupID(), "id desc", 1);
-    	request.setAttribute(Constant.ACCOUNT_LIST, list_user);
-    	System.out.println(list_user.size() + "snaznajhzbnahjzb");
+ 		String checkMode = request.getParameter("isEdit");
+ 		String page_pos = request.getParameter("page_pos");
+ 		
+        if("add".equals(checkMode))
+        {
+        	user.setId(System.currentTimeMillis());
+        	UserDao.saveUser(user);
+        }else if("edit".equals(checkMode))
+        {
+        	UserDao.saveUser(user);
+        }
+        
+        
+        UserDao usertdao = new UserDao();
+        List<User> list_user =  usertdao.getUserListFilter(Integer.parseInt(page_pos), "groupID==" + user.getGroupID(), "id desc");
+        request.setAttribute(Constant.ACCOUNT_LIST, list_user);
+        request.setAttribute("groupID", String.valueOf(user.getGroupID()));
+        
+        request.setAttribute("page_pos", Integer.parseInt(page_pos));
+               
+        int count = PMF.countNumberAll(Class.forName("sp.dto.User"), "groupID==" + user.getGroupID());
+    	int countpage = (count < Constant.RECORD ? 1 : (count % Constant.RECORD == 0 ? count/Constant.RECORD : count/Constant.RECORD + 1));
+    
+        request.setAttribute("PAGE",countpage );
+        
         return mapping.findForward(SUCCESS);
     }
 

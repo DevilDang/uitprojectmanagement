@@ -57,8 +57,11 @@ public class DeleteProject extends org.apache.struts.action.Action {
 		request.setAttribute(Constant.PROJECT_LIST, list_project);
 		
 		request.setAttribute("status", String.valueOf(status));
-		request.setAttribute("page", page);
-
+		request.setAttribute("page_pos", page);
+		
+		 int count = PMF.countNumberAll(Class.forName("sp.dto.Project"), "status==" + status);
+	     int countpage = (count < Constant.RECORD ? 1 : (count % Constant.RECORD == 0 ? count/Constant.RECORD : count/Constant.RECORD + 1));    
+	     request.setAttribute("PAGE",countpage );
 		return mapping.findForward(SUCCESS);
 	}
 

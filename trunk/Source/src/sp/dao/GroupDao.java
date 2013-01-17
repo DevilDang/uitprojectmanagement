@@ -9,7 +9,7 @@ import sp.dto.User;
 
 public class GroupDao {
 
-	public boolean checkExistproject(Long id) {
+	public boolean checkExistgroup(Long id) {
 
 		return PMF.isObject(Group.class, id);
 	}
@@ -49,10 +49,18 @@ public class GroupDao {
 		return resultList;
 	}
 	
-	public void deleteGrouplist(long project_name_array[]) {
+	@SuppressWarnings("unchecked")
+	public List<Group> getGroupList(String sort) {
+		List<Group> resultList = new ArrayList<Group>();
+		resultList = (List<Group>) PMF.getObjectListSort(Group.class,
+				sort);
+		return resultList;
+	}
+	
+	public void deleteGrouplist(long Group_name_array[]) {
 
-		for (int i = 0; i < project_name_array.length; i++)
-			PMF.deleteObject(Group.class, project_name_array[i]);
+		for (int i = 0; i < Group_name_array.length; i++)
+			PMF.deleteObject(Group.class, Group_name_array[i]);
 	}
 	
 	

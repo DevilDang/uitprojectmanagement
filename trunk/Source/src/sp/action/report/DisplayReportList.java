@@ -37,14 +37,13 @@ public class DisplayReportList extends Action {
 		HttpSession se = request.getSession();
 
 		// get user from session
-		AccountForm user = (AccountForm) se.getAttribute("user");
-		user = new AccountForm();
+		AccountForm user = (AccountForm) se.getAttribute("user");		
 		String temp = "a@yahoo.com";
 		User u = (User)PMF.getObject(User.class, temp);
 //		u.setGroupID(2);
 //		PMF.insertObject(u);
 //		u = (User)PMF.getObject(User.class, "a@yahoo.com");
-		user.editForm(u);
+		user = new AccountForm(u);
 		// end temp
 
 		// get permision

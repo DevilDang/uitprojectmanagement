@@ -1,4 +1,4 @@
-package sp.action.Project;
+package sp.action.Group;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,9 +8,11 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import sp.form.GroupForm;
 import sp.form.ProjectForm;
 
-public class changeMode extends Action{
+public class ChangeMode extends Action{
+	
 	/*
 	 * forward name="success" path=""
 	 */
@@ -35,10 +37,10 @@ public class changeMode extends Action{
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		
-		ProjectForm projectform  = new ProjectForm();
+		GroupForm projectform  = new GroupForm();
 		
 		form = projectform;
-		request.getSession().setAttribute("ProjectForm", form);
+		request.getSession().setAttribute("GroupForm", form);
 		request.setAttribute("isEdit", "add");
 		//forward page result
 		return mapping.findForward(SUCCESS);

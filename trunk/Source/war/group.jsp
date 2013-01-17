@@ -16,8 +16,9 @@
         <link rel="stylesheet" type="text/css" href="css/SpryMenuBarHorizontal.css"/>
         <script src="javascripts/SpryMenuBar.js" type="text/javascript"></script>
         <script src="javascripts/MyJavaScripts.js" type="text/javascript"></script>
-        <script src="javascripts/json.js" type="text/javascript"></script>
-        <script src="javascripts/check.js" type="text/javascript"></script>
+        <script src="javascripts/json.js" type="text/javascript"></script>     
+        <script src="javascripts/check.js" type="text/javascript"></script>      
+		<script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
     </head>
     <body>
         <div id="container">           
@@ -33,8 +34,25 @@
                     <h3 align="center"> Quản lý danh sách </h3><br>
                     <%
                     	String idProject = (String)request.getAttribute("idProject");
-        				String Page= (String)request.getAttribute("PAGE");
-                    %>
+	                    Integer Page= (Integer)request.getAttribute("PAGE"); // dành cho phân trang
+	        			Integer page_pos = (Integer)request.getAttribute("page_pos"); // dành cho định vị trí project
+	        			
+	        			if(page_pos == null)
+	        			{
+	        				if(request.getParameter("page_pos") != null)
+	        				{
+	        					page_pos = Integer.parseInt(request.getParameter("page_pos"));
+	        				}
+	        			}
+	        			
+	        			String isedit = (String)request.getAttribute("isEdit");
+	        			if(isedit == null)
+	        			{
+	        				
+	        				isedit = request.getParameter("isEdit");
+	        				
+	        			}
+	                    %>
                     <form name="listGroup" id ="listGroup" method="post" action="/deletegroup.do">
                           <%
                           		ProjectDao project = new ProjectDao();
@@ -47,11 +65,26 @@
                          
                             <select name="idProject" id="box" onChange="getListGroup(1)">
                                 <option value="-1"></option>
-                                <option value="0" >Chưa có dự án</option>
+                                <%
+                
+                                if("0".equals(idProject))
+                                {
+                                	%>
+                                	<option value="0" selected="selected">Chưa có dự án</option>
+                                	<%
+                                }
+                                else
+                                {
+                                	%>
+                                	<option value="0">Chưa có dự án</option>
+                                	<%
+                                }
+                                %>
+                                
                                 <%
                                 	for(int i = 0;i< length;i++)
                                 	{
-                                		if(idProject != null && idProject.equals(list_project.get(i).getIDproject()))
+                                		if(idProject != null && idProject.equals(String.valueOf(list_project.get(i).getIDproject())))
                                 		{
                                 			%>
                                 				<option value="<%= list_project.get(i).getIDproject() %>" selected="selected"><%= list_project.get(i).getProjectname() %></option>	
@@ -86,8 +119,8 @@
 									<logic:iterate id="element" name="group_list">
                                 	 <tr align="center">
                                         <td width="20"><input type="checkbox" name="check" id="check" value="<bean:write name="element"  property="IDgroup"/>" /></td>
-                                       <td width="130"><a href="/getgroup.do?IDproject=<bean:write name="element"  property="IDgroup"/>"><bean:write name="element"  property="groupname"/></a></td>                                       
-                                        <td width="130"><b><bean:write name="element"  property="leader"/></b></td>                           
+                                       <td width="130"><a href="/getgroup.do?IDgroup=<bean:write name="element"  property="IDgroup"/>&idProject=<%=idProject%>&PAGE=<%=page_pos%>"><bean:write name="element"  property="groupname"/></a></td>
+                                         <td width="130"><b><bean:write name="element"  property="leader"/></b></td>                           
                                     </tr>
                                    </logic:iterate>
 								</logic:present>                                     
@@ -96,10 +129,10 @@
                         </div>
                          <div id="phantrang" class="chose3" align="center">
                            <select name="PAGE" id="select_page"
-							onchange="getListProjectByPage()">
+							onchange="getListGroupByPage()">
 							
 							<%
-							   if(Page == null || Page.length() < 1 )
+							   if(Page == null || Page < 1 )
 							   {
 								 %>
 								 <option value="1">1</option>
@@ -107,9 +140,22 @@
 							   }
 							   else
 							   {
-								   %>
-									 <option value="<%=Page%>"><%=Page%></option>
-								   <%  
+								   for(int i = 0;i<Page;i++)
+								   {
+									   if(page_pos == i + 1)
+									   {
+										   %>
+											 <option value="<%=i+ 1%>" selected="selected"><%=i + 1%></option>
+										   <%  
+									   }else
+									   {
+										   %>
+											 <option value="<%=i+ 1%>"><%=i + 1%></option>
+										   <%  
+									   }
+									   
+								   }
+								  
 							   }
 							%>
 							
@@ -117,10 +163,9 @@
 						</select>
 
                         </div>
-                        <div class="chose3" align="center">
-                            <input type="button" id="submit" value="Xóa" style="height: 25px; width: 100px" onClick="ajax_delete_monhoc()">
-                            <input type="hidden" name="KEY" value="XOA_MONHOC">
-
+                        <div class="chose3" align="center">                          
+						<input type="submit" id="submit" value="Xóa"
+							style="height: 25px; width: 100px" />
                         </div>
                     </form>
                     <div>
@@ -197,30 +242,48 @@
                                 <td>Tham gia dự án: </td>
                                 <td>   
                                 <html:select property="idProject">
-                                     <option value="0" >Chưa có dự án</option>
-                                   	 <%
-	                                	for(int i = 0;i< length;i++)
-	                                	{
+                                     <%
+                
+                                if("0".equals(idProject))
+                                {
+                                	%>
+                                	<option value="0" selected="selected">Chưa có dự án</option>
+                                	<%
+                                }
+                                else
+                                {
+                                	%>
+                                	<option value="0">Chưa có dự án</option>
+                                	<%
+                                }
+                                %>
+                                
+                                <%
+                                	for(int i = 0;i< length;i++)
+                                	{
+                                		if(idProject != null && idProject.equals(String.valueOf(list_project.get(i).getIDproject())))
+                                		{
+                                			%>
+                                				<option value="<%= list_project.get(i).getIDproject() %>" selected="selected"><%= list_project.get(i).getProjectname() %></option>	
+                                			<%
+                                		}
+                                		else
+                                		{
 	                                		%>
+	                                		  
 	                                			<option value="<%= list_project.get(i).getIDproject() %>" ><%= list_project.get(i).getProjectname() %></option>		
 	                                		<%
-                            	    	}
-                                	%>                                	 
+                                		}
+                                	}
+                                %>                            	 
                                     </html:select>
                                 </td>
                             </tr>
-                             <tr>
-							<td><input name="isEdit" type="radio" checked="checked" value="add" /> Thêm mới 
-							</td>
-							<td><input name="isEdit" type="radio" value="edit" /> Chỉnh sửa
-							</td>
-						</tr>  
                         </table>
                         <table>
                             <tr>
-                                <td width="170" align="right"><div id="bt_reset">
-                                        <html:reset value="Làm mới" style="height: 25px; width: 100px"
-										onclick="xoa_errors();" ></html:reset>
+                               <td width="170" align="right"><div id="bt_reset">
+                                       <a href="//changemodegroup.do">Thêm Mới</a>
                                     </div>
                                 </td>
                                 <td width="40"> </td>
@@ -229,6 +292,14 @@
                                         <html:submit value="OK" style="height: 25px; width: 100px"></html:submit>
                                     </div>
                                 </td>
+                            </tr>
+                            <tr>
+                            <td>
+							<td><input name="page_pos" type="hidden" value="<%=page_pos!=null?page_pos:"1" %>" />
+							</td>
+							<td>
+							<td><input name="isEdit" type="hidden" value="<%="edit".equals(isedit)?"edit":"add" %>" />
+							</td>
                             </tr>
                         </table>           
                     </div><!--end content right-->
