@@ -25,6 +25,8 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 	private String status;
 	private int level;
 	private String mode;
+	private String statusReq; //good or late
+	private int lateDate; 
 	/**
 	 * @return the id
 	 */
@@ -190,8 +192,14 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 		this.endDate = CommonUtil.convertDateToStr(req.getEndDate());
 		this.process = req.getProcess();
 		this.status = req.getStatus();
-		
-		
+		this.lateDate = CommonUtil.getDateLate(CommonUtil.getSystemDate(), req.getEndDate());
+		if (this.lateDate > 0){
+			this.statusReq = Constant.STATUS_LATE;
+		}
+		else
+		{
+			this.statusReq = Constant.STATUS_GOOD;
+		}
 	}
 	
 	/*@Override
@@ -238,8 +246,36 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 		process = 0;
 		status = "";
 		level = 0;
+		lateDate = 0;
+		statusReq = "";
 		//set mode insert
 		mode = Constant.MODE_INSERT;
 	}
+	/**
+	 * @return the statusReq
+	 */
+	public String getStatusReq() {
+		return statusReq;
+	}
+	/**
+	 * @param statusReq the statusReq to set
+	 */
+	public void setStatusReq(String statusReq) {
+		this.statusReq = statusReq;
+	}
+	/**
+	 * @return the lateDate
+	 */
+	public int getLateDate() {
+		return lateDate;
+	}
+	/**
+	 * @param lateDate the lateDate to set
+	 */
+	public void setLateDate(int lateDate) {
+		this.lateDate = lateDate;
+	}
+	
+	
 	
 }
