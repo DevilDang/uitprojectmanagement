@@ -5,13 +5,11 @@
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
 <html>
 <head>
-<title>Quản Lý Yêu Cầu</title>
-<link rel="stylesheet" type="text/css" href="default.css" />
-<link rel="stylesheet" type="text/css" href="css/style.css" />
-<link rel="stylesheet" type="text/css"
-	href="css/SpryMenuBarHorizontal.css" />
+<title>Web site quản lý phần mềm</title>
+    <link rel="stylesheet" href="css/style1.css" />
 <link rel="stylesheet" type="text/css"
 	href="javascripts/ui/themes/base/ui.all.css" />
+<script src="javascripts/check.js" type="text/javascript"></script>
 <script src="javascripts/SpryMenuBar.js" type="text/javascript"></script>
 <script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
 <script src="javascripts/requirement.js" type="text/javascript"></script>
@@ -27,31 +25,24 @@
 			dateFormat : 'dd/mm/yy'
 		});
 	});
-</script>
+</script> 
 </head>
 <body>
-	<div id="container">
-		<jsp:include page="module/header.jsp" />
-		<div id="nav_sub">
-			<div id="nav_sub_left">
-				<div class="logo">
-					<img src="images/logo.png" />
-				</div>
-				<div class="logo">
-					<h1>Quản Lý Yêu Cầu</h1>
-				</div>
-			</div>
-			<!--end nav_sub_left-->
-		</div>
-		<!--end nav_sub-->
-		<div id="content">
-			<div id="content_left">
-				<h3 align="center">Quản lý danh sách</h3>
-				<br>
-				<form name="sortForm" id="sortForm" method="post"
+    <div class="BodyContent">
+
+    <div class="BorderBorder"><div class="BorderBL"><div></div></div><div class="BorderBR"><div></div></div><div class="BorderTL"></div><div class="BorderTR"><div></div></div><div class="BorderT"></div><div class="BorderR"><div></div></div><div class="BorderB"><div></div></div><div class="BorderL"></div><div class="BorderC"></div><div class="Border">
+
+       <jsp:include page="module/header1.jsp" />
+        <div class="Columns"><div class="Column1">
+        <div class="BlockBorder"><div class="BlockBL"><div></div></div><div class="BlockBR"><div></div></div><div class="BlockTL"></div><div class="BlockTR"><div></div></div><div class="BlockT"></div><div class="BlockR"><div></div></div><div class="BlockB"><div></div></div><div class="BlockL"></div><div class="BlockC"></div><div class="Block">
+
+            <span class="BlockHeader"><span>Tìm kiếm</span></span>
+            <div class="BlockContentBorder">
+
+              <form name="sortForm" id="sortForm" method="post"
 					action="/deleteReq.do">
-					<div class="chose3" align="center">
-						Dự Án: <select name="project" id="box" onChange="getListReq(1,1)">
+					
+						Dự án: <select name="project" id="box" onChange="getListReq(1,1)">
 							<logic:present name="idProList">
 								<logic:iterate id="element" name="idProList">
 									<option
@@ -61,9 +52,9 @@
 								</logic:iterate>
 							</logic:present>
 						</select>
-					</div>
+					<br>
 					<logic:notEmpty name="idReqList">
-						<div class="chose3" align="center">
+						
 							Yêu cầu: <select name="req" id="box" onChange="getListReq(2,1)">
 								<logic:iterate id="element" name="idReqList">
 									<option value="" selected>
@@ -71,10 +62,10 @@
 									</option>
 								</logic:iterate>
 							</select>
-						</div>
+						<br>
 					</logic:notEmpty>
 					<logic:notEmpty name="idGroupList">
-						<div class="chose3" align="center">
+						
 							Nhóm thực hiện: <select name="group" id="box"
 								onChange="getListReq(3,1)">
 								<logic:iterate id="element" name="idGroupList">
@@ -83,9 +74,9 @@
 									</option>
 								</logic:iterate>
 							</select>
-						</div>
+						<br>
 					</logic:notEmpty>
-					<div class="chose3" align="center">
+					
 						Trạng thái: <select name="status" id="box"
 							onChange="getListReq(4,1)">
 							<logic:present name="record_sort">
@@ -99,27 +90,203 @@
 								</logic:equal>
 							</logic:present>
 						</select>
-					</div>
+					<br>
+						Trang:<select name="page" id="select_page"
+							onchange="getListReqByPage(this.options[this.selectedIndex].text)">
+							<logic:present name="record_page_list">
+								<logic:iterate id="item" name="record_page_list">
+									<option value="<bean:write name="item"/>">
+										<bean:write name="item" />
+									</option>
 
-					<p>&nbsp;</p>
-					<p>
-						<br>
-					</p>
-					<div id="table">
-						<table id="table_req_list" cellspacing="0" cellpadding="0"
+								</logic:iterate>
+							</logic:present>
+						</select>
+
+				</form>
+              
+
+            </div>
+
+        </div></div>
+
+
+        <div class="BlockBorder"><div class="BlockBL"><div></div></div><div class="BlockBR"><div></div></div><div class="BlockTL"></div><div class="BlockTR"><div></div></div><div class="BlockT"></div><div class="BlockR"><div></div></div><div class="BlockB"><div></div></div><div class="BlockL"></div><div class="BlockC"></div><div class="Block">
+
+            <span class="BlockHeader"><span>Trạng thái</span></span>
+            <div class="BlockContentBorder">
+
+                <ul>
+                    <li>username</li>
+                    <li>PM</li>
+					
+                </ul>
+
+            </div> 
+
+        </div></div>
+
+        </div><div class="Column2">
+
+        <div class="BlockBorder"><div class="BlockBL"><div></div></div><div class="BlockBR"><div></div></div><div class="BlockTL"></div><div class="BlockTR"><div></div></div><div class="BlockT"></div><div class="BlockR"><div></div></div><div class="BlockB"><div></div></div><div class="BlockL"></div><div class="BlockC"></div><div class="Block">
+
+            <span class="BlockHeader"><span><logic:equal value="2" name="record_sort" property="level">
+					<logic:equal name="req" property="mode" value="1">
+						Thêm mới
+					</logic:equal></logic:equal>
+					<logic:equal name="req" property="mode" value="2">
+						Chỉnh sửa
+					</logic:equal></span></span>
+            <div class="BlockContentBorder">
+<html:form action="/updateReq.do" method="get">
+<html:errors /> <logic:messagesPresent
+									message="true">
+									<!-- display message return by action-->
+									<html:messages id="message" message="true">
+										<bean:write name="message" />
+									</html:messages>
+								</logic:messagesPresent> <html:hidden property="mode"></html:hidden>
+						<logic:present name="req">
+							<logic:equal name="req" value="2" property="mode">
+								Mã yêu cầu:<br>
+								<span style='color:red'><bean:write name="req" property="id" /></span><br>
+							</logic:equal>
+						</logic:present>
+Tên yêu cầu:<br>
+<html:text property="nameReq" size="22"></html:text><br>
+Nhóm thực hiện:<br>
+<logic:equal name="req" property="mode" value="2">
+<html:select property="idGroup"
+										onchange="this.options[this.selectedIndex].value = this.options[this.selectedIndex].text">
+										<option value="<bean:write name="req" property="idGroup"/>">
+											<bean:write name="req" property="idGroup" />
+										</option>
+										<logic:equal value="Open" name="record_sort" property="status" >
+										<logic:equal value="2" name="record_sort" property="level">
+											<logic:iterate id="item" name="req_group_free">
+												<option value="<bean:write name="item" />">
+													<bean:write name="item" />
+												</option>
+											</logic:iterate>
+										</logic:equal>
+										</logic:equal>
+										<logic:notEqual value="2" name="record_sort" property="level">
+										</logic:notEqual>
+									</html:select>
+									<br>
+</logic:equal>
+<logic:equal name="req" property="mode" value="1">
+<logic:notEmpty name="req_group_free">
+<html:select property="idGroup"
+										onchange="this.options[this.selectedIndex].value = this.options[this.selectedIndex].text">
+										<option value="<bean:write name="req" property="idGroup"/>">
+											<bean:write name="req" property="idGroup" />
+										</option>
+										<logic:equal value="Open" name="record_sort" property="status" >
+										<logic:equal value="2" name="record_sort" property="level">
+											<logic:iterate id="item" name="req_group_free">
+												<option value="<bean:write name="item" />">
+													<bean:write name="item" />
+												</option>
+											</logic:iterate>
+										</logic:equal>
+										</logic:equal>
+										<logic:notEqual value="2" name="record_sort" property="level">
+										</logic:notEqual>
+									</html:select>
+									<br>
+									</logic:notEmpty>
+									<logic:empty name="req_group_free">
+									<logic:equal name="req" property="mode" value="1">
+										<span style="color: red">Hết nhóm, vui lòng tạo nhóm
+											mới</span>
+									</logic:equal>
+								</logic:empty><br>
+</logic:equal>
+
+									
+Mô tả: <br>
+<html:textarea property="content"></html:textarea><br>
+Ngày bắt đầu: <br>
+<html:text property="startDate" styleId="datepicker" styleClass="validated"></html:text><br>
+Ngày kết thúc: <br>
+<html:text property="endDate" styleId="datepicker1" styleClass="validated"></html:text><br>
+Tiến độ: <br>
+<html:text property="process"  ></html:text><br>
+Trình trạng: <br>
+<span style='color:red'><bean:write name="req" property="statusReq" /></span>
+<br>
+<logic:equal name="req" property="statusReq" value="Đang trễ">
+Số ngày trễ: <br>
+<span style='color:red'><bean:write name="req" property="lateDate" /></span><br>
+</logic:equal>
+Trạng thái:<br>
+<html:select property="status">
+<logic:present name="record_sort">
+												<logic:equal value="Open" name="record_sort"
+													property="status">
+													<html:option value="Open">Open</html:option>
+													<html:option value="Close">Close</html:option>
+												</logic:equal>
+												<logic:equal value="Close" name="record_sort"
+													property="status">
+													<html:option value="Close">Close</html:option>
+													<html:option value="Open">Open</html:option>
+												</logic:equal>
+											</logic:present>
+</html:select><br>
+<logic:equal name="req" property="mode" value="1">
+							<logic:notEmpty name="req_group_free">
+								<logic:equal value="2" name="record_sort" property="level">
+
+												 <span class="ButtonInput"><span><input type="submit" value="Thực hiện" /></span></span> 
+								</logic:equal>
+							</logic:notEmpty>
+						</logic:equal>
+<logic:equal name="req" property="mode" value="2">
+						<logic:equal value="2" name="record_sort" property="level">
+							
+
+												 <span class="ButtonInput"><span><input type="submit" value="Thực hiện" /></span></span> 
+								</logic:equal>
+</logic:equal>
+</html:form>
+										
+
+                <!-- <span class="ButtonInput"><span><input type="button" value="Thực hiện" /></span></span> --> 
+               <div class="BlockContentBorder">
+
+               
+
+            </div>
+
+            </div>
+
+        </div></div></div><div class="MainColumn">
+        <div class="ArticleBorder"><div class="ArticleBL"><div></div></div><div class="ArticleBR"><div></div></div><div class="ArticleTL"></div><div class="ArticleTR"><div></div></div><div class="ArticleT"></div><div class="ArticleR"><div></div></div><div class="ArticleB"><div></div></div><div class="ArticleL"></div><div class="ArticleC"></div><div class="Article">
+
+        <h2>Danh sách yêu cầu</h2> <br>
+        <form action="/deleteReq.do">
+        <logic:present name="record_sort">
+						<input type="submit" id="submit" value="Xóa"/>	<logic:equal value="2" name="record_sort" property="level">
+						<a href="/changeModeReq.do">|Thêm mới </a>
+							</logic:equal>
+						</logic:present>
+
+        <table id="table_req_list" cellspacing="0" cellpadding="0"
 							border="1">
 							<thead>
 								<tr align="center">
 									<td width="20"><input type="checkbox" name="checkall"
 										id="checkall" onClick="checkUncheckAll(this);" />
 									</td>
-									<td width="70"><b>Mã Yêu Cầu</b>
+									<td width="70"><b>Mã yêu cầu</b>
 									</td>
-									<td width="130"><b>Tên Yêu Cầu</b>
+									<td width="130"><b>Tên yêu cầu</b>
 									</td>
-									<td width="130"><b>Nhóm Thực Hiện</b>
+									<td width="130"><b>Nhóm thực hiện</b>
 									</td>
-									<td width="70"><b>Tiến Độ</b>
+									<td width="70"><b>Tiến độ</b>
 									</td>
 								</tr>
 							</thead>
@@ -150,197 +317,17 @@
 								</logic:present>
 							</tbody>
 						</table>
-					</div>
-					<div id="phantrang" class="chose3" align="center">
-						<select name="page" id="select_page"
-							onchange="getListReqByPage(this.options[this.selectedIndex].text)">
-							<logic:present name="record_page_list">
-								<logic:iterate id="item" name="record_page_list">
-									<option value="<bean:write name="item"/>">
-										<bean:write name="item" />
-									</option>
-
-								</logic:iterate>
-							</logic:present>
-						</select>
-
-					</div>
-					<div class="chose3" align="center">
-						<input type="submit" id="submit" value="Xóa"
-							style="height: 25px; width: 100px" onClick="ajax_delete_monhoc()">
-						<input type="hidden" name="KEY" value="XOA_MONHOC">
-
-					</div>
-				</form>
-				<div></div>
-			</div>
-			<!--end content left-->
-			<html:form action="/updateReq.do" method="get">
-				<div id="content_right">
-					<h3 align="center">
-					<logic:equal value="2" name="req" property="mode">
-						Chỉnh sửa| 
-					</logic:equal>
-						<logic:present name="record_sort">
-							<logic:equal value="2" name="record_sort" property="level">
-						<a href="/changeModeReq.do">Thêm mới </a>
-							</logic:equal>
-						</logic:present>
-					</h3>
-					<br>
-					<table id="table_monhoc" class="table_right" cellspacing="5"
-						cellpadding="0" border="0">
-						<thead>
-
-						</thead>
-						<tr>
-
-							<td width="100"><html:errors /> <logic:messagesPresent
-									message="true">
-									<!-- display message return by action-->
-									<html:messages id="message" message="true">
-										<bean:write name="message" />
-									</html:messages>
-								</logic:messagesPresent> <html:hidden property="mode"></html:hidden></td>
-						</tr>
-						<logic:present name="req">
-							<logic:equal name="req" value="2" property="mode">
-								<tr>
-									<td width="100">Mã tập tin:</td>
-									<td width="300"><bean:write name="req" property="id" /></td>
-								</tr>
-							</logic:equal>
-						</logic:present>
-						<tr>
-							<td>Tên yêu cầu:</td>
-							<td><html:text property="nameReq"></html:text></td>
-						</tr>
-
-						<tr>
-							<td>Nhóm thực hiện:</td>
-
-							<td><%-- <logic:equal name="req" property="mode" value="2"> --%>
-									<html:select property="idGroup"
-										onchange="this.options[this.selectedIndex].value = this.options[this.selectedIndex].text">
-										<option value="<bean:write name="req" property="idGroup"/>">
-											<bean:write name="req" property="idGroup" />
-										</option>
-										<logic:equal value="Open" name="record_sort" property="status" >
-										<logic:equal value="2" name="record_sort" property="level">
-											<logic:iterate id="item" name="req_group_free">
-												<option value="<bean:write name="item" />">
-													<bean:write name="item" />
-												</option>
-											</logic:iterate>
-										</logic:equal>
-										</logic:equal>
-										<logic:notEqual value="2" name="record_sort" property="level">
-										</logic:notEqual>
-									</html:select>
-								<%-- </logic:equal>  --%>
-								<logic:empty name="req_group_free">
-									<logic:equal name="req" property="mode" value="1">
-										<span style="color: red">Hết nhóm, vui lòng tạo nhóm
-											mới</span>
-									</logic:equal>
-								</logic:empty></td>
+</form>
+        </div></div>
 
 
-						</tr>
+</div></div>
+        <div class="Footer">
+           UIT - Quản lý phần mềm
+        </div>                
 
-
-						<tr>
-							<td>Mô tả:</td>
-							<td><html:textarea property="content"></html:textarea></td>
-						</tr>
-						<tr>
-							<td>Ngày Bắt Đầu:</td>
-							<td><html:text property="startDate" styleId="datepicker"
-									styleClass="validated"></html:text></td>
-						</tr>
-						<tr>
-							<td>Ngày Kết Thúc:</td>
-							<td><html:text property="endDate" styleId="datepicker1"></html:text>
-							</td>
-						</tr>
-						<logic:present name="req">
-							<logic:equal value="2" name="req" property="mode">
-								<tr>
-									<td>Tiến Độ:</td>
-									<td><html:text property="process"></html:text></td>
-								</tr>
-								<tr>
-									<td>Trạng thái</td>
-									<td><html:select property="status">
-											<logic:present name="record_sort">
-												<logic:equal value="Open" name="record_sort"
-													property="status">
-													<html:option value="Open">Open</html:option>
-													<html:option value="Close">Close</html:option>
-												</logic:equal>
-												<logic:equal value="Close" name="record_sort"
-													property="status">
-													<html:option value="Close">Close</html:option>
-													<html:option value="Open">Open</html:option>
-												</logic:equal>
-											</logic:present>
-										</html:select></td>
-
-								</tr>
-							</logic:equal>
-						</logic:present>
-
-					</table>
-					<table>
-
-						<logic:equal name="req" property="mode" value="1">
-							<logic:notEmpty name="req_group_free">
-								<logic:equal value="2" name="record_sort" property="level">
-									<tr>
-										<td width="170" align="right"><div id="bt_reset">
-												<input type="reset" name="reset" id="reset" value="Reset"
-													style="height: 25px; width: 100px"
-													>
-											</div></td>
-										<td width="40"></td>
-										<td width="150" align="left">
-
-											<div id="bt_submit">
-												<input type="submit" id="submit" value="OK"
-													style="height: 25px; width: 100px">
-											</div></td>
-									</tr>
-								</logic:equal>
-							</logic:notEmpty>
-						</logic:equal>
-						<logic:equal name="req" property="mode" value="2">
-						<logic:equal value="2" name="record_sort" property="level">
-							
-									<tr>
-										<td width="170" align="right"><div id="bt_reset">
-												<input type="reset" name="reset" id="reset" value="Reset"
-													style="height: 25px; width: 100px"
-													onClick="reset_validate_form_monhoc()">
-											</div></td>
-										<td width="40"></td>
-										<td width="150" align="left">
-
-											<div id="bt_submit">
-												<input type="submit" id="submit" value="OK"
-													style="height: 25px; width: 100px">
-											</div></td>
-									</tr>
-								</logic:equal>
-						</logic:equal>
-					</table>
-				</div>
-				<!--end content right-->
-			</html:form>
-		</div>
-
-		<jsp:include page="module/footer.jsp" />
-
-	</div>
-	<!-- end container-->
+    </div></div>
+    </div>
+    <!-- <span class="BackLink"><a href="http://cooltemplate.com">Web Template</a> created using Cool Template</span> -->
 </body>
 </html>
