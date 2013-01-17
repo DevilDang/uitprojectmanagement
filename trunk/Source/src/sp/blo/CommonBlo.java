@@ -49,37 +49,36 @@ public class CommonBlo {
 		group.setStatus(Constant.GROUP_FREE_REQ);
 		PMF.insertObject(group);
 		
-		//create data 2
-		Group group1 = new Group();
-		group1.setLeader("a1@yahoo.com");
-		group1.setIdProject(1L);
-		group1.setStatus(Constant.GROUP_FREE_REQ);
-		PMF.insertObject(group);
-		
-		
-		group1 = (Group) PMF.getObjectList(Group.class, "leader == 'a1@yahoo.com'").get(0);
-		
-		//create leader 
-		User user4 = new User();
-		user4.setEmail("a1@yahoo.com");
-		user4.setGroupID(group1.getIDgroup());
-		user4.setIdPermision(String.valueOf(Constant.LEADER));
-		user4.setStatusTask(Constant.USER_FREE_TASK);
-		//save
-		PMF.insertObject(user4);
-		
-		//create list user
-		for  ( int i = 1; i <3; i++){
-			//create Em
-			User user5 = new User();
-			user5.setEmail("a"+String.valueOf(i)+"@yahoo.com");
-			user5.setGroupID(group1.getIDgroup());
-			user5.setIdPermision(String.valueOf(Constant.EMPLOYEE));
-			user5.setStatusTask(Constant.USER_FREE_TASK);
-			//save
-			PMF.insertObject(user5);
-		}
-		
+//		//create data 2
+//		Group group1 = new Group();
+//		group1.setLeader("a1@yahoo.com");
+//		group1.setIdProject(1L);
+//		group1.setStatus(Constant.GROUP_FREE_REQ);
+//		PMF.insertObject(group);
+//		
+//		
+//		
+//		//create leader 
+//		User user4 = new User();
+//		user4.setEmail("a1@yahoo.com");
+//		user4.setGroupID(group1.getIDgroup());
+//		user4.setIdPermision(String.valueOf(Constant.LEADER));
+//		user4.setStatusTask(Constant.USER_FREE_TASK);
+//		//save
+//		PMF.insertObject(user4);
+//		
+//		//create list user
+//		for  ( int i = 1; i <3; i++){
+//			//create Em
+//			User user5 = new User();
+//			user5.setEmail("a"+String.valueOf(i)+"@yahoo.com");
+//			user5.setGroupID(group1.getIDgroup());
+//			user5.setIdPermision(String.valueOf(Constant.EMPLOYEE));
+//			user5.setStatusTask(Constant.USER_FREE_TASK);
+//			//save
+//			PMF.insertObject(user5);
+//		}
+//		
 		
 		
 	}
