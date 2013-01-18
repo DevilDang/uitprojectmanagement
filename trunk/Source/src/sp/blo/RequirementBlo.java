@@ -62,7 +62,7 @@ public static boolean updateStatusGroupReq(Long id, String status){
 			filter.append("&&");
 			filter.append("status ==\'"+ sortForm.getStatus()+"\'");
 			
-		 if(Constant.LEADER == sortForm.getLevel()){
+		 if(Constant.LEADER_INT == sortForm.getLevel()){
 			filter.append("&&");
 			filter.append("id=="+ sortForm.getId());
 			filter.append(" && ");

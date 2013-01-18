@@ -14,7 +14,7 @@ public class CommonBlo {
 		User user = new User();
 		user.setEmail("a@yahoo.com");
 		user.setGroupID(2);
-		user.setIdPermision(String.valueOf(Constant.LEADER));
+		user.setIdPermision(User.LEADER);
 		user.setStatusTask(Constant.USER_FREE_TASK);
 		//save
 		PMF.insertObject(user);
@@ -22,7 +22,7 @@ public class CommonBlo {
 		//createPM
 		User user1 = new User();
 		user1.setEmail("b@yahoo.com");
-		user1.setIdPermision(String.valueOf(Constant.PM));
+		user1.setIdPermision(User.PROJECT_MANAGER);
 		user1.setStatusTask(Constant.USER_FREE_TASK);
 		//save
 		PMF.insertObject(user1);
@@ -31,7 +31,7 @@ public class CommonBlo {
 		User user2 = new User();
 		user2.setEmail("c@yahoo.com");
 		user2.setGroupID(2);
-		user2.setIdPermision(String.valueOf(Constant.EMPLOYEE));
+		user2.setIdPermision(User.EMPLOYER);
 		user2.setStatusTask(Constant.USER_FREE_TASK);
 		//save
 		PMF.insertObject(user2);

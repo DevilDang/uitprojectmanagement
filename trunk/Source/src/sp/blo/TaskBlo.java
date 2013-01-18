@@ -72,12 +72,12 @@ public class TaskBlo {
 
 		StringBuilder filter = new StringBuilder();
 		// admin, pm: read
-		if ((sortForm.getLevel() == Constant.ADMIN)
-				|| (sortForm.getLevel() == Constant.PM)) {
+		if ((sortForm.getLevel() == Constant.ADMIN_INT)
+				|| (sortForm.getLevel() == Constant.PM_INT)) {
 			filter.append("idProject==" + sortForm.getIdProject());
 		}
 		// leader
-		else if ((sortForm.getLevel() == Constant.LEADER)) {
+		else if ((sortForm.getLevel() == Constant.LEADER_INT)) {
 			filter.append("idProject==" + sortForm.getIdProject());
 			filter.append("&&");
 			filter.append("idReq==" + sortForm.getIdReq());
@@ -87,7 +87,7 @@ public class TaskBlo {
 			filter.append("kind==\'" + sortForm.getKind() + "\'");
 			filter.append("&&");
 			filter.append("status==\'" + sortForm.getStatus() + "\'");
-		} else if ((sortForm.getLevel() == Constant.EMPLOYEE)) {
+		} else if ((sortForm.getLevel() == Constant.EMPLOYEE_INT)) {
 			filter.append("idProject==" + sortForm.getIdProject());
 			filter.append("&&");
 			filter.append("idReq==" + sortForm.getIdReq());

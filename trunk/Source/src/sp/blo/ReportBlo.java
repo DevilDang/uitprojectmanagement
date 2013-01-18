@@ -56,28 +56,28 @@ public class ReportBlo {
 			filter.append("status ==\'"+ sortForm.getStatus()+"\'");
 			
 		//Admin	
-		if (Constant.ADMIN == sortForm.getLevel()){	
+		if (Constant.ADMIN_INT == sortForm.getLevel()){	
 			filter.append("&&");
-			filter.append("level=="+ Constant.PM );
+			filter.append("level=="+ Constant.PM_INT );
 		}
 		//pm
-		else if (Constant.PM == sortForm.getLevel()){
+		else if (Constant.PM_INT == sortForm.getLevel()){
 			filter.append("&&");
 			filter.append("idReq=="+ sortForm.getIdReq());
 			filter.append("&&");
-			filter.append("level=="+ Constant.LEADER);
+			filter.append("level=="+ Constant.LEADER_INT);
 		}
 		//leader
-		else if(Constant.LEADER == sortForm.getLevel()){
+		else if(Constant.LEADER_INT == sortForm.getLevel()){
 			filter.append("&&");
 			filter.append("idReq=="+ sortForm.getIdReq());
 			filter.append(" && ");
 			filter.append("idGroup=="+ sortForm.getIdGroup());
 			filter.append(" && ");
-			filter.append("level=="+ Constant.EMPLOYEE );
+			filter.append("level=="+ Constant.EMPLOYEE_INT );
 		}
 		//employee
-		else if(Constant.EMPLOYEE == sortForm.getLevel()){
+		else if(Constant.EMPLOYEE_INT == sortForm.getLevel()){
 			filter.append("&&");
 			filter.append("idReq=="+ sortForm.getIdReq());
 			filter.append(" && ");
@@ -87,7 +87,7 @@ public class ReportBlo {
 			filter.append(" && ");
 			filter.append(" idUser== \'"+ sortForm.getIdUser() +"\'");
 			filter.append(" && ");
-			filter.append("level=="+ Constant.EMPLOYEE);
+			filter.append("level=="+ Constant.EMPLOYEE_INT);
 		}
 		
 		return filter.toString();
@@ -101,12 +101,12 @@ public class ReportBlo {
 		filter.append("&&");
 		filter.append("level=="+ sortForm.getLevel());
 		
-	 if (Constant.PM == sortForm.getLevel()){
+	 if (Constant.PM_INT == sortForm.getLevel()){
 		filter.append("&&");
 		filter.append("idProject=="+ sortForm.getIdProject());
 	}
 	//leader
-	else if(Constant.LEADER == sortForm.getLevel()){
+	else if(Constant.LEADER_INT == sortForm.getLevel()){
 		filter.append("&&");
 		filter.append("idProject=="+ sortForm.getIdProject());
 		filter.append("&&");
@@ -266,11 +266,11 @@ public class ReportBlo {
 		filter.append(Constant.DEFAULT_STATUS);
 		filter.append("&&");
 		filter.append("level==" + level);
-		if(Constant.LEADER == level){
+		if(Constant.LEADER_INT == level){
 			filter.append("&&");
 			filter.append("idGroup==" + idGroup);
 		}
-		else if (Constant.EMPLOYEE == level){
+		else if (Constant.EMPLOYEE_INT == level){
 			filter.append("&&");
 			filter.append("idUser==\'" + idUser +"\'");
 		}
@@ -387,75 +387,6 @@ public class ReportBlo {
 		filter.append("idGroup == " + idGroup);
 		
 		return reportDao.isReqAssign(filter.toString());
-	}
-	
-//	/*
-//	 * xac dinh user da co task chua?
-//	 */
-//	
-//	public static boolean isUserAssignTask(String idUser, long idGroup, long idProjecr, long idReq){
-//		return reportDao.isUserAssignTask(idUser, idGroup, idProjecr, idReq);
-//	}
-	
-	/*
-	 * create data
-	 */
-	public static void createData(){
-		User user = new User();
-		user.setEmail("a@gmail.com");
-		user.setGroupID(1);
-		user.setIdPermision(String.valueOf(Constant.EMPLOYEE));
-		PMF.insertObject(user);
-		
-		//2
-		user.setEmail("b@gmail.com");
-		user.setGroupID(2);
-		user.setIdPermision(String.valueOf(Constant.LEADER));
-		PMF.insertObject(user);
-		
-		//
-		user.setEmail("c@gmail.com");
-		user.setGroupID(3);
-		user.setIdPermision(String.valueOf(Constant.PM));
-		PMF.insertObject(user);
-		
-		Project pro = new Project();
-		pro.setProjectmanager("c@gmail.com");
-		
-		PMF.insertObject(pro);
-		
-		Group group = new Group();
-		group.setLeader("b@gmail.com");
-		@SuppressWarnings("unchecked")
-		List<Project> proList = (List<Project>) PMF.getObjectList(Project.class, "projectmanager == 'c@yahoo.com'" );
-		group.setIdProject(proList.get(0).getIDproject());
-		
-		PMF.insertObject(group);
-		
-		
-		Requirement req = new Requirement();
-		@SuppressWarnings("unchecked")
-		List<Group> groupList = (List<Group>) PMF.getObjectList(Group.class, "idProject == " + proList.get(0).getIDproject());
-		req.setIdGroup(groupList.get(0).getIDgroup());
-		req.setIdProject(proList.get(0).getIDproject());
-		PMF.insertObject(req);
-		
-		Task task = new Task();
-		task.setIdProject(proList.get(0).getIDproject());
-		task.setIdGroup(groupList.get(0).getIDgroup());
-		@SuppressWarnings("unchecked")
-		List<Requirement> reqList = (List<Requirement>) PMF.getObjectList(Requirement.class, "idProject == " + proList.get(0).getIDproject() + "&& idGroup==" + groupList.get(0).getIDgroup());
-		task.setIdReq(reqList.get(0).getId());
-		task.setEmailEmployee("a@gmail.com");
-		PMF.insertObject(task);
-//		
-//		@SuppressWarnings("unchecked")
-//		List<Group> groupList1 = (List<Group>) PMF.getObjectList(Group.class, Constant.DEFAULT_STATUS);
-//		groupList1.size();
-//		List<Requirement> reqList1 = (List<Requirement>) PMF.getObjectList(Requirement.class, Constant.DEFAULT_STATUS);
-//		List<Task> taskList = (List<Task>) PMF.getObjectList(Task.class, Constant.DEFAULT_STATUS);
-		
-		
 	}
 	
 	/*

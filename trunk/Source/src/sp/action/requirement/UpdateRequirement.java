@@ -54,6 +54,8 @@ public class UpdateRequirement extends Action{
 			//mode insert
 			if (formReq.getMode().equals(Constant.MODE_INSERT)){
 				
+				//set status = Open
+				formReq.setStatus(Constant.OPEN);
 				//update status of Group = assign
 				RequirementBlo.updateStatusGroup(formReq.getIdGroup(), Constant.GROUP_ASSIGN_REQ);
 				

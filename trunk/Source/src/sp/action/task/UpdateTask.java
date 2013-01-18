@@ -58,6 +58,9 @@ public class UpdateTask extends Action{
 			//mode insert
 			if (Constant.MODE_INSERT.equals(formTask.getMode())){
 				
+				//set status = Open
+				formTask.setStatus(Constant.OPEN);
+				
 				//update status of emplooyee
 				TaskBlo.updateStatusTask(formTask.getEmailEmployee(), Constant.USER_ASSIGN_TASK);
 			}

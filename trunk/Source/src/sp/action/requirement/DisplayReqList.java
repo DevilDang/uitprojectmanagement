@@ -15,8 +15,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-
-//import sp.blo.CommonBlo;
+import sp.blo.CommonBlo;
 import sp.blo.ReportBlo;
 import sp.blo.RequirementBlo;
 import sp.blo.UserBlo;
@@ -44,16 +43,13 @@ public class DisplayReqList extends Action {
 
 		// get session
 		HttpSession se = request.getSession();
-
 		// get user from session
-		AccountForm user = (AccountForm) se.getAttribute("user");
+		String userId = (String) se.getAttribute(Constant.User_Login);
 		
-		User u = (User)PMF.getObject(User.class, "b@yahoo.com");
+		User user = (User) PMF.getObject(User.class, userId);
 	
-		user = new AccountForm(u);
-
 		// get permision
-		int permission = Integer.parseInt(user.getPermission());
+		String permission = user.getIdPermision();
 
 		// initial sortForm
 		int level = 0;
@@ -69,7 +65,7 @@ public class DisplayReqList extends Action {
 		boolean sort = false;
 
 		// ADMIN
-		if (Constant.ADMIN == permission) { // thao tac khi co project
+		if (User.ADMIN.equals(permission)) { // thao tac khi co project
 
 			// get idProjectList
 			idProjectList = ReportBlo.getIdProjectList();
@@ -79,12 +75,12 @@ public class DisplayReqList extends Action {
 				// set SortForm
 				idProject = idProjectList.get(0);
 				
-				level = Constant.ADMIN;
+				level = Constant.ADMIN_INT;
 
 				sort = true;
 			}
 
-		} else if (Constant.PM == permission) { // chi thao tac khi da nhan
+		} else if (User.PROJECT_MANAGER.equals(permission)) { // chi thao tac khi da nhan
 												// project, co requirement
 
 			// get idProject
@@ -95,7 +91,7 @@ public class DisplayReqList extends Action {
 
 					// set sortForm
 //					status = Constant.REQ_NEW;
-					level = Constant.PM;
+					level = Constant.PM_INT;
 
 					// set session
 					idProjectList.add(idProject);
@@ -103,9 +99,9 @@ public class DisplayReqList extends Action {
 					sort = true;
 				}
 
-		} else if (Constant.LEADER == permission) {
+		} else if (User.LEADER.equals(permission)) {
 			
-			idGroup = user.getGroupCode();
+			idGroup = user.getGroupID();
 			idProject = ReportBlo.getIdProjectByGroup(idGroup);
 
 			if (idProject != null) {
@@ -114,7 +110,7 @@ public class DisplayReqList extends Action {
 
 					// set value into SortForm
 //					status = Constant.REQ_NEW;
-					level = Constant.LEADER;
+					level = Constant.LEADER_INT;
 
 					// set into session
 					idProjectList.add(idProject);

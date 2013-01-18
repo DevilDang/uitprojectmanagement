@@ -38,21 +38,12 @@ public class DisplayTaskList extends Action {
 		HttpSession se = request.getSession();
 
 		// get user from session
-		AccountForm user = (AccountForm) se.getAttribute("user");
+		String userId = (String) se.getAttribute(Constant.User_Login);
 		
-		User u = (User)PMF.getObject(User.class, "a@yahoo.com");
-		user = new AccountForm(u);
-		
-//		// get permision
-//		
-//		User user1 = new User();
-//		user1.setEmail("t@yahoo.com");
-//		user1.setIdPermision("3");
-//		user1.setGroupID(1);
-//		user1.setStatusTask(Constant.USER_FREE_TASK);
-//		PMF.insertObject(user1);
-		
-		int permission = Integer.parseInt(user.getPermission());
+		User user = (User) PMF.getObject(User.class, userId);
+	
+		// get permision
+		String permission = user.getIdPermision();
 
 		// initial sortForm
 		int level = 0;
@@ -69,7 +60,7 @@ public class DisplayTaskList extends Action {
 		boolean sort = false;
 
 		// ADMIN
-		if (Constant.ADMIN == permission) { // thao tac khi co project
+		if (User.ADMIN.equals(permission)) { // thao tac khi co project
 
 			// get idProjectList
 			idProjectList = ReportBlo.getIdProjectList();
@@ -79,12 +70,12 @@ public class DisplayTaskList extends Action {
 				// set SortForm
 				idProject = idProjectList.get(0);
 
-				level = Constant.ADMIN;
+				level = Constant.ADMIN_INT;
 
 				sort = true;
 			}
 
-		} else if (Constant.PM == permission) { // chi thao tac khi da nhan
+		} else if (User.PROJECT_MANAGER.equals(permission)){ // chi thao tac khi da nhan
 												// project, co requirement
 
 			// get idProject
@@ -95,7 +86,7 @@ public class DisplayTaskList extends Action {
 
 				// set sortForm
 				// status = Constant.REQ_NEW;
-				level = Constant.PM;
+				level = Constant.PM_INT;
 
 				// set session
 				idProjectList.add(idProject);
@@ -103,16 +94,16 @@ public class DisplayTaskList extends Action {
 				sort = true;
 			}
 
-		} else if ((Constant.LEADER == permission)||(Constant.EMPLOYEE== permission)) {
+		} else if ((User.LEADER.equals(permission))||(User.EMPLOYER.equals(permission))) {
 
-			idGroup = user.getGroupCode();
+			idGroup = user.getGroupID();
 			idProject = ReportBlo.getIdProjectByGroup(idGroup);
 
 			if (idProject != null) {
 				idReq = ReportBlo.getIdReq(idGroup, idProject);
 				if (idReq != null) {
 
-					level = Constant.LEADER;
+					level = Constant.LEADER_INT;
 
 					// set into session
 					idProjectList.add(idProject);
