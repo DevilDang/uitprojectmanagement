@@ -38,13 +38,14 @@ public class GetListProject extends org.apache.struts.action.Action {
             throws Exception {
     	response.setCharacterEncoding("utf-8");
     	PrintWriter out = response.getWriter();
-        long status = Integer.parseInt(request.getParameter("status"));
+        String status = request.getParameter("status");
         int page = Integer.parseInt(request.getParameter("PAGE"));
         
         System.out.println(status + "   " + page);
         ProjectDao projectdao = new ProjectDao();
-        List<Project> list_project = projectdao.getProjectListFilter(page, "status=="+status, "IDproject desc");
+        List<Project> list_project = projectdao.getProjectListFilter(page, "status=='"+status+"'", "IDproject desc");
         
+        System.out.println(status + "   " + list_project.size());
         JSONObjectList jsonlist = ProjectBlo.createJSONObjectList(list_project);
         
         out.write(jsonlist.toJSONtextString());

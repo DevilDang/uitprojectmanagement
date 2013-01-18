@@ -1,3 +1,4 @@
+<%@page import="sp.util.Constant"%>
 <%@page import="sp.dao.GroupDao"%>
 <%@page import="sp.dao.UserDao"%>
 <%@page import="sp.dto.Group"%>
@@ -61,25 +62,25 @@
                             			if(status == null)
                             			{
                             				%>
-                            				<option value="-1" ></option>                            			
-	                                    	<option value="1" >Mở</option>
-	                                    	<option value="0" >Đóng</option>   
+                            				<option value="" ></option>                            			
+	                                    	<option value="Open" >Mở</option>
+	                                    	<option value="Close" >Đóng</option>   
                             				<% 
                             			}
-                            			else if("1".equals(status))
+                            			else if(Constant.OPEN.equals(status))
                             			{
                             				%>
-                            				<option value="-1" ></option>                            			
-	                                    	<option value="1" selected="true">Mở</option>
-	                                    	<option value="0" >Đóng</option>   
+                            				<option value="" ></option>                            			
+	                                    	<option value="Open" selected="true">Mở</option>
+	                                    	<option value="Close" >Đóng</option>   
                             				<%
                             			}
-                            			else if("0".equals(status))
+                            			else if(Constant.CLOSE.equals(status))
                             			{
                             				%>
-                            				<option value="-1" ></option>                            			
-	                                    	<option value="1" >Mở</option>
-	                                    	<option value="0" selected="true">Đóng</option>   
+                            				<option value="" ></option>                            			
+	                                    	<option value="Open" >Mở</option>
+	                                    	<option value="Close" selected="true">Đóng</option>   
                             				<%
                             			}
                             			%>
@@ -185,7 +186,8 @@
                                 <td>
                                    <html:select property="projectmanager">
                                    <%
-                                   		List<User> list_user = UserDao.getListAccountSorted(0);
+                                   		UserDao userdao = new UserDao();
+                                   		List<User> list_user = userdao.getUserListFilter("idPermision==" + User.PROJECT_MANAGER, "id desc");
                                         if(list_user != null)
                                         {
                                         	for(int i = 0;i<list_user.size();i++)
@@ -249,8 +251,8 @@
                              <td> Trạng thái</td>
                              <td>
                              	<html:select property="status">                           	 
-                             		<html:option value="1" >Mở</html:option>                                  	
-                             		<html:option value="0" >Đóng</html:option>                   		
+                             		<html:option value="Open" >Mở</html:option>                                  	
+                             		<html:option value="Close" >Đóng</html:option>                   		
                              	</html:select>
                              </td>                          
                             </tr>
