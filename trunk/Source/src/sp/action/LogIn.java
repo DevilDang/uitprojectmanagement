@@ -70,7 +70,7 @@ public class LogIn extends org.apache.struts.action.Action {
     	{
     	
 	    	UserForm userlogin = (UserForm)form;
-	    	request.getSession().setAttribute(Constant.User_Login, userlogin);
+	    	request.getSession().setAttribute(Constant.User_Login, userlogin.getUsername());
 	    	request.getSession().setAttribute(Constant.Type_Login, Constant.MY_AUTHENTICATION);
 	    	User  user = (User)PMF.getObject(User.class, userlogin.getUsername());
 	    	user.setStatusLogin(true);
