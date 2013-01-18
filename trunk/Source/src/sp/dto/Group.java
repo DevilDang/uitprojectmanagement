@@ -33,9 +33,17 @@ public class Group implements Serializable{
 	private String status;// check staus cua Group : dang free, da duoc set vo du an, 
 	@Persistent
 	private Boolean isbusy;//chua co req, da co req
+	@Persistent
+	private String statusGroup;// check staus cua Group : dang free, da duoc set vo du an, 
 	
 	
 	
+	public String getStatusGroup() {
+		return statusGroup;
+	}
+	public void setStatusGroup(String statusGroup) {
+		this.statusGroup = statusGroup;
+	}
 	public Long getIDgroup() {
 		return IDgroup;
 	}

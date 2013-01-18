@@ -49,6 +49,7 @@ public class EditAccountAction extends org.apache.struts.action.Action{
         if("add".equals(checkMode))
         {
         	user.setId(System.currentTimeMillis());
+        	user.setStatusTask(Constant.USER_FREE_TASK);
         	UserDao.saveUser(user);
         }else if("edit".equals(checkMode))
         {

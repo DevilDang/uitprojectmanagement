@@ -43,12 +43,16 @@ public class EditGroup extends org.apache.struts.action.Action{
  		
         if("add".equals(checkMode))
         {
+        	
+        	group.setStatus( Constant.GROUP_FREE_REQ);
+        	
+        	
         	if(group.getIdProject() == 0)
         	{
-        		group.setStatus(Group.STATUS_FREE);
+        		group.setStatusGroup(Group.STATUS_FREE);
         	}else
         	{
-        		group.setStatus(Group.STATUS_OWN_A_GROUP);
+        		group.setStatusGroup(Group.STATUS_OWN_A_GROUP);
         	}
         	
         	group.setIDgroup(System.currentTimeMillis());
