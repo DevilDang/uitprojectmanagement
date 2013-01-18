@@ -1,7 +1,6 @@
 package sp.form;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
