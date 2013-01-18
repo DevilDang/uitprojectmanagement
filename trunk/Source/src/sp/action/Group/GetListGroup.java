@@ -11,11 +11,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import sp.blo.GroupBlo;
-import sp.blo.ProjectBlo;
 import sp.dao.GroupDao;
-import sp.dao.ProjectDao;
 import sp.dto.Group;
-import sp.dto.Project;
 import sp.util.JSONObjectList;
 
 public class GetListGroup extends org.apache.struts.action.Action{
