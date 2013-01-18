@@ -46,7 +46,7 @@
 							<logic:present name="idProList">
 								<logic:iterate id="element" name="idProList">
 									<option
-										value="/displayReportPaging.do?idProject=<bean:write name="element"/>">
+										value="">
 										<bean:write name="element" />
 									</option>
 								</logic:iterate>
@@ -113,15 +113,14 @@
 
         <div class="BlockBorder"><div class="BlockBL"><div></div></div><div class="BlockBR"><div></div></div><div class="BlockTL"></div><div class="BlockTR"><div></div></div><div class="BlockT"></div><div class="BlockR"><div></div></div><div class="BlockB"><div></div></div><div class="BlockL"></div><div class="BlockC"></div><div class="Block">
 
-            <span class="BlockHeader"><span>Trạng thái</span></span>
+            <span class="BlockHeader"><span>User</span></span>
             <div class="BlockContentBorder">
-
+<logic:present name="UserLogIN" >
                 <ul>
-                    <li>username</li>
-                    <li>PM</li>
-					
+                    <li><bean:write name="UserLogIN" />
+                    </li>
                 </ul>
-
+</logic:present>
             </div> 
 
         </div></div>
@@ -130,13 +129,19 @@
 
         <div class="BlockBorder"><div class="BlockBL"><div></div></div><div class="BlockBR"><div></div></div><div class="BlockTL"></div><div class="BlockTR"><div></div></div><div class="BlockT"></div><div class="BlockR"><div></div></div><div class="BlockB"><div></div></div><div class="BlockL"></div><div class="BlockC"></div><div class="Block">
 
-            <span class="BlockHeader"><span><logic:equal value="2" name="record_sort" property="level">
+            <span class="BlockHeader"><span>
+            <logic:equal value="2" name="record_sort" property="level">
 					<logic:equal name="req" property="mode" value="1">
 						Thêm mới
-					</logic:equal></logic:equal>
+					</logic:equal>
 					<logic:equal name="req" property="mode" value="2">
 						Chỉnh sửa
-					</logic:equal></span></span>
+					</logic:equal>
+			</logic:equal>
+			<logic:notEqual value="2" name="record_sort" property="level">
+						Thông tin chi tiết
+			</logic:notEqual>
+					</span></span> 
             <div class="BlockContentBorder">
 <html:form action="/updateReq.do" method="get">
 <html:errors /> <logic:messagesPresent
@@ -211,6 +216,7 @@ Ngày bắt đầu: <br>
 <html:text property="startDate" styleId="datepicker" styleClass="validated"></html:text><br>
 Ngày kết thúc: <br>
 <html:text property="endDate" styleId="datepicker1" styleClass="validated"></html:text><br>
+<logic:equal name="req" property="mode" value="2">
 Tiến độ: <br>
 <html:text property="process"  ></html:text><br>
 Trình trạng: <br>
@@ -235,6 +241,9 @@ Trạng thái:<br>
 												</logic:equal>
 											</logic:present>
 </html:select><br>
+</logic:equal>
+
+
 <logic:equal name="req" property="mode" value="1">
 							<logic:notEmpty name="req_group_free">
 								<logic:equal value="2" name="record_sort" property="level">
