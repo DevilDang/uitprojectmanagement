@@ -48,6 +48,7 @@ public class GetAccount extends org.apache.struts.action.Action {
     	User user = userdao.getUser(email);
     	
     	AccountForm accountform = new AccountForm(user);
+    	accountform.setRetypepassword(user.getPassword());
     	form = accountform;
     	request.getSession().setAttribute("AccountForm", form);
     	  	
