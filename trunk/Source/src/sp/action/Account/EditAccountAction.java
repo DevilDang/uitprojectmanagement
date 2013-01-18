@@ -53,6 +53,7 @@ public class EditAccountAction extends org.apache.struts.action.Action{
         	UserDao.saveUser(user);
         }else if("edit".equals(checkMode))
         {
+        	System.out.println(" Dang atn kic iu dào");
         	UserDao.saveUser(user);
         }
         

@@ -8,6 +8,7 @@ import org.apache.struts.action.ActionMapping;
 import sp.dto.User;
 
 import sp.dao.PMF;
+import sp.util.Constant;
 
 public class InitApp extends org.apache.struts.action.Action {
 	
@@ -42,7 +43,9 @@ public class InitApp extends org.apache.struts.action.Action {
     		user.setIdPermision(User.ADMIN);
     		user.setName("admin");
     		user.setPassword("admin");
-    		
+
+        	user.setStatusTask(Constant.USER_FREE_TASK);
+        	
     		PMF.insertObject(user);
     		
     		response.sendRedirect("/login.jsp?init=true");

@@ -57,7 +57,7 @@
                           <%
                           		ProjectDao project = new ProjectDao();
                                 
-                          		List<Project> list_project = project.getProjectListFilter("status=="+Constant.STATUS_OPEN, "IDproject desc");
+                          		List<Project> list_project = project.getProjectListFilter("status=='"+Constant.OPEN+"'", "IDproject desc");
                                 int length = list_project.size();                        
                           %>
                     	  <div class="chose3" align="center">

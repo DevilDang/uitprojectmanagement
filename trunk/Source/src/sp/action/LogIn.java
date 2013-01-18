@@ -74,6 +74,7 @@ public class LogIn extends org.apache.struts.action.Action {
 	    	request.getSession().setAttribute(Constant.Type_Login, Constant.MY_AUTHENTICATION);
 	    	User  user = (User)PMF.getObject(User.class, userlogin.getUsername());
 	    	user.setStatusLogin(true);
+	    	UserDao.saveUser(user);
 	        return mapping.findForward(SUCCESS);
     	}
     	
