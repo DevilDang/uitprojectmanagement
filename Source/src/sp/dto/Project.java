@@ -8,6 +8,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import sp.util.Constant;
+
 @PersistenceCapable(identityType = IdentityType.APPLICATION) 
 public class Project  implements Serializable {
 	
@@ -31,17 +33,17 @@ public class Project  implements Serializable {
 	@Persistent
 	private String endDate;
 	@Persistent
-	private int status;
+	private String status;
     
     
     
 	public Project() {
 		super();
-		status = 1;
+		status = Constant.OPEN;
 		// TODO Auto-generated constructor stub
 	}
 	public Project(Long iDproject, String projectname, String projectmanager,
-			long process, String startDate, String endDate, int status) {
+			long process, String startDate, String endDate, String status) {
 		super();
 		IDproject = iDproject;
 		this.projectname = projectname;
@@ -87,10 +89,10 @@ public class Project  implements Serializable {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
     

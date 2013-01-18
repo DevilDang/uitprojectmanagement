@@ -132,7 +132,7 @@
 									<logic:iterate id="element" name="account_list">
 										<tr align="center">
 											<td width="20"><input type="checkbox" name="check" value="<bean:write name="element"  property="email"/>"/></td>
-											<td width="70"><a href="#"><b><bean:write name="element"  property="email"/></b></a></td>
+											 <td width="130"><a href="/getaccount.do?email=<bean:write name="element"  property="email"/>&groupID=<%=groupID%>&PAGE=<%=page_pos%>"><bean:write name="element"  property="email"/></a></td>
 											<td width="130"><b><bean:write name="element"  property="name"/></b></td>
 											<td width="130"><b><bean:write name="element"  property="idPermision"/></b></td>
 										</tr>

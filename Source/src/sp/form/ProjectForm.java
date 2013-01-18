@@ -25,7 +25,7 @@ public class ProjectForm  extends ValidatorForm implements Serializable {
 	private long process;
 	private String startDate;
 	private String endDate;
-    private int status;
+    private String status;
     
     
 	public ProjectForm() {
@@ -34,7 +34,7 @@ public class ProjectForm  extends ValidatorForm implements Serializable {
 	}
 	public ProjectForm(Long iDproject, String projectname,
 			String projectmanager, long process, String startDate,
-			String endDate, int status) {
+			String endDate, String status) {
 		super();
 		IDproject = iDproject;
 		this.projectname = projectname;
@@ -80,10 +80,10 @@ public class ProjectForm  extends ValidatorForm implements Serializable {
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
-	public int getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
     

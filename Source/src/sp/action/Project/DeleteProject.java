@@ -48,7 +48,7 @@ public class DeleteProject extends org.apache.struts.action.Action {
 		for (int i = 0; i < project_name_array.length; i++)
 			PMF.deleteObject(Project.class, Long.parseLong(project_name_array[i]));
 
-		int status = Integer.parseInt(request.getParameter("status"));
+		String status = request.getParameter("status");
 		int page = Integer.parseInt(request.getParameter("PAGE"));
 
 		ProjectDao projectdao = new ProjectDao();
@@ -56,10 +56,10 @@ public class DeleteProject extends org.apache.struts.action.Action {
 				"status==" + status, "IDproject desc");
 		request.setAttribute(Constant.PROJECT_LIST, list_project);
 		
-		request.setAttribute("status", String.valueOf(status));
+		request.setAttribute("status", status);
 		request.setAttribute("page_pos", page);
 		
-		 int count = PMF.countNumberAll(Class.forName("sp.dto.Project"), "status==" + status);
+		 int count = PMF.countNumberAll(Class.forName("sp.dto.Project"), "status=='"+status+"'");
 	     int countpage = (count < Constant.RECORD ? 1 : (count % Constant.RECORD == 0 ? count/Constant.RECORD : count/Constant.RECORD + 1));    
 	     request.setAttribute("PAGE",countpage );
 		return mapping.findForward(SUCCESS);

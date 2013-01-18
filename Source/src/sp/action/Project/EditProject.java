@@ -53,9 +53,9 @@ public class EditProject extends org.apache.struts.action.Action {
         }
         
         ProjectDao projectdao = new ProjectDao();
-        List<Project> list_project =  projectdao.getProjectListFilter( Integer.parseInt(page_pos), "status==" + project.getStatus(), "IDproject desc");
+        List<Project> list_project =  projectdao.getProjectListFilter( Integer.parseInt(page_pos), "status=='" + project.getStatus()+"'", "IDproject desc");
         request.setAttribute(Constant.PROJECT_LIST, list_project);
-        request.setAttribute("status", String.valueOf(project.getStatus()));
+        request.setAttribute("status", project.getStatus());
         
         request.setAttribute("page_pos", Integer.parseInt(page_pos));
         
