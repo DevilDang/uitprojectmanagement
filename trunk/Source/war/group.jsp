@@ -283,7 +283,7 @@
                         <table>
                             <tr>
                                <td width="170" align="right"><div id="bt_reset">
-                                       <a href="//changemodegroup.do">Thêm Mới</a>
+                                       <a href="/changemodegroup.do">Thêm Mới</a>
                                     </div>
                                 </td>
                                 <td width="40"> </td>
