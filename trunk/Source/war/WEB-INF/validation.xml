@@ -171,16 +171,6 @@
                     <var-value>dd/MM/yyyy</var-value>
                     </var>
             </field>
-            <field
-                property="process"
-                depends="required">
-                    <arg key="task.process"/>
-            </field>
-            <field
-                property="status"
-                depends="required">
-                    <arg key="task.status"/>
-            </field>
         </form>
         
     </formset>
