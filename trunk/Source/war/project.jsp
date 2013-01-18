@@ -187,7 +187,7 @@
                                    <html:select property="projectmanager">
                                    <%
                                    		UserDao userdao = new UserDao();
-                                   		List<User> list_user = userdao.getUserListFilter("idPermision==" + User.PROJECT_MANAGER, "id desc");
+                                   		List<User> list_user = userdao.getUserListFilter("idPermision=='" + User.PROJECT_MANAGER+"'", "id desc");
                                         if(list_user != null)
                                         {
                                         	for(int i = 0;i<list_user.size();i++)
