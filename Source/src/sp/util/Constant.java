@@ -23,10 +23,10 @@ public class Constant {
 			public final static String RECORD_FLAG="record_flag";
 	//USER
 		//PERMISION
-		public final static int ADMIN =1;
-		public final static int PM =2;
-		public final static int LEADER =3;
-		public final static int EMPLOYEE =4;
+		public final static int ADMIN_INT =1;
+		public final static int PM_INT=2;
+		public final static int LEADER_INT =3;
+		public final static int EMPLOYEE_INT =4;
 
 		//ORGANIZATION
 		public final static String ORGANIZATION_LIST ="org_list";

@@ -16,7 +16,7 @@ public class InitDataListener implements ServletContextListener {
     }
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-    	CommonBlo.createData();
+//    	CommonBlo.createData();
 
     }
 

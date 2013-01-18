@@ -18,7 +18,6 @@ import org.apache.struts.action.ActionMapping;
 import sp.blo.ReportBlo;
 import sp.dao.PMF;
 import sp.dto.User;
-import sp.form.AccountForm;
 import sp.form.ReportForm;
 import sp.util.CommonUtil;
 import sp.util.Constant;
@@ -32,22 +31,15 @@ public class DisplayReportList extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-
 		// get session
 		HttpSession se = request.getSession();
 
 		// get user from session
-		AccountForm user = (AccountForm) se.getAttribute("user");		
-		String temp = "a@yahoo.com";
-		User u = (User)PMF.getObject(User.class, temp);
-//		u.setGroupID(2);
-//		PMF.insertObject(u);
-//		u = (User)PMF.getObject(User.class, "a@yahoo.com");
-		user = new AccountForm(u);
-		// end temp
-
+		String userId = (String) se.getAttribute(Constant.User_Login);
+		User user = (User) PMF.getObject(User.class, userId);
+	
 		// get permision
-		int permission = Integer.parseInt(user.getPermission());
+		String permission = user.getIdPermision();
 
 		// initial sortForm
 		int level = 0;
@@ -67,7 +59,7 @@ public class DisplayReportList extends Action {
 
 		
 		// ADMIN
-		if (Constant.ADMIN == permission) { // thao tac khi co project
+		if (User.ADMIN.equals(permission)) { // thao tac khi co project
 
 			// get idProjectList
 			idProjectList = ReportBlo.getIdProjectList();
@@ -77,12 +69,12 @@ public class DisplayReportList extends Action {
 				// set SortForm
 				idProject = idProjectList.get(0);
 				status = Constant.REPORT_NEW;
-				level = Constant.ADMIN;
+				level = Constant.ADMIN_INT;
 
 				sort = true;
 			}
 
-		} else if (Constant.PM == permission) { // chi thao tac khi da nhan
+		} else if (User.PROJECT_MANAGER.equals(permission)) { // chi thao tac khi da nhan
 												// project, co requirement
 
 			// get idProject
@@ -101,7 +93,7 @@ public class DisplayReportList extends Action {
 					// set sortForm
 					idReq = idReqList.get(0);
 					status = Constant.REPORT_NEW;
-					level = Constant.PM;
+					level = Constant.PM_INT;
 
 					// set session
 					idProjectList.add(idProject);
@@ -110,9 +102,9 @@ public class DisplayReportList extends Action {
 				}
 			}
 
-		} else if (Constant.LEADER == permission) {
+		} else if (User.LEADER.equals(permission)) {
 			
-			idGroup = user.getGroupCode();
+			idGroup = user.getGroupID();
 
 			idProject = ReportBlo.getIdProjectByGroup(idGroup);
 
@@ -122,7 +114,7 @@ public class DisplayReportList extends Action {
 
 					// set value into SortForm
 					status = Constant.REPORT_NEW;
-					level = Constant.LEADER;
+					level = Constant.LEADER_INT;
 
 					// set into session
 					idProjectList.add(idProject);
@@ -134,11 +126,11 @@ public class DisplayReportList extends Action {
 
 			}
 
-		} else if (Constant.EMPLOYEE == permission) {
+		} else if (User.EMPLOYER.equals(permission)) {
 
 			//get idGroup
 			
-			idGroup = user.getGroupCode();
+			idGroup = user.getGroupID();
 			
 			// check member da duoc gan vo nhom chua
 			
@@ -161,7 +153,7 @@ public class DisplayReportList extends Action {
 
 							// set into SortFrom
 							status = Constant.REPORT_NEW;
-							level = Constant.EMPLOYEE;
+							level = Constant.EMPLOYEE_INT;
 
 							// set into session
 							idProjectList.add(idProject);

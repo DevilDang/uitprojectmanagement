@@ -13,6 +13,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import sp.blo.OrganizationBlo;
+import sp.dao.PMF;
+import sp.dto.User;
 import sp.form.AccountForm;
 import sp.form.OrganizationForm;
 import sp.util.CommonUtil;
@@ -24,17 +26,19 @@ public class DisplayOrganizationList extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		
+		// get session
 		HttpSession se = request.getSession();
-		
+
 		// get user from session
-		AccountForm user = (AccountForm) se.getAttribute("user");
-		int per = 4;
-		if (user != null ){
-			per = Integer.parseInt(user.getPermission());
-		}
+		String userId = (String) se.getAttribute(Constant.User_Login);
+		
+		User user = (User) PMF.getObject(User.class, userId);
+	
+		// get permision
+		String permission = user.getIdPermision();
 		
 		//user co quyen admin
-		if (Constant.ADMIN == per )
+		if (User.ADMIN.equals(permission))
 		{
 		//get pagenumber
 		String pageNumber = request.getParameter("page");
@@ -75,7 +79,6 @@ public class DisplayOrganizationList extends Action {
 			se.setAttribute(Constant.ORGANIZATION_LIST, formList);
 			se.setAttribute(Constant.ORG_PAGE_LIST, pageList);
 			se.setAttribute(Constant.ORG_TOTAL_NUMBER, String.valueOf(total));
-			
 			
 		}
 		}

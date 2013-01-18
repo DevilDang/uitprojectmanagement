@@ -28,6 +28,8 @@ public class TaskForm extends ValidatorForm implements Serializable {
 	private String status;
 	private int level; 
 	private String mode;
+	private String statusTask; //good or late
+	private int lateDate; 
 	/**
 	 * @return the id
 	 */
@@ -200,6 +202,31 @@ public class TaskForm extends ValidatorForm implements Serializable {
 	public void setMode(String mode) {
 		this.mode = mode;
 	}
+	
+	/**
+	 * @return the statusTask
+	 */
+	public String getStatusTask() {
+		return statusTask;
+	}
+	/**
+	 * @param statusTask the statusTask to set
+	 */
+	public void setStatusTask(String statusTask) {
+		this.statusTask = statusTask;
+	}
+	/**
+	 * @return the lateDate
+	 */
+	public int getLateDate() {
+		return lateDate;
+	}
+	/**
+	 * @param lateDate the lateDate to set
+	 */
+	public void setLateDate(int lateDate) {
+		this.lateDate = lateDate;
+	}
 	/*
 	 * transfer Form -> DTO
 	 */
@@ -217,6 +244,7 @@ public class TaskForm extends ValidatorForm implements Serializable {
 		task.setProcess(this.process);
 		task.setStatus(this.status);
 		task.setContent(this.content);
+		
 		return task;
 	}
 	
@@ -235,6 +263,15 @@ public class TaskForm extends ValidatorForm implements Serializable {
 		this.status = task.getStatus();
 		this.process = task.getProcess();
 		this.content = task.getContent();
+		this.status = task.getStatus();
+		this.lateDate = CommonUtil.getDateLate(CommonUtil.getSystemDate(), task.getEndDate());
+		if (this.lateDate > 0){
+			this.statusTask = Constant.STATUS_LATE;
+		}
+		else
+		{
+			this.statusTask = Constant.STATUS_GOOD;
+		}
 	}
 	
 	public void clear()
@@ -252,6 +289,8 @@ public class TaskForm extends ValidatorForm implements Serializable {
 		this.process = 0;
 		this.status = "";
 		this.level = 0;
+		this.statusTask = "";
+		this.lateDate = 0;
 		this.mode = Constant.MODE_INSERT;
 		
 	}
