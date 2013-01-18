@@ -22,9 +22,6 @@
         </init-param>
         <load-on-startup>2</load-on-startup>
     </servlet>
-    <listener>
-		<listener-class>sp.action.InitDataListener</listener-class>
-	</listener>
     <servlet-mapping>
         <servlet-name>action</servlet-name>
         <url-pattern>*.do</url-pattern>
