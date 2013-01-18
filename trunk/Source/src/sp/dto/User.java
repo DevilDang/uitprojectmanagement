@@ -16,7 +16,7 @@ import javax.jdo.annotations.PrimaryKey;
 public class User implements Serializable {
 	
 	public static final String ADMIN = "admin";
-	public static final String PROJECT_MANAGER = "project_mangager";
+	public static final String PROJECT_MANAGER = "project_manager";
 	public static final String LEADER = "leader";
 	public static final String EMPLOYER = "employer";
 	/**
