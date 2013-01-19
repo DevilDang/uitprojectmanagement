@@ -287,7 +287,9 @@ function draw_table_danhsachaccount(list_account,length,index)
 //------------------các hàm xử lý trong trang project.jsp
 function getListProject(page)
 {
-	var form = document.getElementById("listProject");
+	setHiddenValueProject();
+	
+	var form = document.getElementById("SearchProject");
 	var select_status = form.elements["status"];	    
     ajax_getCountAndCountPage("sp.dto.Project","status==" + select_status[select_status.selectedIndex].value,page);
     
@@ -296,7 +298,9 @@ function getListProject(page)
 
 function getListProjectByPage()
 {
-	var form = document.getElementById("listProject");
+	setHiddenValueProject();
+	
+	var form = document.getElementById("SearchProject");
 	
 	var select_page = form.elements["select_page"];
 	ajax_getListProject(select_page[select_page.selectedIndex].value)
@@ -305,7 +309,7 @@ function getListProjectByPage()
 function ajax_getListProject(page)
 {
 	
-    var form = document.getElementById("listProject");
+    var form = document.getElementById("SearchProject");
     var select_status = form.elements["status"];
     
     var xhr = createXHR();
@@ -330,9 +334,25 @@ function ajax_getListProject(page)
     xhr.send(null);
 }
 
+function setHiddenValueProject()
+{
+	var form = document.getElementById("SearchProject");	
+	var select_page = form.elements["select_page"];
+	var select_status = form.elements["status"];
+	
+	var form = document.getElementById("listProject");
+	
+	var page = form.elements["PAGE"];
+	page.value= select_page[select_page.selectedIndex].value;
+	
+	var status = form.elements["status"];
+	status.value =  select_status[select_status.selectedIndex].value;
+	
+}
+
 function draw_table_danhsachProject(list_project,length,index)
 {
-    var form = document.getElementById("listProject");	
+    var form = document.getElementById("SearchProject");	
 	var select_page = form.elements["select_page"];
 	var select_status = form.elements["status"];
 	
@@ -382,7 +402,8 @@ function draw_table_danhsachProject(list_project,length,index)
 //------------------các hàm xử lý trong trang group.jsp
 function getListGroup(page)
 {
-	var form = document.getElementById("listGroup");
+	setHiddenValueGroup();
+	var form = document.getElementById("SearchGroup");
 	var select_idProject = form.elements["idProject"];	    
     ajax_getCountAndCountPage("sp.dto.Group","idProject==" + select_idProject[select_idProject.selectedIndex].value,page);
     
@@ -391,15 +412,32 @@ function getListGroup(page)
 
 function getListGroupByPage()
 {
-	var form = document.getElementById("listGroup");
+	setHiddenValueGroup();
+	var form = document.getElementById("SearchGroup");
 	
 	var select_page = form.elements["select_page"];
 	ajax_getListGroup(select_page[select_page.selectedIndex].value);
 }
 
+function setHiddenValueGroup()
+{
+	var form = document.getElementById("SearchGroup");	
+	var select_page = form.elements["select_page"];
+	var select_idProject = form.elements["idProject"];
+	
+	var form = document.getElementById("listGroup");
+	
+	var page = form.elements["PAGE"];
+	page.value= select_page[select_page.selectedIndex].value;
+	
+	var idProject = form.elements["idProject"];
+	idProject.value =  select_idProject[select_idProject.selectedIndex].value;
+	
+}
+
 function ajax_getListGroup(page)
 {
-    var form = document.getElementById("listGroup");
+    var form = document.getElementById("SearchGroup");
     var select_idProject = form.elements["idProject"];
     
     var xhr = createXHR();
@@ -426,7 +464,7 @@ function ajax_getListGroup(page)
 
 function draw_table_danhsachGroup(list_group,length,index)
 {
-    var form = document.getElementById("listGroup");	
+    var form = document.getElementById("SearchGroup");	
 	var select_page = form.elements["select_page"];
 	var select_idProject = form.elements["idProject"];
 	
