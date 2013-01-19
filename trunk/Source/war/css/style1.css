@@ -25,9 +25,9 @@ ul{margin:5px;padding-left:20px;}
 .BorderR{right:0;}
 .BorderR div{position:absolute;z-index:-1;left:-17px;width:34px;height:100%;background-image:url(../images/BorderVertical.png);}
 .BorderC{left:17px;top:17px;right:17px;bottom:17px;background-image:url(../images/BorderCenter.png);}
-.BorderBorder{width:900px;margin:10px auto;}
+.BorderBorder{width:990px;margin:10px auto;}
 .Header{position:relative;background-image:url(../images/Header.png);background-repeat:no-repeat;padding:0;height:125px;color:#FC0B13;}
-.HeaderTitle{height:125px;width:900px;display:table-cell;text-align:Center;vertical-align:Middle;color:#1B0C7A;font-size:18px;text-decoration:none;font-style:normal;font-weight:bold;}
+.HeaderTitle{height:125px;width:990px;display:table-cell;text-align:Center;vertical-align:Middle;color:#1B0C7A;font-size:18px;text-decoration:none;font-style:normal;font-weight:bold;}
 .HeaderTitle h1 a,.HeaderTitle h1 a:link,.HeaderTitle h1 a:visited,.HeaderTitle h1 a:hover{text-decoration:none;color:inherit;}
 .HeaderTitle h1{margin:0;padding:0 8px;color:#FC0B13;font-size:32px;text-decoration:none;font-style:normal;font-weight:bold;}
 .HeaderTitle h2{margin:0;padding:0 8px;font-size:inherit;font-weight:inherit;}
@@ -58,7 +58,7 @@ ul{margin:5px;padding-left:20px;}
 .ActiveMenuButton:active span,.ActiveMenuButtonInput:active span{background-position:right bottom;color:#000;}
 .Columns{overflow:hidden;}
 .Column1{overflow:hidden;float:left;width:20%;}
-.Column2{overflow:hidden;float:right;width:20%;}
+.Column2{overflow:hidden;float:right;width:30%;}
 .MainColumn{overflow:hidden;}
 img{border:0;}
 h2{margin:0;}
