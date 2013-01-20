@@ -252,7 +252,7 @@ public class TaskBlo {
 			int size = keyList.length;
 			for (int i = 0; i < size; i++) {
 				Long id = Long.valueOf(keyList[i]);
-				if (updateStatusUserTask(id, Constant.USER_ASSIGN_TASK)) {
+				if (updateStatusUserTask(id, Constant.USER_FREE_TASK)) {
 					taskDao.deleteTask(id);
 				}
 			}
