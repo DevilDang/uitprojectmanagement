@@ -261,7 +261,7 @@ Người thực hiện:<br>
                                   <%--   </logic:equal> --%>
                                    <logic:empty name="task_user_free">
 									<logic:equal name="task" property="mode" value="1">
-										<span style="color: red">Mọi người đều đã có task</span>
+										<span style="color: red">Mọi người đều đã có task</span><br>
 									</logic:equal>
 								</logic:empty>
 								                                   
