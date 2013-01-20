@@ -1,3 +1,4 @@
+<%@page import="sp.dto.User"%>
 <%@page import="sp.dto.Group"%>
 <%@page import="java.util.List"%>
 <%@page import="sp.dao.GroupDao"%>
@@ -354,26 +355,26 @@
 							<div class="ArticleL"></div>
 							<div class="ArticleC"></div>
 							<div class="Article">
-								<h2>Danh sách dự án</h2>
+								<h2>Danh sách nhân viên</h2>
 								<br>
 								<form name="listAccount" id="listAccount" method="post"
 									action="/deleteaccount.do">
 
-									<input type="hidden" name="PAGE" /> <input type="hidden"
-										name="groupID" />
+									<input type="hidden" name="PAGE" value="<%=page_pos%>"/> 
+									<input type="hidden" name="groupID" value="<%=groupID%>"/>
 									<div>
 										<input type="submit" id="submit" value="Xóa" />
 									</div>
 									<br />
 									<table id="table_danhsach_account" cellspacing="0"
-										cellpadding="0" border="1">
+										cellpadding="0" border="1" width="470">
 										<thead>
-											<tr align="center">
-												<td width="20"><input type="checkbox" name="checkall"
+											<tr align="center" >
+												<td width="10%"><input type="checkbox" name="checkall"
 													id="checkall" onClick="checkUncheckAll(this);" /></td>
-												<td width="70"><b>Tên Đăng Nhập</b></td>
-												<td width="130"><b>Tên nhân viên</b></td>
-												<td width="130"><b>Quyền Hạn</b></td>
+												<td width="40%"><b>Email</b></td>
+												<td width="30%"><b>Họ Tên</b></td>
+												<td width="20%"><b>Quyền Hạn</b></td>
 											</tr>
 										</thead>
 										<tbody>

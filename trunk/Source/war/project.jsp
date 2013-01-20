@@ -1,3 +1,4 @@
+<%@page import="sp.form.ProjectForm"%>
 <%@page import="sp.util.Constant"%>
 <%@page import="sp.dao.GroupDao"%>
 <%@page import="sp.dao.UserDao"%>
@@ -20,7 +21,8 @@
 <script src="javascripts/SpryMenuBar.js" type="text/javascript"></script>
 <script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
 <script src="javascripts/requirement.js" type="text/javascript"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="BodyContent">
@@ -119,33 +121,33 @@
 										</div>
 										<br />
 										<div>
-										 Trang <select name="PAGE" id="select_page"
-											onchange="getListProjectByPage()">
+											Trang <select name="PAGE" id="select_page"
+												onchange="getListProjectByPage()">
 
-											<%
-												if (Page == null || Page < 1) {
-											%>
-											<option value="1">1</option>
-											<%
-												} else {
-													for (int i = 0; i < Page; i++) {
-														if (page_pos == i + 1) {
-											%>
-											<option value="<%=i + 1%>" selected="selected"><%=i + 1%></option>
-											<%
-												} else {
-											%>
-											<option value="<%=i + 1%>"><%=i + 1%></option>
-											<%
-												}
-
+												<%
+													if (Page == null || Page < 1) {
+												%>
+												<option value="1">1</option>
+												<%
+													} else {
+														for (int i = 0; i < Page; i++) {
+															if (page_pos == i + 1) {
+												%>
+												<option value="<%=i + 1%>" selected="selected"><%=i + 1%></option>
+												<%
+													} else {
+												%>
+												<option value="<%=i + 1%>"><%=i + 1%></option>
+												<%
 													}
 
-												}
-											%>
+														}
+
+													}
+												%>
 
 
-										</select>
+											</select>
 										</div>
 									</form>
 								</div>
@@ -233,19 +235,34 @@
 												<tr>
 													<td>Người quản lý:</td>
 													<td><html:select property="projectmanager">
+															<option value="">Chưa có</option>
 															<%
-																UserDao userdao = new UserDao();
+																ProjectForm form = (ProjectForm) request.getSession()
+																				.getAttribute("ProjectForm");
+																		String projectmanager = form.getProjectmanager();
+																		UserDao userdao = new UserDao();
 																		List<User> list_user = userdao.getUserListFilter(
 																				"idPermision=='" + User.PROJECT_MANAGER + "'",
 																				"id desc");
 																		if (list_user != null) {
 																			for (int i = 0; i < list_user.size(); i++) {
+																				if (list_user.get(i).getEmail()
+																						.equals(projectmanager)) {
+															%>
+															<option value="<%=list_user.get(i).getEmail()%>"
+																selected="selected">
+																<%=list_user.get(i).getName()%>
+															</option>
+															<%
+																} else {
 															%>
 															<option value="<%=list_user.get(i).getEmail()%>">
 																<%=list_user.get(i).getName()%>
 															</option>
 															<%
 																}
+
+																			}
 																		}
 															%>
 
@@ -262,7 +279,7 @@
 																	String param_idproject = request.getParameter("IDproject");
 																	if (param_idproject != null && param_idproject.length() > 1) {
 																		List<Group> list_group = groupdao.getGroupListFilter(
-																				"idProject==" + param_idproject, "IDgroup desc");
+																				"idProject==" + Long.parseLong(param_idproject), "IDgroup desc");
 																		if (list_group != null) {
 																			for (int i = 0; i < list_group.size(); i++) {
 															%>
@@ -332,81 +349,80 @@
 						</div>
 					</div>
 					<div class="MainColumn">
-							<div class="ArticleBorder">
-								<div class="ArticleBL">
-									<div></div>
-								</div>
-								<div class="ArticleBR">
-									<div></div>
-								</div>
-								<div class="ArticleTL"></div>
-								<div class="ArticleTR">
-									<div></div>
-								</div>
-								<div class="ArticleT"></div>
-								<div class="ArticleR">
-									<div></div>
-								</div>
-								<div class="ArticleB">
-									<div></div>
-								</div>
-								<div class="ArticleL"></div>
-								<div class="ArticleC"></div>
-								<div class="Article">
-									<h2>Danh sách dự án</h2>
-									<br>
-									<form name="listProject" id="listProject" method="post"
-										action="/deleteproject.do">
+						<div class="ArticleBorder">
+							<div class="ArticleBL">
+								<div></div>
+							</div>
+							<div class="ArticleBR">
+								<div></div>
+							</div>
+							<div class="ArticleTL"></div>
+							<div class="ArticleTR">
+								<div></div>
+							</div>
+							<div class="ArticleT"></div>
+							<div class="ArticleR">
+								<div></div>
+							</div>
+							<div class="ArticleB">
+								<div></div>
+							</div>
+							<div class="ArticleL"></div>
+							<div class="ArticleC"></div>
+							<div class="Article">
+								<h2>Danh sách nhóm</h2>
+								<br>
+								<form name="listProject" id="listProject" method="post"
+									action="/deleteproject.do">
 
-										<input type="hidden" name="PAGE"/>
-										<input type="hidden" name="status"/>
-										<div>
+									<input type="hidden" name="PAGE" value="<%=status%>" /> <input
+										type="hidden" name="status" value="<%=page_pos%>" />
+									<div>
 										<input type="submit" id="submit" value="Xóa" />
-										</div>
-										<br/>
-										<table id="table_danhsach_project" cellspacing="0"
-											cellpadding="0" border="1">
-											<thead>
-												<tr align="center">
-													<td width="20"><input type="checkbox" name="checkall"
-														id="checkall" onClick="checkUncheckAll(this);" /></td>
-													<td width="120"><b>Tên Dự Án</b></td>
-													<td width="250"><b>Người Quản lý</b></td>
-													<td width="70"><b>Tiến Độ</b></td>
-												</tr>
-											</thead>
-											<tbody>
-												<logic:present name="project_list">
-													<logic:iterate id="element" name="project_list">
-														<tr align="center">
-															<td ><input type="checkbox" name="check"
-																value="<bean:write name="element"  property="IDproject"/>" /></td>
-															<td ><a
-																href="/getproject.do?IDproject=<bean:write name="element"  property="IDproject"/>&status=<%=status%>&PAGE=<%=page_pos%>"><bean:write
-																		name="element" property="projectname" /></a></td>
+									</div>
+									<br />
+									<table id="table_danhsach_project" cellspacing="0"
+										cellpadding="0" border="1">
+										<thead>
+											<tr align="center">
+												<td width="20"><input type="checkbox" name="checkall"
+													id="checkall" onClick="checkUncheckAll(this);" /></td>
+												<td width="120"><b>Tên Dự Án</b></td>
+												<td width="250"><b>Người Quản lý</b></td>
+												<td width="70"><b>Tiến Độ</b></td>
+											</tr>
+										</thead>
+										<tbody>
+											<logic:present name="project_list">
+												<logic:iterate id="element" name="project_list">
+													<tr align="center">
+														<td><input type="checkbox" name="check"
+															value="<bean:write name="element"  property="IDproject"/>" /></td>
+														<td><a
+															href="/getproject.do?IDproject=<bean:write name="element"  property="IDproject"/>&status=<%=status%>&PAGE=<%=page_pos%>"><bean:write
+																	name="element" property="projectname" /></a></td>
 
-															<td ><b><bean:write name="element"
-																		property="projectmanager" /></b></td>
-															<td ><bean:write name="element"
-																	property="process" /></td>
-														</tr>
-													</logic:iterate>
-												</logic:present>
-											</tbody>
-										</table>
-									</form>
-								</div>
+														<td><b><bean:write name="element"
+																	property="projectmanager" /></b></td>
+														<td><bean:write name="element" property="process" /></td>
+													</tr>
+												</logic:iterate>
+											</logic:present>
+										</tbody>
+									</table>
+								</form>
 							</div>
 						</div>
-
 					</div>
-					<div class="Footer">UIT - Quản lý phần mềm</div>
+
 				</div>
-
-				<!--end nav_sub-->
-
+				<div class="Footer">UIT - Quản lý phần mềm</div>
 			</div>
+
+			<!--end nav_sub-->
+
 		</div>
-		<!-- end container-->
+	</div>
+	<!-- end container-->
 </body>
 </html>
