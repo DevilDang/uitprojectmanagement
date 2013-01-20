@@ -3,7 +3,7 @@
 
 <%
  String typelogin = (String)request.getSession().getAttribute(Constant.Type_Login);
- Object userlogin = (Object)request.getSession().getAttribute(Constant.User_Login);
+ String userlogin = (String)request.getSession().getAttribute(Constant.User_Login);
  if(typelogin == null || userlogin == null )
  {
 	 response.sendRedirect("/login.jsp");
@@ -15,7 +15,8 @@
             <h1><a href="#">Web site quản lý phần mềm</a></h1>
             <h2>UIT</h2>
           </div>
-        </div><div class="Menu">
+        </div>
+        <div class="Menu">
             <ul>  
             <li><a href="project.jsp" class="ActiveMenuButton"><span>Dự án</span></a></li>|
             <li><a href="/displayReqList.do" class="MenuButton"><span>Yêu cầu</span></a></li>|
@@ -28,7 +29,7 @@
             <li><a href="changepassword.jsp"  class="MenuButton"><span>Đổi Mật Khẩu</span></a></li>|         
             <li><a href="logout.do"  class="MenuButton"><span>Đăng Xuất</span></a></li>
             </ul>
-        </div> <!-- end header-->
+</div> <!-- end header-->
 <script type="text/javascript">
     <!--
     var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"images/arrow_down.gif", imgRight:"images/arrow_right.gif"});

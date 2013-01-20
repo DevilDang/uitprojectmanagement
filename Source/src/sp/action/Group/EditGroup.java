@@ -11,7 +11,9 @@ import org.apache.struts.action.ActionMapping;
 
 import sp.dao.GroupDao;
 import sp.dao.PMF;
+import sp.dao.UserDao;
 import sp.dto.Group;
+import sp.dto.User;
 import sp.form.GroupForm;
 import sp.util.Constant;
 
@@ -31,7 +33,7 @@ public class EditGroup extends org.apache.struts.action.Action{
      * @throws java.lang.Exception
      * @return
      */
-    @Override
+	@Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
@@ -57,17 +59,43 @@ public class EditGroup extends org.apache.struts.action.Action{
         	
         	group.setIDgroup(System.currentTimeMillis());
         	GroupDao.saveGroup(group);
+        	       	
         }else if("edit".equals(checkMode))
         {
         	if(group.getIdProject() == 0)
         	{
-        		group.setStatus(Group.STATUS_FREE);
+        		group.setStatusGroup(Group.STATUS_FREE);
         	}else
         	{
-        		group.setStatus(Group.STATUS_OWN_A_GROUP);
+        		group.setStatusGroup(Group.STATUS_OWN_A_GROUP);
         	}
         	
         	GroupDao.saveGroup(group);
+        	
+        	String leader = group.getLeader();
+        	if(!"".equals(leader))
+        	{
+        		UserDao userdao = new UserDao();
+        		// lấy danh sách user của nhóm hiện tại
+        		 List<User> list_user = userdao.getUserListFilter("groupID==" +group.getIDgroup() , "id desc");
+        	        request.setAttribute(Constant.ACCOUNT_LIST, list_user);
+        	     if(list_user != null)
+        	     {
+        	    	 for(int i = 0;i<list_user.size();i++)
+        	    	 {
+        	    		 if(User.LEADER.equals(list_user.get(i).getIdPermision()))
+	    				 {
+        	    			 list_user.get(i).setIdPermision(User.EMPLOYER);
+        	    			 UserDao.saveUser( list_user.get(i));
+        	    			 break;
+	    				 }
+        	    	 }
+        	     }
+        		
+        		User user =  userdao.getUser(leader);
+        		user.setIdPermision(User.LEADER);
+        		UserDao.saveUser(user);
+        	}
         }
         
         

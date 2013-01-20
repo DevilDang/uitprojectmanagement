@@ -1,3 +1,4 @@
+<%@page import="sp.form.GroupForm"%>
 <%@page import="sp.dto.User"%>
 <%@page import="sp.dto.Project"%>
 <%@page import="sp.util.Constant"%>
@@ -251,8 +252,9 @@
 													<td width="100">Trường nhóm:</td>
 													<td>
 														<%
-															List<User> list_user = (List<User>) request
-																		.getAttribute(Constant.ACCOUNT_LIST);
+															GroupForm groupform = (GroupForm)request.getSession().getAttribute("GroupForm");
+															String leader = groupform.getLeader();
+															List<User> list_user = (List<User>) request.getAttribute(Constant.ACCOUNT_LIST);
 														%> <html:select property="leader">
 															<option value="">Chưa có</option>
 
@@ -261,9 +263,19 @@
 																if (list_user != null) {
 																			int length_user = list_user.size();
 																			for (int i = 0; i < length_user; i++) {
-															%>
-															<option value="<%=list_user.get(i).getEmail()%>"><%=list_user.get(i).getName()%></option>
-															<%
+																				if(list_user.get(i).getEmail().equals(leader))
+																				{
+																					%>
+																					<option value="<%=list_user.get(i).getEmail()%>" selected="selected"><%=list_user.get(i).getName()%></option>
+																					<%
+																				}
+																				else
+																				{
+																					%>
+																					<option value="<%=list_user.get(i).getEmail()%>"><%=list_user.get(i).getName()%></option>
+																					<%
+																				}
+															
 																}
 																		}
 															%>
@@ -376,13 +388,13 @@
 							<div class="ArticleL"></div>
 							<div class="ArticleC"></div>
 							<div class="Article">
-								<h2>Danh sách dự án</h2>
+								<h2>Danh sách nhóm</h2>
 								<br>
 								<form name="listGroup" id="listGroup" method="post"
 									action="/deletegroup.do">
 
-									<input type="hidden" name="PAGE" /> 
-									<input type="hidden" name="idProject" />
+									<input type="hidden" name="PAGE" value="<%=page_pos%>"/> 
+									<input type="hidden" name="idProject" value="<%=idProject%>"/>
 									<div>
 										<input type="submit" id="submit" value="Xóa" />
 									</div>

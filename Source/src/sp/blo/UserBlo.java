@@ -36,6 +36,7 @@ public class UserBlo {
 	
 	public static boolean isExistUser_byEmail(String id) {
 		// user ton tai
+		
 		if (userDao.checkExistUser(id)) {
 				return true;
 		}

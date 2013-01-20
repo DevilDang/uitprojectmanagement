@@ -12,17 +12,6 @@
 <script src="javascripts/requirement.js" type="text/javascript"></script>
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script type="text/javascript" src="javascripts/ui/ui.datepicker_vn.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$("#datepicker").datepicker({
-			dateFormat : 'dd/mm/yy'
-		});
-		$("#datepicker1").datepicker({
-			dateFormat : 'dd/mm/yy'
-		});
-	});
-</script>
 </head>
 
 <body>

@@ -179,8 +179,10 @@ public final class PMF {
     public static boolean isObject(Class<?> className, String key) {
         PersistenceManager pm = getPMF();
         try {
-
+        	
+        	System.out.println("email 1" + key+"hhh");
             pm.getObjectById(className, key);
+            
         } catch (JDOObjectNotFoundException e) {
             return false;
         } finally {
@@ -212,7 +214,7 @@ public final class PMF {
         PersistenceManager pm = getPMF();
         Object result = null; 
         try {
-
+        	System.out.println("email 2" + key+"hhh");
             result = pm.getObjectById(className, key);
         } catch (JDOObjectNotFoundException e) {
             return null;

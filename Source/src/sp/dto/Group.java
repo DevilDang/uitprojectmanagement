@@ -30,7 +30,7 @@ public class Group implements Serializable{
 	@Persistent
 	private String leader; //1
 	@Persistent
-	private String status;// check staus cua Group : dang free, da duoc set vo du an, 
+	private String status;// check staus cua Group : dang free yeu cau , hoac dang thuc hien yeu cau, 
 	@Persistent
 	private Boolean isbusy;//chua co req, da co req
 	@Persistent
