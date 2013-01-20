@@ -3,12 +3,22 @@
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic"%>
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
+<!DOCTYPE html>
 <html>
 <head>
 <title>Web site quản lý phần mềm</title>
 <link rel="stylesheet" href="css/style1.css" />
 <link rel="stylesheet" type="text/css"
 	href="javascripts/ui/themes/base/ui.all.css" />
+<link rel="stylesheet" href="css/vebieudo.css" />	
+<link href="css/SpryTabbedPanels.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.style1 {
+	font-size: large
+}
+-->
+</style>
 <script src="javascripts/check.js" type="text/javascript"></script>
 <script src="javascripts/SpryMenuBar.js" type="text/javascript"></script>
 <script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
@@ -16,6 +26,8 @@
 <script type="text/javascript"
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="javascripts/ui/ui.datepicker_vn.js"></script>
+<script src="javascripts/SpryTabbedPanels.js" type="text/javascript"></script>
+<script src="javascripts/vebieudo.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#datepicker").datepicker({
@@ -393,11 +405,15 @@ Trạng thái:<br>
 							</div>
 							<div class="ArticleL"></div>
 							<div class="ArticleC"></div>
-							<div class="Article">
-
-								<h2>Danh sách yêu cầu</h2>
-								<br>
-								<form action="/deleteReq.do">
+							<div class="Article">							
+								<div id="TabbedPanels1" class="TabbedPanels">
+								  <ul class="TabbedPanelsTabGroup">
+								    <li class="TabbedPanelsTab style1" tabindex="0">Danh sách yêu cầu</li>
+								    <li class="TabbedPanelsTab style1" tabindex="0">Biểu đồ</li>
+								  </ul>
+								  <div class="TabbedPanelsContentGroup">
+								    <div class="TabbedPanelsContent">
+								    <form action="/deleteReq.do">
 									<logic:present name="record_sort">
 										<input type="submit" id="submit" value="Xóa" />
 										<logic:equal value="2" name="record_sort" property="level">
@@ -438,6 +454,21 @@ Trạng thái:<br>
 										</tbody>
 									</table>
 								</form>
+								</div>
+								    <div class="TabbedPanelsContent">
+								    <div id="page_game">
+										<div id="layers">
+											<canvas id="bg" width="500" height="500">
+										Sorry, your web browser does not support canvas content.
+									  </canvas>
+										</div>
+									</div>
+								    </div>
+								  </div>
+								</div>
+								
+								
+								
 							</div>
 						</div>
 
@@ -451,4 +482,10 @@ Trạng thái:<br>
 	</div>
 	<!-- <span class="BackLink"><a href="http://cooltemplate.com">Web Template</a> created using Cool Template</span> -->
 </body>
+<script type="text/javascript">
+<!--
+var TabbedPanels1 = new Spry.Widget.TabbedPanels("TabbedPanels1");
+var TabbedPanels2 = new Spry.Widget.TabbedPanels("TabbedPanels2");
+//-->
+</script>
 </html>
