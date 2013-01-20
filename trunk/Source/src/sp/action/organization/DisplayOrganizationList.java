@@ -80,6 +80,7 @@ public class DisplayOrganizationList extends Action {
 			se.setAttribute(Constant.ORG_TOTAL_NUMBER, String.valueOf(total));
 			
 		}
+		return mapping.findForward(Constant.SUCCESS);
 		}
 		
 		//forward page result
