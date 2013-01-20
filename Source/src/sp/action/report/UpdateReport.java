@@ -61,8 +61,11 @@ public class UpdateReport extends Action{
 			//save dto
 			ReportBlo.saveReport(report);
 			
+			formReport.clear();
+			//save into session
+			se.setAttribute(Constant.REPORT, formReport);
+			
 			//remove  from session
-			se.removeAttribute(Constant.REPORT);
 			se.removeAttribute(Constant.REPORT_FILE_ID);
 			se.removeAttribute(Constant.REPORT_FILE_NAME);
 //			if (Constant.MODE_INSERT.equals(mode)){

@@ -31,7 +31,6 @@ public class UploadFile extends Action{
     
     	Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);	
     	List<BlobKey> blobKey = blobs.get("myFile");	
-System.out.println("123");		
     	if (blobKey == null) {	
     		return mapping.findForward("success");
     	} else {	
