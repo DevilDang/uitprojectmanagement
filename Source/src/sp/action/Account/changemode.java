@@ -9,7 +9,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import sp.form.AccountForm;
-import sp.form.GroupForm;
 
 public class changemode  extends Action{
 	/*

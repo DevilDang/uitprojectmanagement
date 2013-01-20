@@ -9,16 +9,12 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import sp.blo.UserBlo;
 import sp.dao.GroupDao;
 import sp.dao.PMF;
-import sp.dao.ProjectDao;
 import sp.dao.UserDao;
 import sp.dto.Group;
-import sp.dto.Project;
 import sp.dto.User;
 import sp.form.GroupForm;
-import sp.form.ProjectForm;
 import sp.util.Constant;
 
 public class GetGroup extends org.apache.struts.action.Action{

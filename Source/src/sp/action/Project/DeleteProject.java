@@ -37,7 +37,6 @@ public class DeleteProject extends org.apache.struts.action.Action {
 	 * @return
 	 */
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)

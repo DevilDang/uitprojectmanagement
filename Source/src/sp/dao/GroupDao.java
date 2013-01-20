@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sp.dto.Group;
-import sp.dto.Project;
-import sp.dto.User;
 
 public class GroupDao {
 

@@ -137,7 +137,7 @@
 										<br />
 										<div>
 											Trang <select name="PAGE" id="select_page"
-												onchange="getListProjectByPage()">
+												onchange="getListGroupByPage()">
 
 												<%
 													if (Page == null || Page < 1) {

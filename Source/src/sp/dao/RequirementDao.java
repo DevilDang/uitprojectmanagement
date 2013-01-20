@@ -3,9 +3,7 @@ package sp.dao;
 import java.util.List;
 
 import sp.dto.Group;
-import sp.dto.Report;
 import sp.dto.Requirement;
-import sp.dto.Task;
 
 public class RequirementDao {
 

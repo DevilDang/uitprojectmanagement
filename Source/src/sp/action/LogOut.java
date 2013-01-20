@@ -1,14 +1,15 @@
 package sp.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import sp.util.Constant;
+
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
-
-import sp.util.Constant;
 
 public class LogOut extends org.apache.struts.action.Action  {
 	
@@ -16,7 +17,6 @@ public class LogOut extends org.apache.struts.action.Action  {
      * forward name="success" path=""
      */
     private static final String SUCCESS = "success";
-    private static final String FAIL = "fail";
 
     /**
      * This is the action called from the Struts framework.
