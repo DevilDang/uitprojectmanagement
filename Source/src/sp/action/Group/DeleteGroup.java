@@ -46,7 +46,7 @@ public class DeleteGroup  extends org.apache.struts.action.Action{
 		for (int i = 0; i < group_name_array.length; i++)
 			PMF.deleteObject(Group.class, Long.parseLong(group_name_array[i]));
 
-		int idProject = Integer.parseInt(request.getParameter("idProject"));
+		long idProject = Long.parseLong(request.getParameter("idProject"));
 		int page = Integer.parseInt(request.getParameter("PAGE"));
 
 		GroupDao groupdao = new GroupDao();
