@@ -68,7 +68,7 @@
     </action>
     
     <action 
-        input="/report.jsp" 
+        input="/reportMine.jsp" 
         path="/updateReportMine" 
         type="sp.action.report.UpdateReport"  
         name="report"
