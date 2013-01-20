@@ -80,31 +80,6 @@
 							</select>
 						<br>
 					</logic:notEmpty>
-					<%-- <logic:notEmpty name="idTaskList">
-						<div class="chose3" align="center">
-							Công việc được giao: <select name="task" id="box"
-								onChange="getListReportMine4,1)">
-								<logic:iterate id="element" name="idTaskList">
-								<c:choose>
-								<c:when test="${element == record_sort.idTask }">
-								<option value="" selected>
-										<bean:write name="element" />
-									</option>
-								</c:when>
-								<c:otherwise>
-								<option value="">
-										<bean:write name="element" />
-									</option>
-								</c:otherwise>
-								</c:choose>
-								<option value="">
-										<bean:write name="element" />
-									</option>
-									
-								</logic:iterate>
-							</select>
-						</div>
-					</logic:notEmpty> --%>
 						Trạng thái: 
 						<select name="status" id="box" onChange="getListReportMine(5,1)">
 							<logic:equal name="record_sort" property="status" value="New"><option value="New" selected="selected">New</option></logic:equal>
@@ -153,10 +128,10 @@
                 <li>
 				<a href="/displayReportList.do"> Danh sach review</a></li>
 				<li>
-				<a href="/displayReportListMine.do"> Bao cao cua toi</a></li>
+				<a href="/displayReportListMine.do"> Báo cáo của tôi</a></li>
 				</logic:notEqual>
 				<logic:equal name="record_sort" property="level" value="4">
-				<li> Bao cao cua toi</li>
+				<li> Bao cao của tôi</li>
 				</logic:equal>
                 </ul>
 
@@ -178,7 +153,7 @@
 					</span></span>
             <div class="BlockContentBorder">
             <form name="uploadFile"
-				action="<%=blobstoreService.createUploadUrl("/uploadFile.do")%>"
+				action="<%=blobstoreService.createUploadUrl("/uploadFileMine.do")%>"
 				method="post" enctype="multipart/form-data" id="uploadForm">
 					<input type="file" name="myFile" class="buttonBG" id="myFile" size="10">
 					<input id="uploadAction" type="submit" value="Upload File"
@@ -243,17 +218,11 @@
 										
 										<html:option value="New">New</html:option>
 										
-										<logic:notEqual value="4" name="record_sort" property="level">
-										<html:option value="Review">Review</html:option>
-										</logic:notEqual>
 										</logic:equal>
 										
 										<!-- Review -->
 										<logic:equal value="Review" name="record_sort" property="status">
 										<html:option value="Review">Review</html:option>
-										<logic:notEqual value="4" name="record_sort" property="level">
-										<html:option value="Request_update">Request_update</html:option>
-										</logic:notEqual>
 										</logic:equal>
 										
 										<!-- Request_update -->
@@ -266,14 +235,6 @@
 										<!-- Updated -->
 										<logic:equal value="Updated" name="record_sort" property="status">
 										<html:option value="Updated">Updated</html:option>
-										<logic:notEqual value="4" name="record_sort" property="level">
-										<html:option value="Request_update">Request_update</html:option>
-										<html:option value="Finish">Finish</html:option>
-										</logic:notEqual>
-										</logic:equal>
-										<!-- Finish -->
-										<logic:equal value="Finish" name="record_sort" property="status">
-										<html:option value="Finish">Finish</html:option>
 										</logic:equal>
 										</logic:present>
 										</html:select>
@@ -282,21 +243,7 @@
 						</logic:present>
 						
 						<logic:present name="record_sort" >
-								<!-- Leader, PM,Admin -->
-								<logic:notEqual value="4" name="record_sort" property="level">
-									<logic:equal value="New" name="record_sort" property="status">
-										 <span class="ButtonInput"><span><input type="submit" value="Thực hiện" /></span></span> 
-									</logic:equal>
-									<logic:equal value="Review" name="record_sort" property="status">
-										 <span class="ButtonInput"><span><input type="submit" value="Thực hiện" /></span></span> 
-									</logic:equal>
-									
-									<logic:equal value="Updated" name="record_sort" property="status">
-										 <span class="ButtonInput"><span><input type="submit" value="Thực hiện" /></span></span> 
-									</logic:equal>
-								</logic:notEqual> 
 								
-								<logic:equal value="4" name="record_sort" property="level">
 									<logic:equal value="New" name="record_sort" property="status">
 									<logic:equal name="report" property="mode" value="1" >
 									 <span class="ButtonInput"><span><input type="submit" value="Thực hiện" /></span></span> 
@@ -307,7 +254,6 @@
 									</logic:equal>
 									<logic:equal value="Request_update" name="record_sort" property="status">
 										 <span class="ButtonInput"><span><input type="submit" value="Thực hiện" /></span></span> 
-									</logic:equal>
 									
 								</logic:equal>
 									</logic:present>
@@ -332,9 +278,9 @@
         <h2>Báo cáo của tôi</h2> <br>
         <form action="/deleteReq.do">
         <logic:present name="record_sort">
-						<input type="submit" id="submit" value="Xóa"/>	<logic:equal value="2" name="record_sort" property="level">
-						<a href="/changeModeReq.do">|Thêm mới </a>
-							</logic:equal>
+						<input type="submit" id="submit" value="Xóa"/>	
+						<a href="/changeModeReportMine.do">|Thêm mới </a>
+						
 						</logic:present>
 
         <table id="table_report_list" cellspacing="0" cellpadding="0"
@@ -361,7 +307,7 @@
 											<td><input type="checkbox" name="check" id="checkall"
 												value="<bean:write name="item" property="id"/>" /></td>
 											<td width="70"><b><a
-													href="/displayTask.do?id=<bean:write name="item" property="id"/>"><bean:write
+													href="/displayReportMine.do?id=<bean:write name="item" property="id"/>"><bean:write
 															name="item" property="id" />
 												</a> </b>
 											</td>
