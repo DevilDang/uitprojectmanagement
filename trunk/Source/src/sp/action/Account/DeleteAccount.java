@@ -43,20 +43,20 @@ public class DeleteAccount extends org.apache.struts.action.Action{
 		for (int i = 0; i < user_name_array.length; i++)
 			PMF.deleteObject(User.class, user_name_array[i]);
 
-		int IDgroup = Integer.parseInt(request.getParameter("IDgroup"));
+		long IDgroup = Long.parseLong(request.getParameter("groupID"));
 		int page = Integer.parseInt(request.getParameter("PAGE"));
 
 		UserDao userdao = new UserDao();
 		List<User> list_user = userdao.getUserListFilter(page,
-				"IDgroup==" + IDgroup, "id desc");
+				"groupID==" + IDgroup, "id desc");
 		
 		request.setAttribute(Constant.ACCOUNT_LIST, list_user);
 		
-		request.setAttribute("IDgroup", String.valueOf(IDgroup));
+		request.setAttribute("groupID", String.valueOf(IDgroup));
 		
 		 request.setAttribute("page_pos", page);
          
-        int count = PMF.countNumberAll(Class.forName("sp.dto.User"), "IDgroup==" + IDgroup);
+        int count = PMF.countNumberAll(Class.forName("sp.dto.User"), "groupID==" + IDgroup);
     	int countpage = (count < Constant.RECORD ? 1 : (count % Constant.RECORD == 0 ? count/Constant.RECORD : count/Constant.RECORD + 1));
     
         request.setAttribute("PAGE",countpage );
