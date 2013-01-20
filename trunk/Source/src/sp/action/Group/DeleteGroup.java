@@ -11,9 +11,7 @@ import org.apache.struts.action.ActionMapping;
 
 import sp.dao.GroupDao;
 import sp.dao.PMF;
-import sp.dao.ProjectDao;
 import sp.dto.Group;
-import sp.dto.Project;
 import sp.util.Constant;
 
 public class DeleteGroup  extends org.apache.struts.action.Action{
@@ -38,7 +36,6 @@ public class DeleteGroup  extends org.apache.struts.action.Action{
 	 * @return
 	 */
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)

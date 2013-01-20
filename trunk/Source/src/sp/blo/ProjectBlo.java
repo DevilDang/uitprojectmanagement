@@ -3,7 +3,6 @@ package sp.blo;
 import java.util.List;
 
 import sp.dto.Project;
-import sp.dto.User;
 import sp.util.JSONObject;
 import sp.util.JSONObjectList;
 

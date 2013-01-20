@@ -10,9 +10,7 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.validator.ValidatorForm;
 
 import sp.dao.GroupDao;
-import sp.dao.ProjectDao;
 import sp.dto.Group;
-import sp.dto.Project;
 
 public class GroupForm extends ValidatorForm implements Serializable {
 

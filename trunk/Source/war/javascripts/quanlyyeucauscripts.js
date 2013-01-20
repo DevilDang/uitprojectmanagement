@@ -181,7 +181,8 @@ function ajax_getCountAndCountPage(classname,filter,page)
 
 function getListAccount(page)
 {
-	var form = document.getElementById("listAccount");
+	setHiddenValueAccount();
+	var form = document.getElementById("SearchAccount");
 	var select_group = form.elements["groupID"];	    
     ajax_getCountAndCountPage("sp.dto.User","groupID==" + select_group[select_group.selectedIndex].value,page);
     
@@ -190,17 +191,34 @@ function getListAccount(page)
 
 function getListaccountByPage()
 {
-	var form = document.getElementById("listAccount");
+	setHiddenValueAccount();
+	var form = document.getElementById("SearchAccount");
 	
 	var select_page = form.elements["select_page"];
 	ajax_getListAccount(select_page[select_page.selectedIndex].value)
+}
+
+function setHiddenValueAccount()
+{
+	var form = document.getElementById("SearchAccount");	
+	var select_page = form.elements["select_page"];
+	var select_groupID = form.elements["groupID"];
+	
+	var form = document.getElementById("listAccount");
+	
+	var page = form.elements["PAGE"];
+	page.value= select_page[select_page.selectedIndex].value;
+	
+	var groupID = form.elements["groupID"];
+	groupID.value =  select_groupID[select_groupID.selectedIndex].value;
+	
 }
 
 function ajax_getListAccount(page)
 {
 	
     //draw_loading();
-    var form = document.getElementById("listAccount");
+    var form = document.getElementById("SearchAccount");
     var select_group = form.elements["groupID"];
     
     var xhr = createXHR();
@@ -234,7 +252,7 @@ function ajax_getListAccount(page)
 //--- Po draw table
 function draw_table_danhsachaccount(list_account,length,index)
 {
-	var form = document.getElementById("listAccount");	
+	var form = document.getElementById("SearchAccount");	
 	var select_page = form.elements["select_page"];
 	var select_groupID = form.elements["groupID"];
 	// name của input checkbox

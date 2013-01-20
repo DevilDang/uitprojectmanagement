@@ -10,10 +10,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import sp.dao.GroupDao;
 import sp.dao.PMF;
 import sp.dao.UserDao;
-import sp.dto.Group;
 import sp.dto.User;
 import sp.util.Constant;
 
@@ -35,8 +33,7 @@ public class DeleteAccount extends org.apache.struts.action.Action{
      * @return
      */
     
-    @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {

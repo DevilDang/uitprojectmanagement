@@ -2,10 +2,7 @@ package sp.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import sp.dto.Group;
 import sp.dto.User;
-
-import sp.dao.PMF;
 public class UserDao {
 	
 	public boolean checkExistUser(String id) {

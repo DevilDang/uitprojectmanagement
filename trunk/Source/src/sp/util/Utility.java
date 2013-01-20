@@ -6,9 +6,9 @@ package sp.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Calendar;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 /**
@@ -34,7 +34,7 @@ public class Utility {
             for (int i = 0; i < messageDigest.length; i++) {
                 hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
             }
-            String foo = messageDigest.toString();
+            messageDigest.toString();
             System.out.println("sessionid" + hexString.toString());
         } catch (NoSuchAlgorithmException e) {
         }

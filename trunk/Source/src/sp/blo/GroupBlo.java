@@ -2,11 +2,7 @@ package sp.blo;
 
 import java.util.List;
 
-import sp.dao.PMF;
-import sp.dao.UserDao;
 import sp.dto.Group;
-import sp.dto.Project;
-import sp.dto.User;
 import sp.util.JSONObject;
 import sp.util.JSONObjectList;
 

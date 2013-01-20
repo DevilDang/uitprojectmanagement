@@ -15,7 +15,6 @@ import org.apache.struts.action.ActionMapping;
 import sp.blo.OrganizationBlo;
 import sp.dao.PMF;
 import sp.dto.User;
-import sp.form.AccountForm;
 import sp.form.OrganizationForm;
 import sp.util.CommonUtil;
 import sp.util.Constant;

@@ -3,7 +3,6 @@ package sp.blo;
 
 import java.util.List;
 
-import sp.dao.PMF;
 import sp.dao.UserDao;
 import sp.dto.User;
 import sp.util.JSONObject;
