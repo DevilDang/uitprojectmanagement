@@ -146,7 +146,15 @@ public class AccountForm extends ValidatorForm implements Serializable {
 					"error.retypepassword.required"));
 			// TODO: add 'error.name.required' key to your resources
 		}
-
+		
+		if(getPassword() != null && getPassword().length() >= 1 && getRetypepassword() != null && getRetypepassword().length() >= 1)
+		{
+			if(!getPassword().equals(getRetypepassword()))
+			{
+				errors.add("notmatch", new ActionMessage(
+						"error.notmatch.required"));
+			}
+		}
 		// if(getiTypeAction() == null)
 		// {
 		// errors.add("Retypepassword", new

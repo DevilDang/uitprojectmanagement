@@ -1,52 +1,87 @@
-<%@ page contentType="text/html; charset=utf-8" language="java" errorPage="" %>
+<%@ page contentType="text/html; charset=utf-8" language="java"
+	errorPage=""%>
+<%@taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
+	
 <html>
-    <head>
-        <title>Trang chủ</title>
-        <link rel="stylesheet" type="text/css" href="default.css"/>
-        <link rel="stylesheet" type="text/css" href="css/style.css"/>
-        <link rel="stylesheet" type="text/css" href="css/SpryMenuBarHorizontal.css"/>
-        <script src="javascripts/SpryMenuBar.js" type="text/javascript"></script>
-    </head>
-    <body>
-        <div id="container">
-            <jsp:include page="module/header.jsp" />
-            <div id="nav_sub">
-			<div id="nav_sub_left">
-				<div class="logo">
-					<img src="images/logo.png" />
-				</div>
-				<div class="logo">
-					<h1>Đổi Mật Khẩu</h1>
-				</div>
+<head>
+<title>Trang chủ</title>
+<link rel="stylesheet" href="css/style1.css" />
+<link rel="stylesheet" type="text/css"
+	href="javascripts/ui/themes/base/ui.all.css" />
+<script src="javascripts/check.js" type="text/javascript"></script>
+<script src="javascripts/SpryMenuBar.js" type="text/javascript"></script>
+<script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
+<script src="javascripts/requirement.js" type="text/javascript"></script>
+<script type="text/javascript"
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<div class="BodyContent">
+		<div class="BorderBorder">
+			<div class="BorderBL">
+				<div></div>
 			</div>
-			<!--end nav_sub_left-->
+			<div class="BorderBR">
+				<div></div>
+			</div>
+			<div class="BorderTL"></div>
+			<div class="BorderTR">
+				<div></div>
+			</div>
+			<div class="BorderT"></div>
+			<div class="BorderR">
+				<div></div>
+			</div>
+			<div class="BorderB">
+				<div></div>
+			</div>
+			<div class="BorderL"></div>
+			<div class="BorderC"></div>
+			<div class="Border">
+				<jsp:include page="module/header1.jsp" />
+				<br>
+				<div id="con_login" align="center">
+				<html:form method="post" action="/changepass.do">
+					<table>
+					
+					<tr>
+					<td>
+					<html:errors/>
+					</td>
+					</tr>
+					
+					<tr>
+					<td>Mật khẩu cũ:</td>
+					<td><html:text property="oldpassword"></html:text> </td>					
+					</tr>
+					
+					<tr>
+					<td>Mật khẩu mới:</td>
+					<td><html:text property="newpassword"></html:text> </td>					
+					</tr>
+					<tr>
+					
+					<td>Nhập lại mật khẩu:</td>
+					<td><html:text property="retype_newpassword"></html:text> </td>					
+					</tr>
+					
+					</table>
+					
+					<tr>
+					<td><html:submit value="Đồng ý"></html:submit> </td>
+					<td><html:reset value="Nhập lại"></html:reset>  </td>					
+					</tr>
+					<tr>
+					
+				</html:form>
+					
+					
+				</div>
+
+				<div class="Footer">UIT - Quản lý phần mềm</div>
+			</div>
 		</div>
-            <div id="con_login" align="center">
-                <form method="post" action="/LogIn.do">
-                    <div class="login" align="center">
-                	Mật khẩu cũ:
-                       <input type="text" name="oldpassword" id="oldpassword"/>
-                    </div>
-                    <br>
-                    <div class="login" align="center">
-                    Mật khẩu mới:
-                        <input type="text" name="newpassword" id="newpassword"/>
-                    </div>
-                    <br>
-                    <div class="login" align="center">
-                   Nhập lại mật khẩu:
-                        <input type="text" name="retype_newpassword" id="retype_newpassword"/>
-                    </div>
-                    <br>
-                    <div class="login" align="center">
-                      <input type="button" value="Đồng ý" onclick="changePassWord();">    
-                    </div>
-                </form>
-            </div>
-
-        </div> <!-- end content-->
-
-        <jsp:include page="module/footer.jsp" />
-        <!-- end footer-->
-    </body>
+	</div>
+</body>
 </html>

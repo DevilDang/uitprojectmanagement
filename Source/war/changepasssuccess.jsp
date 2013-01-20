@@ -37,7 +37,7 @@
 			<div class="BorderC"></div>
 			<div class="Border">
 				<jsp:include page="module/header1.jsp" />
-				<div align="center">Bạn không có quyền thao tác trên chức năng này</div>
+				<div align="center">Đổi mật khẩu thành công</div>
 				<div class="Footer">UIT - Quản lý phần mềm</div>
 			</div>
 		</div>

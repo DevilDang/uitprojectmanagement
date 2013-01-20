@@ -7,6 +7,8 @@
    <form-bean name="AccountForm" type="sp.form.AccountForm"/>
    <form-bean name="ProjectForm" type="sp.form.ProjectForm"/>
    <form-bean name="GroupForm" type="sp.form.GroupForm"/>
+   <form-bean name="ChangePassForm" type="sp.form.ChangePassForm"/>
+   
    
   <!-- po -->
   </form-beans>
@@ -128,6 +130,12 @@
        <forward name="success" path="/group.jsp"/>
       </action>  
        <!-- Po -action xử lý việc xử lý chuyển sang chế độ thêm mới 1 nhóm -->
+      
+        <!-- Po - action xử lý việc đối mật khẩu -->
+     <action input="/changepassword.jsp" name="ChangePassForm" path="/changepass" type="sp.action.changepassword" scope="session" validate="true">
+       <forward name="success" path="/changepasssuccess.jsp"/>
+     </action>     
+      <!-- Po - action xử lý việc đối mật khẩu -->
       
     <!-- <action path="/promotionInfoWeekly" type="ebiz.action.mail.PromotionWeekly"-->
 
