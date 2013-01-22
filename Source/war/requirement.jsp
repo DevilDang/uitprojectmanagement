@@ -39,7 +39,7 @@
 	});
 </script>
 </head>
-<body>
+<body onload="getListReq(1,1)">
 	<div class="BodyContent">
 
 		<div class="BorderBorder">

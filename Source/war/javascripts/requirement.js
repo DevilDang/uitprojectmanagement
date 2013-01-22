@@ -1,3 +1,6 @@
+
+var process_array = new Array();
+
 function getListReq(flag,page)
 {
 	
@@ -119,7 +122,11 @@ function getListReqByPage(page)
 
 function draw_table_danhsach_req(list_report,length,index)
 {
-	
+  if(process_array.length != 0)
+  {
+	  process_array.splice(0,process_array.length);
+  }
+  	
   var tr, td, i;
   var table = document.getElementById("table_req_list");
 
@@ -160,6 +167,7 @@ function draw_table_danhsach_req(list_report,length,index)
       td = tr.insertCell(tr.cells.length);
       td.innerHTML = list_report[i].process;
       
+      process_array.push(list_report[i].process);
       
   }
   
