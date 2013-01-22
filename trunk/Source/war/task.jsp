@@ -45,9 +45,8 @@
 						Dự án: <select name="project" id="box" onChange="getListTask(1,1)">
 							<logic:present name="idProList">
 								<logic:iterate id="element" name="idProList">
-									<option
-										value="">
-										<bean:write name="element" />
+									<option value="<bean:write name="element" property="id"/>">
+														<bean:write name="element" property="name"/>
 									</option>
 								</logic:iterate>
 							</logic:present>
@@ -57,8 +56,8 @@
 						
 							Yêu cầu: <select name="req" id="box" onChange="getListTask(2,1)">
 								<logic:iterate id="element" name="idReqList">
-									<option value="" selected>
-										<bean:write name="element" />
+									<option value="<bean:write name="element" property="id"/>">
+														<bean:write name="element" property="name"/>
 									</option>
 								</logic:iterate>
 							</select>
@@ -69,8 +68,8 @@
 							Nhóm thực hiện: <select name="group" id="box"
 								onChange="getListTask(3,1)">
 								<logic:iterate id="element" name="idGroupList">
-									<option value="">
-										<bean:write name="element" />
+									<option value="<bean:write name="element" property="id"/>">
+														<bean:write name="element" property="name"/>
 									</option>
 								</logic:iterate>
 							</select>
@@ -332,7 +331,8 @@ Trạng thái:<br>
         <h2>Danh sách công việc</h2> <br>
         <form action="/deleteTask.do">
         <logic:present name="record_sort">
-						<input type="submit" id="submit" value="Xóa"/>	<logic:equal value="3" name="record_sort" property="level">
+        <logic:equal value="3" name="record_sort" property="level">
+						<input type="submit" id="submit" value="Xóa"/>	
 						<a href="/changeModeTask.do">|Thêm mới </a>
 							</logic:equal>
 						</logic:present>
@@ -370,7 +370,7 @@ Trạng thái:<br>
 											</b>
 											</td>
 											<td width="130"><b><bean:write name="item"
-														property="idGroup" />
+														property="nameGroup" />
 											</b>
 											</td>
 											<td width="70"><b><bean:write name="item"

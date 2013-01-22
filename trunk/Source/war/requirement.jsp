@@ -99,8 +99,8 @@
 											onChange="getListReq(1,1)">
 											<logic:present name="idProList">
 												<logic:iterate id="element" name="idProList">
-													<option value="">
-														<bean:write name="element" />
+													<option value="<bean:write name="element" property="id"/>">
+														<bean:write name="element" property="name"/>
 													</option>
 												</logic:iterate>
 											</logic:present>
@@ -109,8 +109,8 @@
 						
 							Yêu cầu: <select name="req" id="box" onChange="getListReq(2,1)">
 												<logic:iterate id="element" name="idReqList">
-													<option value="" selected>
-														<bean:write name="element" />
+													<option value="<bean:write name="element" property="id"/>">
+														<bean:write name="element" property="name"/>
 													</option>
 												</logic:iterate>
 											</select>
@@ -121,8 +121,8 @@
 							Nhóm thực hiện: <select name="group" id="box"
 												onChange="getListReq(3,1)">
 												<logic:iterate id="element" name="idGroupList">
-													<option value="">
-														<bean:write name="element" />
+													<option value="<bean:write name="element" property="id"/>">
+														<bean:write name="element" property="name"/>
 													</option>
 												</logic:iterate>
 											</select>
@@ -259,16 +259,16 @@ Tên yêu cầu:<br>
 Nhóm thực hiện:<br>
 										<logic:equal name="req" property="mode" value="2">
 											<html:select property="idGroup"
-												onchange="this.options[this.selectedIndex].value = this.options[this.selectedIndex].text">
+												>
 												<option value="<bean:write name="req" property="idGroup"/>">
-													<bean:write name="req" property="idGroup" />
+													<bean:write name="req" property="nameGroup" />
 												</option>
 												<logic:equal value="Open" name="record_sort"
 													property="status">
 													<logic:equal value="2" name="record_sort" property="level">
 														<logic:iterate id="item" name="req_group_free">
-															<option value="<bean:write name="item" />">
-																<bean:write name="item" />
+															<option value="<bean:write name="item" property="id"/>">
+																<bean:write name="item" property="name"/>
 															</option>
 														</logic:iterate>
 													</logic:equal>
@@ -290,8 +290,8 @@ Nhóm thực hiện:<br>
 														property="status">
 														<logic:equal value="2" name="record_sort" property="level">
 															<logic:iterate id="item" name="req_group_free">
-																<option value="<bean:write name="item" />">
-																	<bean:write name="item" />
+																<option value="<bean:write name="item" property="id"/>">
+																	<bean:write name="item" property="name"/>
 																</option>
 															</logic:iterate>
 														</logic:equal>
@@ -409,7 +409,7 @@ Trạng thái:<br>
 								<div id="TabbedPanels1" class="TabbedPanels">
 								  <ul class="TabbedPanelsTabGroup">
 								    <li class="TabbedPanelsTab style1" tabindex="0">Danh sách yêu cầu</li>
-								    <li class="TabbedPanelsTab style1" tabindex="0">Biểu đồ</li>
+								    <li class="TabbedPanelsTab style1" tabindex="0" )>Biểu đồ</li>
 								  </ul>
 								  <div class="TabbedPanelsContentGroup">
 								    <div class="TabbedPanelsContent">
@@ -445,7 +445,7 @@ Trạng thái:<br>
 														<td width="130"><b><bean:write name="item"
 																	property="nameReq" /> </b></td>
 														<td width="130"><b><bean:write name="item"
-																	property="idGroup" /> </b></td>
+																	property="nameGroup" /> </b></td>
 														<td width="70"><b><bean:write name="item"
 																	property="process" />%</b></td>
 													</tr>
