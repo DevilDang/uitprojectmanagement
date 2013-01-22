@@ -49,9 +49,8 @@
 						Dự án: <select name="project" id="box" onChange="getListReportMine(1,1)">
 							<logic:present name="idProList">
 								<logic:iterate id="element" name="idProList">
-									<option
-										value="">
-										<bean:write name="element" />
+									<option value="<bean:write name="element" property="id"/>">
+														<bean:write name="element" property="name"/>
 									</option>
 								</logic:iterate>
 							</logic:present>
@@ -61,9 +60,9 @@
 						
 							Yêu cầu: <select name="req" id="box" onChange="getListReportMine(2,1)">
 								<logic:iterate id="element" name="idReqList">
-									<option value="" selected>
-										<bean:write name="element" />
-									</option>
+								<option value="<bean:write name="element" property="id"/>">
+														<bean:write name="element" property="name"/>
+								</option>
 								</logic:iterate>
 							</select>
 						<br>
@@ -73,8 +72,8 @@
 							Nhóm thực hiện: <select name="group" id="box"
 								onChange="getListReportMine(3,1)">
 								<logic:iterate id="element" name="idGroupList">
-									<option value="">
-										<bean:write name="element" />
+									<option value="<bean:write name="element" property="id"/>">
+														<bean:write name="element" property="name"/>
 									</option>
 								</logic:iterate>
 							</select>

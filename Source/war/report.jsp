@@ -48,9 +48,8 @@
 						Dự án: <select name="project" id="box" onChange="getListReport(1,1)">
 							<logic:present name="idProList">
 								<logic:iterate id="element" name="idProList">
-									<option
-										value="">
-										<bean:write name="element" />
+									<option value="<bean:write name="element" property="id"/>">
+														<bean:write name="element" property="name"/>
 									</option>
 								</logic:iterate>
 							</logic:present>
@@ -60,8 +59,8 @@
 						
 							Yêu cầu: <select name="req" id="box" onChange="getListReport(2,1)">
 								<logic:iterate id="element" name="idReqList">
-									<option value="" selected>
-										<bean:write name="element" />
+									<option value="<bean:write name="element" property="id"/>">
+														<bean:write name="element" property="name"/>
 									</option>
 								</logic:iterate>
 							</select>
@@ -72,8 +71,8 @@
 							Nhóm thực hiện: <select name="group" id="box"
 								onChange="getListReport(3,1)">
 								<logic:iterate id="element" name="idGroupList">
-									<option value="">
-										<bean:write name="element" />
+									<option value="<bean:write name="element" property="id"/>">
+														<bean:write name="element" property="name"/>
 									</option>
 								</logic:iterate>
 							</select>
@@ -84,21 +83,9 @@
 							Công việc được giao: <select name="task" id="box"
 								onChange="getListReport4,1)">
 								<logic:iterate id="element" name="idTaskList">
-								<%-- <c:choose>
-								<c:when test="${element == record_sort.idTask }">
-								<option value="" selected>
-										<bean:write name="element" />
-									</option>
-								</c:when>
-								<c:otherwise>
-								<option value="">
-										<bean:write name="element" />
-									</option>
-								</c:otherwise>
-								</c:choose> --%>
-								<option value="">
-										<bean:write name="element" />
-									</option>
+								<option value="<bean:write name="element" property="id"/>">
+														<bean:write name="element" property="name"/>
+								</option>
 									
 								</logic:iterate>
 							</select>
