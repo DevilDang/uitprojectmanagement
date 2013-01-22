@@ -25,6 +25,7 @@ import sp.dto.Project;
 import sp.dto.Requirement;
 import sp.dto.User;
 import sp.form.AccountForm;
+import sp.form.IdName;
 import sp.form.RequirementForm;
 import sp.form.TaskForm;
 import sp.util.CommonUtil;
@@ -53,15 +54,17 @@ public class DisplayReqList extends Action {
 
 		// initial sortForm
 		int level = 0;
-		Long idProject = null;
-		Long idReq = null;
-		Long idGroup = 0L;
+		IdName idProject = new IdName();
+		IdName idReq = new IdName();
+		IdName idGroup = new IdName();
+		IdName idName = new IdName();
 		String idUser = user.getEmail();
+		Long temp;
 
 		// value into session
-		List<Long> idProjectList = new ArrayList<Long>();
-		List<Long> idReqList = new ArrayList<Long>();
-		List<Long> idGroupList = new ArrayList<Long>();
+		List<IdName> idProjectList = new ArrayList<IdName>();
+		List<IdName> idReqList = new ArrayList<IdName>();
+		List<IdName> idGroupList = new ArrayList<IdName>();
 		boolean sort = false;
 
 		// ADMIN
@@ -83,7 +86,7 @@ public class DisplayReqList extends Action {
 		} else if (User.PROJECT_MANAGER.equals(permission)) { // chi thao tac khi da nhan
 												// project, co requirement
 
-			// get idProject
+			// check idProject
 			idProject = ReportBlo.getIdProjectByPM(idUser);
 
 			// pm had got project
@@ -93,25 +96,28 @@ public class DisplayReqList extends Action {
 //					status = Constant.REQ_NEW;
 					level = Constant.PM_INT;
 
-					// set session
+					// add project list
 					idProjectList.add(idProject);
-
+					
 					sort = true;
 				}
 
 		} else if (User.LEADER.equals(permission)) {
-			
-			idGroup = user.getGroupID();
-			idProject = ReportBlo.getIdProjectByGroup(idGroup);
+			temp = user.getGroupID();
+			idProject = ReportBlo.getProjectOfGroup(temp);
 
 			if (idProject != null) {
-				idReq = ReportBlo.getIdReq(idGroup, idProject);
+				idReq = ReportBlo.getIdReq(temp, idProject.getId());
 				if (idReq != null) {
 
 					// set value into SortForm
 //					status = Constant.REQ_NEW;
 					level = Constant.LEADER_INT;
-
+					
+					//update idName
+					idGroup.setId(temp);
+					idGroup.setName(CommonBlo.getGroupName(temp));
+					idProject.setName(CommonBlo.getProjectName(idProject.getId()));
 					// set into session
 					idProjectList.add(idProject);
 					idReqList.add(idReq);
@@ -126,8 +132,8 @@ public class DisplayReqList extends Action {
 
 		if (sort == true) {
 			// create sortForm
-			RequirementForm sortForm = RequirementBlo.getSortForm(idProject, idReq,
-					idGroup, level);
+			RequirementForm sortForm = RequirementBlo.getSortForm(idProject.getId(), idReq.getId(),
+					idGroup.getId(), level);
 			
 			sortForm.setStatus(Constant.OPEN);
 			
@@ -144,7 +150,7 @@ public class DisplayReqList extends Action {
 			List<String> pageList = CommonUtil.createPageList(total);
 
 			//get group free
-			List<Long> idGroupFreeList = RequirementBlo.getGroupListFree(idProject);
+			List<IdName> idGroupFreeList = RequirementBlo.getGroupListFree(idProject.getId());
 			
 			// save session
 			se.setAttribute(Constant.REQ_GROUP_FREE, idGroupFreeList);

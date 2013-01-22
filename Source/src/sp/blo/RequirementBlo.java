@@ -6,6 +6,7 @@ import java.util.List;
 import sp.dao.RequirementDao;
 import sp.dto.Group;
 import sp.dto.Requirement;
+import sp.form.IdName;
 import sp.form.RequirementForm;
 import sp.util.CommonUtil;
 import sp.util.Constant;
@@ -109,22 +110,25 @@ public static boolean updateStatusGroupReq(Long id, String status){
 	/*
 	 * get danh sach group ma chua co Req
 	 */
-	public static List<Long> getGroupListFree(Long idProject){
+	public static List<IdName> getGroupListFree(Long idProject){
 		
 		StringBuffer filter = new StringBuffer();
 		filter.append("idProject=="+ idProject);
 		filter.append("&&");
 		filter.append("status==\'"+Constant.GROUP_FREE_REQ +"\'");
 		List<Group> groupList = reqDao.getGroupOfProject(filter.toString());
-		List<Long> idGroupList = new ArrayList<Long>();
+		List<IdName> reList = new ArrayList<IdName>();
 		if (groupList != null & groupList.size() >0){
 			int size = groupList.size();
 			for( int i = 0; i<size; i++){
-				idGroupList.add(groupList.get(i).getIDgroup());
+				IdName idName = new IdName();
+				idName.setId(groupList.get(i).getIDgroup());
+				idName.setName(groupList.get(i).getGroupname());
+				reList.add(idName);
 			}
 		}
 		
-		return idGroupList;
+		return reList;
 	}
 	
 public static RequirementForm getSortForm(Long idProject, Long idReq, Long idGroup,int level){
@@ -193,9 +197,10 @@ public static boolean deleteReqList(String keyList[]) {
 		int size = keyList.length;
 		for(int i = 0; i<size; i++){
 			Long id = Long.valueOf(keyList[i]);
-			if (updateStatusGroupReq(id, Constant.GROUP_FREE_REQ)){
-				reqDao.deleteReq(id);
-			}
+			reqDao.deleteReq(id);
+//			if (updateStatusGroupReq(id, Constant.GROUP_FREE_REQ)){
+//				reqDao.deleteReq(id);
+//			}
 		}
 	}
 	return true;

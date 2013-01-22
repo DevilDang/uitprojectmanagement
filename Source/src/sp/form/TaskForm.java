@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.apache.struts.validator.ValidatorForm;
 
+import sp.blo.CommonBlo;
 import sp.dto.Task;
 import sp.util.CommonUtil;
 import sp.util.Constant;
@@ -21,6 +22,7 @@ public class TaskForm extends ValidatorForm implements Serializable {
 	private Long idProject;
 	private Long idReq;
 	private Long idGroup;
+	private String nameGroup;
 	private String content;
 	private String startDate;
 	private String endDate;
@@ -258,6 +260,7 @@ public class TaskForm extends ValidatorForm implements Serializable {
 		this.nameTask = task.getNameTask();
 		this.idReq = task.getIdReq();
 		this.idGroup = task.getIdGroup();
+		this.nameGroup = CommonBlo.getGroupName(this.idGroup);
 		this.startDate = CommonUtil.convertDateToStr(task.getStartDate());
 		this.endDate = CommonUtil.convertDateToStr(task.getEndDate());
 		this.status = task.getStatus();
@@ -293,6 +296,18 @@ public class TaskForm extends ValidatorForm implements Serializable {
 		this.lateDate = 0;
 		this.mode = Constant.MODE_INSERT;
 		
+	}
+	/**
+	 * @return the nameGroup
+	 */
+	public String getNameGroup() {
+		return nameGroup;
+	}
+	/**
+	 * @param nameGroup the nameGroup to set
+	 */
+	public void setNameGroup(String nameGroup) {
+		this.nameGroup = nameGroup;
 	}
 	
 }

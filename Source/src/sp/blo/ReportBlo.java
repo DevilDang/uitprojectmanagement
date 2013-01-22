@@ -5,10 +5,12 @@ import java.util.List;
 
 import sp.dao.PMF;
 import sp.dao.ReportDao;
+import sp.dto.Group;
 import sp.dto.Project;
 import sp.dto.Report;
 import sp.dto.Requirement;
 import sp.dto.Task;
+import sp.form.IdName;
 import sp.form.ReportForm;
 import sp.util.CommonUtil;
 import sp.util.Constant;
@@ -181,9 +183,9 @@ public class ReportBlo {
 	/*
 	 * get danh sach idProject cua  Project
 	 */
-	public static List<Long> getIdProjectList(){
+	public static List<IdName> getIdProjectList(){
 		
-		List<Long> idProjectList = new ArrayList<Long>();
+		List<IdName> idProjectList = new ArrayList<IdName>();
 		List<Project> projectList = new ArrayList<Project>();
 		
 		//create filter
@@ -200,7 +202,10 @@ public class ReportBlo {
 		//create list idProject
 		int size = projectList.size();
 		for( int i = 0; i<size; i++){
-			idProjectList.add(projectList.get(0).getIDproject());
+			IdName idName = new IdName();
+			idName.setId(projectList.get(0).getIDproject());
+			idName.setName(projectList.get(0).getProjectname());
+			idProjectList.add(idName);
 		}
 		
 		return idProjectList;
@@ -209,9 +214,9 @@ public class ReportBlo {
 	/*
 	 * get danh sach idReq cua  Project
 	 */
-	public static List<Long> getIdReqList(long idProject){
+	public static List<IdName> getIdReqList(long idProject){
 		
-		List<Long> idReqList = new ArrayList<Long>();
+		List<IdName> idReqList = new ArrayList<IdName>();
 		List<Requirement> reqList = new ArrayList<Requirement>();
 		
 		//create filter
@@ -230,7 +235,10 @@ public class ReportBlo {
 		//create idReqList
 		int size = reqList.size();
 		for (int i = 0; i<size; i++){
-			idReqList.add(reqList.get(i).getId());
+			IdName idName = new IdName();
+			idName.setId(reqList.get(i).getId());
+			idName.setName(reqList.get(i).getNameReq());
+			idReqList.add(idName);
 		}
 		
 		//return value
@@ -291,12 +299,16 @@ public class ReportBlo {
 	 * @param idPM 
 	 * @return idProject
 	 */
-	public static Long getIdProjectByPM(String idPM){
+	public static IdName getIdProjectByPM(String idPM){
 		StringBuilder filter = new StringBuilder();
 		filter.append("projectmanager==\'"+ idPM + "\'");
 		filter.append("&&");
 		filter.append(Constant.DEFAULT_STATUS_INT);
 		return reportDao.getIdProjectByPM(filter.toString());
+	}
+	
+	public static IdName getProjectOfGroup(Long idGroup){
+		return reportDao.getIdGroupAssign(idGroup);
 	}
 	
 	public static boolean isIdProject(String idPM){
@@ -305,14 +317,18 @@ public class ReportBlo {
 	
 	/*
 	 * check xem group nay da join vo du an chua
+	 * return: group
 	 */
-	public static Long getIdProjectByGroup(Long idGroup){
+	public static IdName getIdGroupAssign(Long idGroup){
 		return reportDao.getIdGroupAssign(idGroup);
 	}
+	
+
+
 	/*
 	 * check xem group nay da nhan requirement
 	 */
-	public static Long getIdReq(Long idGroup, Long idProject){
+	public static IdName getIdReq(Long idGroup, Long idProject){
 		StringBuilder filter = new StringBuilder();
 		filter.append(Constant.DEFAULT_STATUS);
 		filter.append(" && ");
@@ -326,7 +342,8 @@ public class ReportBlo {
 	/*
 	 * get task cua employee
 	 */
-	public static Long getIdTask(Long idProject, Long idGroup,Long idReq, String idUser){
+	public static IdName getIdTask(Long idProject, Long idGroup,Long idReq, String idUser){
+		IdName idName = new IdName();
 		StringBuilder sql = new StringBuilder();
 		sql.append("idProject==" + idProject);
 		sql.append("&& ");
@@ -340,41 +357,15 @@ public class ReportBlo {
 		@SuppressWarnings("unchecked")
 		List<Task> taskList = (List<Task>) PMF.getObjectList(Task.class, sql.toString());
 		if (taskList != null && taskList.size() > 0){
-			return taskList.get(0).getId();
+			idName.setId(taskList.get(0).getId());
+			idName.setName(taskList.get(0).getNameTask());
 		}
-		return null;
+		return idName;
 	}
 	
 	
-//	public static int checkIdProjectEmployee(String idUser, long idGroup){
-//		
-//		boolean isCheck = false;
-//		
-//		//check Group da nhan du an chua
-//		isCheck = isGroupAssign(idGroup);
-//		if(isCheck == false){
-//			return 1; 
-//		}
-//		else{
-//			//check User da co task chua
-//			
-//		}
-//		
-//	}
 	
-//	/*
-//	 * xac dinh group da duoc assign vo du an chua
-//	 */
-//	
-//	public static Long isGroupAssign(Long idGroup){
-//		return reportDao.isGroupAssign(idGroup);
-//	}
-	
-	/*
-	 * xac dinh group da duoc assign requirement chua
-	 */
-	
-	public static Long getReqAssign(Long idProject, Long idGroup){
+	public static IdName getReqAssign(Long idProject, Long idGroup){
 		
 		StringBuilder filter = new StringBuilder();
 		filter.append(Constant.DEFAULT_STATUS);

@@ -74,6 +74,9 @@ public class DisplayOrganizationList extends Action {
 			//total number of page
 			List<String> pageList = CommonUtil.createPageList(total);
 			
+			//mode update
+			se.setAttribute("flagOrg", Constant.MODE_INSERT);
+			
 			//save into session
 			se.setAttribute(Constant.ORGANIZATION_LIST, formList);
 			se.setAttribute(Constant.ORG_PAGE_LIST, pageList);

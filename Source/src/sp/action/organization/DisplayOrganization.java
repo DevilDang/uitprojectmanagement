@@ -29,7 +29,7 @@ public class DisplayOrganization extends Action {
 		se.setAttribute(Constant.ORGANIZATION, orgForm);
 		
 		//mode update
-		se.setAttribute("flagOrg", "2");
+		se.setAttribute("flagOrg", Constant.MODE_UPDATE);
 		
 		//forward page result
 		return mapping.findForward(Constant.SUCCESS);

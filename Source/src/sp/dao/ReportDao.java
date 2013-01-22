@@ -7,6 +7,7 @@ import sp.dto.Project;
 import sp.dto.Report;
 import sp.dto.Requirement;
 import sp.dto.Task;
+import sp.form.IdName;
 import sp.util.Constant;
 
 public class ReportDao {
@@ -73,9 +74,9 @@ public class ReportDao {
 	 * check PM da nhan du an chua?
 	 * 
 	 */
-	public Long getIdProjectByPM(String filter){
+	public IdName getIdProjectByPM(String filter){
 		
-		
+		IdName result = new IdName();
 		@SuppressWarnings("unchecked")
 		List<Project> projectList = (List<Project>) PMF.getObjectList(Project.class, filter.toString());
 //		List<Project> projectList = (List<Project>) PMF.getObjectList(Project.class, 1);
@@ -83,16 +84,20 @@ public class ReportDao {
 		if (projectList == null || projectList.size() == 0){
 			return null;
 		}
-		return projectList.get(0).getIDproject();
+		result.setId(projectList.get(0).getIDproject());
+		result.setName(projectList.get(0).getProjectname());
+		
+		return result;
 	}
 	
 	/*
 	 * check Group da duoc assign vo du an chua: update report.class -> Group.class
 	 * tra ve la idProject
 	 */
-	public Long getIdGroupAssign(Long idGroup){
+	public IdName getIdGroupAssign(Long idGroup){
 		
 		Group group = (Group)PMF.getObject(Group.class, idGroup);
+		IdName re = new IdName();
 		
 		//check status
 		if (group == null ){
@@ -103,21 +108,51 @@ public class ReportDao {
 				return null;
 			}
 		}
-		return group.getIdProject();
+		//set value
+		re.setId(group.getIdProject());
+		//return
+		return re;
 	}
+	
+//	/**
+//	 * get name of project
+//	 * @param idProject
+//	 * @return
+//	 */
+//	public String getProjectName(Long idProject){
+//		
+//		Project pro = (Project)PMF.getObject(Project.class, idProject);
+//		
+//		return pro.getProjectname();
+//	}
+//	
+//	/**
+//	 * get name of group
+//	 * @param idProject
+//	 * @return
+//	 */
+//	public String getGroupName(Long idGroup){
+//		
+//		Group group = (Group)PMF.getObject(Group.class, idGroup);
+//		
+//		return group.getGroupname();
+//	}
+	
 	
 	/*
 	 * check Group da duoc assign Req : Report.class -> Requirement
 	 * return : idRequirement
 	 */
-	public Long isReqAssign(String filter){
-		
+	public IdName isReqAssign(String filter){
+		IdName re = new IdName();
 		@SuppressWarnings("unchecked")
 		List<Requirement> idList = (List<Requirement>) PMF.getObjectList(Requirement.class, filter);
 		if (idList == null || idList.size() == 0){
 			return null;
 		}
-		return idList.get(0).getId();
+		re.setId(idList.get(0).getId());
+		re.setName(idList.get(0).getNameReq());
+		return re;
 	}
 	
 	

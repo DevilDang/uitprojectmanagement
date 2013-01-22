@@ -15,6 +15,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import sp.blo.RequirementBlo;
+import sp.form.IdName;
 import sp.form.RequirementForm;
 import sp.util.Constant;
 
@@ -40,7 +41,7 @@ public class DisplayReq extends Action{
 				reqForm.setMode(Constant.MODE_UPDATE);
 				
 //				//get group free
-				List<Long> idGroupFreeList = RequirementBlo.getGroupListFree(reqForm.getIdProject());
+				List<IdName> idGroupFreeList = RequirementBlo.getGroupListFree(reqForm.getIdProject());
 				
 				se.setAttribute(Constant.REQ_GROUP_FREE, idGroupFreeList);
 				
