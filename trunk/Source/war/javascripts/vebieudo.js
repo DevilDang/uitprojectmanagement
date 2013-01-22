@@ -49,8 +49,10 @@ function drawchart(ctx)
     ctx.textAlign = "left";
      
      var array = new Array(50,60,70,80,90,50,60,70,80);
-	 
-	drawOxy(ctx,array,0,10);
+	
+   // if(process_array != null && process_array.length > 1) 
+    	drawOxy(ctx,process_array,0,10);
+    	//alert(process_array.length);
 }
 
 $(function(){
