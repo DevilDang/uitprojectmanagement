@@ -15,10 +15,12 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import sp.blo.CommonBlo;
 import sp.blo.ReportBlo;
 import sp.blo.TaskBlo;
 import sp.dao.PMF;
 import sp.dto.User;
+import sp.form.IdName;
 import sp.form.TaskForm;
 import sp.util.CommonUtil;
 import sp.util.Constant;
@@ -46,18 +48,18 @@ public class DisplayTaskList extends Action {
 
 		// initial sortForm
 		int level = 0;
-		Long idProject = null;
-		Long idReq = null;
-		Long idGroup = 0L;
+		IdName idProject = new IdName();
+		IdName idReq = new IdName();
+		IdName idGroup = new IdName();
 		// String status = Constant.BLANK;
 		String idUser = user.getEmail();
 
 		// value into session
-		List<Long> idProjectList = new ArrayList<Long>();
-		List<Long> idReqList = new ArrayList<Long>();
-		List<Long> idGroupList = new ArrayList<Long>();
+		List<IdName> idProjectList = new ArrayList<IdName>();
+		List<IdName> idReqList = new ArrayList<IdName>();
+		List<IdName> idGroupList = new ArrayList<IdName>();
 		boolean sort = false;
-
+		Long temp;
 		// ADMIN
 		if (User.ADMIN.equals(permission)) { // thao tac khi co project
 
@@ -95,15 +97,19 @@ public class DisplayTaskList extends Action {
 
 		} else if ((User.LEADER.equals(permission))||(User.EMPLOYER.equals(permission))) {
 
-			idGroup = user.getGroupID();
-			idProject = ReportBlo.getIdProjectByGroup(idGroup);
+			temp = user.getGroupID();
+			idProject = ReportBlo.getProjectOfGroup(temp);
 
 			if (idProject != null) {
-				idReq = ReportBlo.getIdReq(idGroup, idProject);
+				idReq = ReportBlo.getIdReq(temp, idProject.getId());
 				if (idReq != null) {
 
 					level = Constant.LEADER_INT;
 
+					//update idName
+					idGroup.setId(temp);
+					idGroup.setName(CommonBlo.getGroupName(temp));
+					idProject.setName(CommonBlo.getProjectName(idProject.getId()));
 					// set into session
 					idProjectList.add(idProject);
 					idReqList.add(idReq);
@@ -117,8 +123,8 @@ public class DisplayTaskList extends Action {
 		}
 		if (sort == true) {
 			// create sortForm
-			TaskForm sortForm = TaskBlo.getSortForm(idProject,
-					idReq, idGroup,idUser, level);
+			TaskForm sortForm = TaskBlo.getSortForm(idProject.getId(),
+					idReq.getId(), idGroup.getId(),idUser, level);
 
 			sortForm.setStatus(Constant.OPEN);
 			sortForm.setKind(Constant.TASK_TEST);
@@ -135,7 +141,7 @@ public class DisplayTaskList extends Action {
 			List<String> pageList = CommonUtil.createPageList(total);
 
 			// get group free
-			List<String> idTaskList = TaskBlo.getUserFreeTask(idGroup);
+			List<String> idTaskList = TaskBlo.getUserFreeTask(idGroup.getId());
 			// save session
 			se.setAttribute(Constant.TASK_USER_FREE, idTaskList);
 			se.setAttribute(Constant.RECORD_LIST, reportList);

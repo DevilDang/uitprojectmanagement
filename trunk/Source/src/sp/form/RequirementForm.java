@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.apache.struts.validator.ValidatorForm;
 
+import sp.blo.CommonBlo;
 import sp.dto.Requirement;
 import sp.util.CommonUtil;
 import sp.util.Constant;
@@ -15,10 +16,12 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long id;
+//	private String name;
 	private String nameReq;
 	private String content;
 	private Long idProject;
 	private Long idGroup;
+	private String nameGroup;
 	private String startDate;
 	private String endDate;
 	private int process;
@@ -188,6 +191,7 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 		this.content = req.getContent();
 		this.idProject = req.getIdProject();
 		this.idGroup = req.getIdGroup();
+		this.nameGroup = CommonBlo.getGroupName(this.idGroup);
 		this.startDate = CommonUtil.convertDateToStr(req.getStartDate());
 		this.endDate = CommonUtil.convertDateToStr(req.getEndDate());
 		this.process = req.getProcess();
@@ -202,42 +206,10 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 		}
 	}
 	
-	/*@Override
-	 public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-		 
-		ActionErrors errors = new ActionErrors();
-		
-			try {
-				if (Constant.MODE_INSERT.equals(mode)) {
-				if (!Validation.checkSysDate(startDate)
-						|| (!Validation.checkSysDate(endDate))) {
-					errors.add("date", new ActionMessage(
-							"error.req.invalidDate"));
-				} else {
-					if (!Validation.checkValueDate(startDate, endDate)) {
-						errors.add("compareDate", new ActionMessage(
-								"error.req.compareDate"));
-					}
-				}
-				}
-				else
-				{
-					if (!Validation.checkValueDate(startDate, endDate)) {
-						errors.add("compareDate", new ActionMessage(
-								"error.req.compareDate"));
-					}
-				}
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				errors.add("error", new ActionMessage(""));
-			}
-		return errors;
-	}*/
 	
 	public void clear(){
-		 id = null;
-		 nameReq = "";
+		id = null;
+		nameReq = "";
 		content = "";
 		idProject = null;
 		idGroup = null;
@@ -275,7 +247,18 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 	public void setLateDate(int lateDate) {
 		this.lateDate = lateDate;
 	}
-	
+	/**
+	 * @return the nameGroup
+	 */
+	public String getNameGroup() {
+		return nameGroup;
+	}
+	/**
+	 * @param nameGroup the nameGroup to set
+	 */
+	public void setNameGroup(String nameGroup) {
+		this.nameGroup = nameGroup;
+	}
 	
 	
 }

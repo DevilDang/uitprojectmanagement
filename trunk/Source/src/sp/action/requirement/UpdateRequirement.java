@@ -17,6 +17,7 @@ import org.apache.struts.action.ActionMessages;
 
 import sp.blo.RequirementBlo;
 import sp.dto.Requirement;
+import sp.form.IdName;
 import sp.form.RequirementForm;
 import sp.util.Constant;
 import sp.util.Validation;
@@ -82,7 +83,7 @@ public class UpdateRequirement extends Action{
 			RequirementBlo.saveRequirement(req);
 			
 			//get group free
-			List<Long> idGroupFreeList = RequirementBlo.getGroupListFree(req.getIdProject());
+			List<IdName> idGroupFreeList = RequirementBlo.getGroupListFree(req.getIdProject());
 			
 			se.setAttribute(Constant.REQ_GROUP_FREE, idGroupFreeList);
 			

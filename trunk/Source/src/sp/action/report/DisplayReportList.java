@@ -15,9 +15,11 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import sp.blo.CommonBlo;
 import sp.blo.ReportBlo;
 import sp.dao.PMF;
 import sp.dto.User;
+import sp.form.IdName;
 import sp.form.ReportForm;
 import sp.util.CommonUtil;
 import sp.util.Constant;
@@ -43,19 +45,20 @@ public class DisplayReportList extends Action {
 
 		// initial sortForm
 		int level = 0;
-		Long idProject = null;
-		Long idReq = null;
-		Long idGroup  = 0L;
-		Long idTask = null;
+		IdName idProject = new IdName();
+		IdName idReq = new IdName();
+		IdName idGroup  = new IdName();
+		IdName idTask = new IdName();
 		String status = Constant.BLANK;
 		String idUser = user.getEmail();
 
 		// value into session
-		List<Long> idProjectList = new ArrayList<Long>();
-		List<Long> idReqList = new ArrayList<Long>();
-		List<Long> idGroupList = new ArrayList<Long>();
-		List<Long> idTaskList = new ArrayList<Long>();
+		List<IdName> idProjectList = new ArrayList<IdName>();
+		List<IdName> idReqList = new ArrayList<IdName>();
+		List<IdName> idGroupList = new ArrayList<IdName>();
+		List<IdName> idTaskList = new ArrayList<IdName>();
 		boolean sort = false;
+		Long temp;
 
 		
 		// ADMIN
@@ -84,7 +87,7 @@ public class DisplayReportList extends Action {
 			if (idProject != null) {
 
 				// get idReqList
-				idReqList = ReportBlo.getIdReqList(idProject);
+				idReqList = ReportBlo.getIdReqList(idProject.getId());
 
 				// check project had requirements
 
@@ -104,18 +107,21 @@ public class DisplayReportList extends Action {
 
 		} else if (User.LEADER.equals(permission)) {
 			
-			idGroup = user.getGroupID();
+			temp = user.getGroupID();
 
-			idProject = ReportBlo.getIdProjectByGroup(idGroup);
+			idProject = ReportBlo.getProjectOfGroup(temp);
 
 			if (idProject != null) {
-				idReq = ReportBlo.getIdReq(idGroup, idProject);
+				idReq = ReportBlo.getIdReq(temp, idProject.getId());
 				if (idReq != null) {
 
 					// set value into SortForm
 					status = Constant.REPORT_NEW;
 					level = Constant.LEADER_INT;
-
+					
+					idGroup.setId(temp);
+					idGroup.setName(CommonBlo.getGroupName(temp));
+					idProject.setName(CommonBlo.getProjectName(idProject.getId()));
 					// set into session
 					idProjectList.add(idProject);
 					idReqList.add(idReq);
@@ -130,23 +136,23 @@ public class DisplayReportList extends Action {
 
 			//get idGroup
 			
-			idGroup = user.getGroupID();
+			temp = user.getGroupID();
 			
 			// check member da duoc gan vo nhom chua
 			
-			if (idGroup != 0) {
+			if (temp != 0) {
 
 				// get idProject
-				idProject = ReportBlo.getIdProjectByGroup(idGroup);
+				idProject = ReportBlo.getProjectOfGroup(temp);
 				if (idProject != null) {
 
 					// get idReq
-					idReq = ReportBlo.getIdReq(idGroup, idProject);
+					idReq = ReportBlo.getIdReq(temp, idProject.getId());
 
 					if (idReq != null) {
 
 						// get idTask
-						idTask = ReportBlo.getIdTask(idProject, idGroup, idReq,
+						idTask = ReportBlo.getIdTask(idProject.getId(), temp, idReq.getId(),
 								idUser);
 
 						if (idTask != null) {
@@ -155,6 +161,10 @@ public class DisplayReportList extends Action {
 							status = Constant.REPORT_NEW;
 							level = Constant.EMPLOYEE_INT;
 
+							idGroup.setId(temp);
+							idGroup.setName(CommonBlo.getGroupName(temp));
+							idProject.setName(CommonBlo.getProjectName(idProject.getId()));
+							
 							// set into session
 							idProjectList.add(idProject);
 							idReqList.add(idReq);
@@ -171,8 +181,8 @@ public class DisplayReportList extends Action {
 		}
 		if (sort == true) {
 			// create sortForm
-			ReportForm sortForm = ReportBlo.getSortForm(idProject, idReq,
-					idGroup, idTask, idUser, status, level);
+			ReportForm sortForm = ReportBlo.getSortForm(idProject.getId(), idReq.getId(),
+					idGroup.getId(), idTask.getId(), idUser, status, level);
 
 			// get filter
 			String filter = ReportBlo.getFilter(sortForm);
@@ -210,4 +220,5 @@ public class DisplayReportList extends Action {
 			return mapping.findForward(Constant.FAILURE);
 		}
 	}
+	
 }
