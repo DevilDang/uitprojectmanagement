@@ -203,8 +203,8 @@ public class ReportBlo {
 		int size = projectList.size();
 		for( int i = 0; i<size; i++){
 			IdName idName = new IdName();
-			idName.setId(projectList.get(0).getIDproject());
-			idName.setName(projectList.get(0).getProjectname());
+			idName.setId(projectList.get(i).getIDproject());
+			idName.setName(projectList.get(i).getProjectname());
 			idProjectList.add(idName);
 		}
 		

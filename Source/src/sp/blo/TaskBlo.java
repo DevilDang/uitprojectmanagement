@@ -285,12 +285,12 @@ public class TaskBlo {
 	 * @return
 	 */
 	public static JSONObject createJSONObject(TaskForm task) {
-		String keys[] = { "id", "nameTask", "idGroup", "process" };
+		String keys[] = { "id", "nameTask", "nameGroup", "process" };
 
 		JSONObject uc = new JSONObject(keys);
 		uc.getObject().put(keys[0], String.valueOf(task.getId()));
 		uc.getObject().put(keys[1], task.getNameTask());
-		uc.getObject().put(keys[2], String.valueOf(task.getIdGroup()));
+		uc.getObject().put(keys[2], task.getNameGroup());
 		uc.getObject().put(keys[3], String.valueOf(task.getProcess()));
 
 		return uc;
