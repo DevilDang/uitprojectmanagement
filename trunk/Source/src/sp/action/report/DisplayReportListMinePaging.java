@@ -64,6 +64,8 @@ public class DisplayReportListMinePaging extends Action {
 		List<ReportForm> reportList = ReportBlo.getListPage(filter, page);
 		
 		if ("1".equals(ajax)){
+			
+			response.setCharacterEncoding("utf-8");
 			//get PrintWriter
 			PrintWriter out = response.getWriter();
 			//return value (ajax)

@@ -69,7 +69,7 @@ public class DisplayTaskListPaging extends Action {
 		
 		//ajax
 		if ("1".equals(ajax)){
-			
+			response.setCharacterEncoding("utf-8");
 			//get PrintWriter
 			PrintWriter out = response.getWriter();
 			

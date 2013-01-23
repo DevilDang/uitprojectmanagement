@@ -232,12 +232,12 @@ public static JSONObjectList createJSONObjectList(List<RequirementForm> reqList)
  */
 public static JSONObject createJSONObject(RequirementForm req)
 {
-	String keys[] = {"id", "nameReq","idGroup","process"};
+	String keys[] = {"id", "nameReq","nameGroup","process"};
     
 	JSONObject uc = new JSONObject(keys);
     uc.getObject().put(keys[0], String.valueOf(req.getId()));
     uc.getObject().put(keys[1], CommonUtil.convertNVLFor(req.getNameReq()));
-    uc.getObject().put(keys[2], String.valueOf(req.getIdGroup()));
+    uc.getObject().put(keys[2], req.getNameGroup());
     uc.getObject().put(keys[3], String.valueOf(req.getProcess()));
 
    return uc;     
