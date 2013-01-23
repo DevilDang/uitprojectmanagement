@@ -162,7 +162,7 @@ function draw_table_danhsach_req(list_report,length,index)
       td.innerHTML = list_report[i].nameReq;
       
       td = tr.insertCell(tr.cells.length);
-      td.innerHTML = list_report[i].idGroup;
+      td.innerHTML = list_report[i].nameGroup;
       
       td = tr.insertCell(tr.cells.length);
       td.innerHTML = list_report[i].process;
