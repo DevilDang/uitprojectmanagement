@@ -197,10 +197,9 @@ public static boolean deleteReqList(String keyList[]) {
 		int size = keyList.length;
 		for(int i = 0; i<size; i++){
 			Long id = Long.valueOf(keyList[i]);
-			reqDao.deleteReq(id);
-//			if (updateStatusGroupReq(id, Constant.GROUP_FREE_REQ)){
-//				reqDao.deleteReq(id);
-//			}
+			if (updateStatusGroupReq(id, Constant.GROUP_FREE_REQ)){
+				reqDao.deleteReq(id);
+			}
 		}
 	}
 	return true;
