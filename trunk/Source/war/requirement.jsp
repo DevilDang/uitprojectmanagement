@@ -415,8 +415,8 @@ Trạng thái:<br>
 								    <div class="TabbedPanelsContent">
 								    <form action="/deleteReq.do">
 									<logic:present name="record_sort">
+									<logic:equal value="2" name="record_sort" property="level">
 										<input type="submit" id="submit" value="Xóa" />
-										<logic:equal value="2" name="record_sort" property="level">
 											<a href="/changeModeReq.do">|Thêm mới </a>
 										</logic:equal>
 									</logic:present>
