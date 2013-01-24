@@ -282,7 +282,7 @@ Nhóm thực hiện:<br>
 										<logic:equal name="req" property="mode" value="1">
 											<logic:notEmpty name="req_group_free">
 												<html:select property="idGroup"
-													onchange="this.options[this.selectedIndex].value = this.options[this.selectedIndex].text">
+													>
 													<option value="<bean:write name="req" property="idGroup"/>">
 														<bean:write name="req" property="idGroup" />
 													</option>
