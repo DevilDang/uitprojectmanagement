@@ -243,8 +243,8 @@ Loại công việc:<br>
                                     </html:select><br>
 Người thực hiện:<br>
 <%--   <logic:equal name="task" property="mode" value="2"> --%>
-                                     <html:select property="emailEmployee" >
-                                    <option value="<bean:write name="task" property="emailEmployee"/>"><bean:write name="task" property="emailEmployee"/></option>
+                                    <html:select property="emailEmployee" >
+                                   <option value="<bean:write name="task" property="emailEmployee"/>"><bean:write name="task" property="emailEmployee"/></option>
                                    <logic:equal value="Open" name ="record_sort" property="status">
                                    <logic:equal value="3" name="record_sort" property="level">
                                     
