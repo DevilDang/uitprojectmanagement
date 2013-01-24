@@ -326,8 +326,10 @@
         </h2> <br>
         <form action="/deleteReport.do">
         <logic:present name="record_sort">
-						<input type="submit" id="submit" value="Xóa"/>	<logic:equal value="2" name="record_sort" property="level">
-						<a href="/changeModeReq.do">|Thêm mới </a>
+        <logic:equal value="4" name="record_sort" property="level">
+						<input type="submit" id="submit" value="Xóa"/>	</logic:equal>
+						<logic:equal value="2" name="record_sort" property="level">
+						<a href="/changeModeReq.do">Thêm mới </a>
 							</logic:equal>
 						</logic:present>
 
