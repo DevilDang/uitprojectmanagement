@@ -80,7 +80,7 @@
 						<br>
 					</logic:notEmpty>
 						Trạng thái: 
-						<select name="status" id="box" onChange="getListReportMine(5,1)">
+						<select name="status" id="box" onChange="getListReportMine(4,1)">
 							<logic:equal name="record_sort" property="status" value="New"><option value="New" selected="selected">New</option></logic:equal>
 							<logic:notEqual name="record_sort" property="status" value="New"><option value="New" >New</option></logic:notEqual>
 							
@@ -187,7 +187,7 @@
 						<logic:present name="report">
 							<logic:equal name="report" property="mode" value="2">
 									Mã tập tin:<br>
-									<bean:write name="report" property="id" />
+									<bean:write name="report" property="id" /><br>
 									<%-- <html:hidden property="id" value="<bean:write name="report" property="id" />"/> --%>
 							</logic:equal>
 						</logic:present>
