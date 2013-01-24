@@ -30,9 +30,9 @@ public class DisplayReportListPaging extends Action {
 		ReportForm sortForm = (ReportForm)se.getAttribute(Constant.RECORD_SORT);
 		
 		//get value from request
-		String idProject = request.getParameter("idProject");
-		String idReq = request.getParameter("idReq");
-		String  idGroup = request.getParameter("idGroup");
+		String idProject = request.getParameter("project");
+		String idReq = request.getParameter("req");
+		String  idGroup = request.getParameter("group");
 		String status = request.getParameter("status");
 		String pageNumber = request.getParameter("page");
 		int page = 0;

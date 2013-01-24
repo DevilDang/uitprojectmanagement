@@ -31,9 +31,9 @@ public class DisplayTaskListPaging extends Action {
 		TaskForm sortForm = (TaskForm)se.getAttribute(Constant.RECORD_SORT);
 		
 		//get value from request
-		String idProject = request.getParameter("idProject");
-		String idReq = request.getParameter("idReq");
-		String  idGroup = request.getParameter("idGroup");
+		String idProject = request.getParameter("project");
+		String idReq = request.getParameter("req");
+		String  idGroup = request.getParameter("group");
 		String  kind = request.getParameter("kind");
 		String status = request.getParameter("status");
 		String pageNumber = request.getParameter("page");

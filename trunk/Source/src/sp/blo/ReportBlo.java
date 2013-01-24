@@ -101,12 +101,12 @@ public class ReportBlo {
 		filter.append("&&");
 		filter.append("level=="+ sortForm.getLevel());
 		
-	 if (Constant.PM_INT == sortForm.getLevel()){
+//	 if (Constant.PM_INT == sortForm.getLevel()){
 		filter.append("&&");
 		filter.append("idProject=="+ sortForm.getIdProject());
-	}
+//	}
 	//leader
-	else if(Constant.LEADER_INT == sortForm.getLevel()){
+	 if(Constant.LEADER_INT == sortForm.getLevel()){
 		filter.append("&&");
 		filter.append("idProject=="+ sortForm.getIdProject());
 		filter.append("&&");
