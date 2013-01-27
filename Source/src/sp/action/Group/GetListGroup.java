@@ -43,8 +43,9 @@ public class GetListGroup extends org.apache.struts.action.Action{
         long idProject = Long.parseLong(request.getParameter("idProject"));
         int page = Integer.parseInt(request.getParameter("PAGE"));
         
-        System.out.println(idProject + "   " + page);
+ 
         GroupDao groupdao = new GroupDao();
+        
         List<Group> list_group = groupdao.getGroupListFilter(page, "idProject=="+idProject, "IDgroup desc");
         
         JSONObjectList jsonlist = GroupBlo.createJSONObjectList(list_group);

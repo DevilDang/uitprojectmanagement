@@ -417,7 +417,60 @@ function draw_table_danhsachProject(list_project,length,index)
 }
 //------------------các hàm xử lý trong trang project.jsp
 
-//------------------các hàm xử lý trong trang group.jsp
+//------------------các hàm xử lý trong trang group.jsp, employer.jsp
+
+function getGroups()
+{
+	ajax_getGroups();
+}
+
+function ajax_getGroups()
+{
+    var form = document.getElementById("SearchAccount");
+    var select_idProject = form.elements["idProject"];
+    
+    var xhr = createXHR();
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState == 4){
+            if ((xhr.status  >= 200  &&  xhr.status  <  300) || xhr.status == 304){
+
+                var list_group = JSON.parse(xhr.responseText);
+                draw_ComboBoxGroup(list_group,list_group.length);
+                getListAccount(1);
+            } else {
+                alert("Request was unsuccessful: " + xhr.status);
+            }
+        }
+    };
+
+    
+    var url = "getlistgroup.do";
+    url = addURLParam(url, "PAGE", -1);
+    url = addURLParam(url, select_idProject.name, select_idProject[select_idProject.selectedIndex].value);
+    
+    xhr.open("get", url, true);
+    xhr.send(null);
+}
+
+function draw_ComboBoxGroup(list_group,length)
+{  
+    var select = document.getElementById("groupID");
+
+    while(select.firstChild)
+    {
+        select.removeChild(select.firstChild);
+    }
+    
+    for(var i = 0;i<length;i++)
+    {
+        var option = document.createElement("option");
+        option.setAttribute("value", list_group[i].IDgroup);
+        option.innerHTML =list_group[i].groupname;
+        select.appendChild(option);
+    }
+}
+
+
 function getListGroup(page)
 {
 	setHiddenValueGroup();
