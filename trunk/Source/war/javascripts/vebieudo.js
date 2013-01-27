@@ -38,11 +38,17 @@ function drawOxy(ctx,array, deltaX, deltaY)
 	 
 }
 
+function clear(ctx) 
+{
+    ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+}
 
-function drawchart(ctx)
+function drawchart()
 {
 	var canvas_bg = document.getElementById("bg");
-	ctx = canvas_bg.getContext("2d");
+	var ctx = canvas_bg.getContext("2d");
+	clear(ctx);
+	
 	ctx.fillStyle = "black";
 	
 	ctx.font = '15px Arial';

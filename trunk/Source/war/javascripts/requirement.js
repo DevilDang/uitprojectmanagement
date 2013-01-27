@@ -171,6 +171,7 @@ function draw_table_danhsach_req(list_report,length,index)
       
   }
   
+  
 }
 
 //function changeGroup(this){
