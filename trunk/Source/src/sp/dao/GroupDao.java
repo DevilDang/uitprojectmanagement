@@ -33,8 +33,18 @@ public class GroupDao {
 	public List<Group> getGroupListFilter(int page, String filter,
 			String sort) {
 		List<Group> resultList = new ArrayList<Group>();
-		resultList = (List<Group>) PMF.getObjectList(Group.class, filter,
-				sort, page);
+		
+		if(page == -1)
+		{
+			resultList = (List<Group>) PMF.getObjectList(Group.class, filter,
+					sort);
+		}
+		else
+		{
+			resultList = (List<Group>) PMF.getObjectList(Group.class, filter,
+					sort, page);
+		}
+		
 		return resultList;
 	}
 
