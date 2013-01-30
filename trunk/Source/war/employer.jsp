@@ -227,9 +227,6 @@
 
 									<input type="hidden" name="PAGE" value="<%=page_pos%>" /> <input
 										type="hidden" name="groupID" value="<%=groupID%>" />
-									<div>
-										<input type="submit" id="submit" value="Xóa" />
-									</div>
 									<br />
 									<table id="table_danhsach_account" cellspacing="0"
 										cellpadding="0" border="1" width="470">
