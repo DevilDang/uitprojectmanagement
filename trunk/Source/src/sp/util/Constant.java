@@ -120,5 +120,9 @@ public class Constant {
 	public final static String PROJECT_LIST ="project_list";
 	public final static String GROUP_LIST ="group_list";
 	
-	
+	public final static String ANALYST = "Phân tích";
+	public final static String DESIGN = "Thiết kế";
+	public final static String CODE = "Code";
+	public final static String TEST = "Test";
+	public final static String RELEASE= "Bàn giao";
 }
