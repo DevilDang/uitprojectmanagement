@@ -16,7 +16,6 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long id;
-//	private String name;
 	private String nameReq;
 	private String content;
 	private Long idProject;
@@ -30,6 +29,7 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 	private String mode;
 	private String statusReq; //good or late
 	private int lateDate; 
+	private String stage;
 	/**
 	 * @return the id
 	 */
@@ -202,7 +202,20 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 		}
 		else
 		{
+			this.lateDate = 0;
 			this.statusReq = Constant.STATUS_GOOD;
+		}
+			
+		if (this.process >= 0 && this.process <= 20) {
+			this.stage = Constant.ANALYST;
+		} else if (this.process >= 20 && this.process <= 40) {
+			this.stage = Constant.DESIGN;
+		} else if (this.process >= 40 && this.process <= 70) {
+			this.stage = Constant.CODE;
+		} else if (this.process >= 70 && this.process <= 90) {
+			this.stage = Constant.TEST;
+		} else {
+			this.stage = Constant.RELEASE;
 		}
 	}
 	
@@ -259,6 +272,16 @@ public class RequirementForm extends ValidatorForm implements Serializable{
 	public void setNameGroup(String nameGroup) {
 		this.nameGroup = nameGroup;
 	}
-	
-	
+	/**
+	 * @return the stage
+	 */
+	public String getStage() {
+		return stage;
+	}
+	/**
+	 * @param stage the stage to set
+	 */
+	public void setStage(String stage) {
+		this.stage = stage;
+	}
 }
