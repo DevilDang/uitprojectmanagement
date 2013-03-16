@@ -4,6 +4,11 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic"%>
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
 <!DOCTYPE html>
+<%
+response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
+response.setHeader("Pragma","no-cache"); //HTTP 1.0
+response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
 <html>
 <head>
 <title>Web site quản lý phần mềm</title>
@@ -427,10 +432,13 @@ Trạng thái:<br>
 											<tr align="center">
 												<td width="20"><input type="checkbox" name="checkall"
 													id="checkall" onClick="checkUncheckAll(this);" /></td>
-												<td width="70"><b>Mã yêu cầu</b></td>
-												<td width="130"><b>Tên yêu cầu</b></td>
-												<td width="130"><b>Nhóm thực hiện</b></td>
+												<td width="70"><b>Mã</b></td>
+												<td width="130"><b>Tên</b></td>
+												<td width="130"><b>Nhóm</b></td>
 												<td width="70"><b>Tiến độ</b></td>
+												<td width="70"><b>Tình trạng</b></td>
+												<td width="70"><b>Số ngày trễ</b></td>
+												<td width="70"><b>Giai đoạn</b></td>
 											</tr>
 										</thead>
 										<tbody>
@@ -448,6 +456,12 @@ Trạng thái:<br>
 																	property="nameGroup" /> </b></td>
 														<td width="70"><b><bean:write name="item"
 																	property="process" />%</b></td>
+														<td width="70"><b><bean:write name="item"
+																	property="statusReq" /></b></td>
+														<td width="70"><b><bean:write name="item"
+																	property="lateDate" /></b></td>
+														<td width="70"><b><bean:write name="item"
+																	property="stage" /></b></td>
 													</tr>
 												</logic:iterate>
 											</logic:present>
