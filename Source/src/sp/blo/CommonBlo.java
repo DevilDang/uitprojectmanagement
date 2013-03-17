@@ -4,7 +4,6 @@ import sp.dao.PMF;
 import sp.dto.Group;
 import sp.dto.Project;
 import sp.dto.User;
-import sp.util.CommonUtil;
 import sp.util.Constant;
 
 public class CommonBlo {

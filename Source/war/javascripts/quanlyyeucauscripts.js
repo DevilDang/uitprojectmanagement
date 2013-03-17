@@ -928,4 +928,9 @@ function draw_table_danhsach_req(list_req,length,index)
   }
 }
 
+function createDatatime()
+{
+	
+}
+
 

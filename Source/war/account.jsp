@@ -232,28 +232,30 @@
 											<table id="table_monhoc" class="table_right" cellspacing="5"
 												cellpadding="0" border="0">
 												<thead>
-
+													<html:errors />
 												</thead>
-												<tr>
-													<td width="100"><html:errors /></td>
-												</tr>
+												
 												<tr>
 													<td width="100">Email:</td>
 													<td width="150" id="EditAccount"><html:text
 															property="email" /></td>
+													<td><span style="color: red">(*)</span></td>		
 												</tr>
 
 												<tr>
 													<td>Tên nhân viên:</td>
 													<td><html:text property="fullname" /></td>
+													<td><span style="color: red">(*)</span></td>
 												</tr>
 												<tr>
 													<td>Mật Khẩu:</td>
 													<td><html:text property="password" /></td>
+													<td><span style="color: red">(*)</span></td>
 												</tr>
 												<tr>
 													<td>Nhập lại Mật Khẩu:</td>
 													<td><html:text property="retypepassword" /></td>
+													<td><span style="color: red">(*)</span></td>
 												</tr>
 												<tr>
 													<td>Quyền hạn:</td>
@@ -326,10 +328,6 @@
 									</html:form>
 									<div class="BlockContentBorder"></div>
 								</div>
-
-
-
-
 							</div>
 						</div>
 					</div>

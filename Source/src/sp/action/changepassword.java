@@ -1,7 +1,5 @@
 package sp.action;
 
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,12 +7,10 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import sp.dao.PMF;
 import sp.dao.UserDao;
 import sp.dto.User;
 import sp.form.ChangePassForm;
 import sp.util.Constant;
-import sp.util.JSONObject;
 
 public class changepassword extends org.apache.struts.action.Action{
 	/*

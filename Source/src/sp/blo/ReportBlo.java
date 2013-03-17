@@ -5,7 +5,6 @@ import java.util.List;
 
 import sp.dao.PMF;
 import sp.dao.ReportDao;
-import sp.dto.Group;
 import sp.dto.Project;
 import sp.dto.Report;
 import sp.dto.Requirement;

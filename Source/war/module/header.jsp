@@ -31,8 +31,4 @@
     </div> <!--end menu-->
 
 </div> <!-- end header-->
-<script type="text/javascript">
-    <!--
-    var MenuBar1 = new Spry.Widget.MenuBar("MenuBar1", {imgDown:"images/arrow_down.gif", imgRight:"images/arrow_right.gif"});
-    //-->
-</script>
+

@@ -1,13 +1,13 @@
 package sp.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import sp.dto.User;
-
 import sp.dao.PMF;
+import sp.dto.User;
 import sp.util.Constant;
 
 public class InitApp extends org.apache.struts.action.Action {

@@ -17,12 +17,24 @@
 <link rel="stylesheet" href="css/style1.css" />
 <link rel="stylesheet" type="text/css"
 	href="javascripts/ui/themes/base/ui.all.css" />
+<link rel="stylesheet" type="text/css" media="all" href="css/jsDatePick_ltr.min.css"/>
+<script type="text/javascript" src="javascripts/jsDatePick.min.1.3.js"></script>
 <script src="javascripts/check.js" type="text/javascript"></script>
 <script src="javascripts/SpryMenuBar.js" type="text/javascript"></script>
 <script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
 <script src="javascripts/requirement.js" type="text/javascript"></script>
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript"src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/ui/ui.datepicker_vn.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$("#datepicker").datepicker({
+			dateFormat : 'dd/mm/yy'
+		});
+		$("#datepicker1").datepicker({
+			dateFormat : 'dd/mm/yy'
+		});
+	});
+</script>
 </head>
 <body>
 	<div class="BodyContent">
@@ -218,19 +230,18 @@
 											<table id="table_monhoc" class="table_right" cellspacing="5"
 												cellpadding="0" border="0">
 												<thead>
-
-												</thead>
-												<tr>
-													<td width="200"><html:errors /></td>
-												</tr>
+												<html:errors />
+												</thead>												
 												<tr>
 													<td width="70">Mã dự án:</td>
 													<td width="70" id="EditAccount"><html:text
 															property="IDproject" readonly="true"></html:text></td>
+															
 												</tr>
 												<tr>
 													<td>Tên dự án:</td>
 													<td><html:text property="projectname"></html:text></td>
+													<td><span style="color: red">(*)</span></td>
 												</tr>
 												<tr>
 													<td>Người quản lý:</td>
@@ -299,11 +310,13 @@
 												</tr>
 												<tr>
 													<td>Ngày Bắt Đầu:</td>
-													<td><html:text property="startDate"></html:text></td>
+													<td id="startDate" ><html:text property="startDate" styleId="datepicker"></html:text></td>
+													<td><span style="color: red">(*)</span></td>
 												</tr>
 												<tr>
 													<td>Ngày Kết Thúc:</td>
-													<td><html:text property="endDate"></html:text></td>
+													<td id="endDate"><html:text property="endDate" styleId="datepicker1"/></td>
+													<td><span style="color: red">(*)</span></td>
 												</tr>
 												<tr>
 													<td>Trạng thái</td>
@@ -370,7 +383,7 @@
 							<div class="ArticleL"></div>
 							<div class="ArticleC"></div>
 							<div class="Article">
-								<h2>Danh sách nhóm</h2>
+								<h2>Danh sách dự án</h2>
 								<br>
 								<form name="listProject" id="listProject" method="post"
 									action="/deleteproject.do">
