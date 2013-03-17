@@ -1,3 +1,4 @@
+
 <%@page import="sp.form.GroupForm"%>
 <%@page import="sp.dto.User"%>
 <%@page import="sp.dto.Project"%>
@@ -12,6 +13,7 @@
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
 <html>
 <head>
+
 <title>Quản Lý Nhóm</title>
 <link rel="stylesheet" href="css/style1.css" />
 <link rel="stylesheet" type="text/css"
@@ -43,6 +45,7 @@
 			</div>
 			<div class="BorderB">
 				<div></div>
+				
 			</div>
 			<div class="BorderL"></div>
 			<div class="BorderC"></div>
@@ -73,7 +76,8 @@
 							<div class="Block">
 								<span class="BlockHeader"><span>Tìm kiếm</span></span>
 								<div class="BlockContentBorder">
-									<form name="SearchGroup" id="SearchGroup">
+									<form name="
+									SearchGroup" id="SearchGroup">
 										<%
 											String idProject = (String) request.getAttribute("idProject");
 											Integer Page = (Integer) request.getAttribute("PAGE"); // dành cho phân trang
@@ -102,6 +106,9 @@
 										<div>
 											Dự án: <select name="idProject" id="box"
 												onChange="getListGroup(1)">
+												
+												
+												
 												<option value="-1"></option>
 												<%
 													if ("0".equals(idProject)) {
@@ -133,6 +140,10 @@
 													}
 												%>
 
+												<option value="all">tất cả 
+												</option>
+												
+												
 											</select>
 										</div>
 										<br />
@@ -179,7 +190,7 @@
 							<div class="BlockTL"></div>
 							<div class="BlockTR">
 								<div></div>
-							</div>
+						</div>
 							<div class="BlockT"></div>
 							<div class="BlockR">
 								<div></div>
@@ -231,14 +242,10 @@
 										<div id="content_right">
 											<h3 align="center">Chỉnh sửa</h3>
 											<br>
-											<table id="table_monhoc" class="table_right" cellspacing="5"
-												cellpadding="0" border="0">
+											<table id="table_monhoc" class="table_right" cellspacing="5" cellpadding="0" border="0">
 												<thead>
-
-												</thead>
-												<tr>
-													<td width="200"><html:errors /></td>
-												</tr>
+													<html:errors />
+												</thead>												
 												<tr>
 													<td width="150">Mã nhóm:</td>
 													<td width="180"><html:text property="IDgroup"
@@ -247,6 +254,7 @@
 												<tr>
 													<td  width="100">Tên nhóm:</td>
 													<td><html:text property="groupname"></html:text></td>
+													<td><span style="color: red">(*)</span></td>
 												</tr>
 												<tr>
 													<td width="100">Trường nhóm:</td>
@@ -276,7 +284,7 @@
 																					<%
 																				}
 															
-																}
+															}
 																		}
 															%>
 														</html:select>
@@ -347,6 +355,11 @@
 													</td>
 												</tr>
 												<tr>
+											
+											
+											
+											
+											
 													<td>
 													<td><input name="page_pos" type="hidden"
 														value="<%=page_pos != null ? page_pos : "1"%>" /></td>
@@ -410,6 +423,8 @@
 											</tr>
 										</thead>
 										<tbody>
+											
+							
 											<logic:present name="group_list">
 												<logic:iterate id="element" name="group_list">
 													<tr align="center">
@@ -442,3 +457,21 @@
 	<!-- end container-->
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

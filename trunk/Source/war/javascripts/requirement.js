@@ -167,6 +167,16 @@ function draw_table_danhsach_req(list_report,length,index)
       td = tr.insertCell(tr.cells.length);
       td.innerHTML = list_report[i].process;
       
+      td = tr.insertCell(tr.cells.length);
+      td.innerHTML = list_report[i].statusReq;
+      
+      td = tr.insertCell(tr.cells.length);
+      td.innerHTML = list_report[i].lateDate;
+      
+      td = tr.insertCell(tr.cells.length);
+      td.innerHTML = list_report[i].stage;
+      
+      
       process_array.push(list_report[i].process);
       
   }

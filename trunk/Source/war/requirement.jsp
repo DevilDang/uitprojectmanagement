@@ -25,14 +25,14 @@ response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
 -->
 </style>
 <script src="javascripts/check.js" type="text/javascript"></script>
-<script src="javascripts/SpryMenuBar.js" type="text/javascript"></script>
 <script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
 <script src="javascripts/requirement.js" type="text/javascript"></script>
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="javascripts/ui/ui.datepicker_vn.js"></script>
 <script src="javascripts/SpryTabbedPanels.js" type="text/javascript"></script>
 <script src="javascripts/vebieudo.js"></script>
+
+
 <script type="text/javascript">
 	$(function() {
 		$("#datepicker").datepicker({
@@ -414,7 +414,7 @@ Trạng thái:<br>
 								<div id="TabbedPanels1" class="TabbedPanels">
 								  <ul class="TabbedPanelsTabGroup">
 								    <li class="TabbedPanelsTab style1" tabindex="0">Danh sách yêu cầu</li>
-								    <li class="TabbedPanelsTab style1" tabindex="0" )>Biểu đồ</li>
+								    <li class="TabbedPanelsTab style1" tabindex="0">Biểu đồ</li>
 								  </ul>
 								  <div class="TabbedPanelsContentGroup">
 								    <div class="TabbedPanelsContent">
@@ -499,7 +499,6 @@ Trạng thái:<br>
 <script type="text/javascript">
 <!--
 var TabbedPanels1 = new Spry.Widget.TabbedPanels("TabbedPanels1");
-var TabbedPanels2 = new Spry.Widget.TabbedPanels("TabbedPanels2");
 //-->
 </script>
 </html>

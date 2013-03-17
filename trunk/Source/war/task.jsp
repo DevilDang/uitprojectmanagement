@@ -80,30 +80,30 @@
 								<!-- Test -->
 								<logic:equal value="Test" name="record_sort" property="kind">
 								<option value="Test" selected>Test</option>
-								<option value="TestCase" >TestCase</option>
-								<option value="UseCase" >UseCase</option>
-								<option value="BanGiao" >BanGiao</option>
+								<option value="TestCase" >Thiết kế</option>
+								<option value="UseCase" >Phân tích</option>
+								<option value="BanGiao" >Bàn Giao</option>
 								<option value="Code" >Code</option>
 								</logic:equal>
 								<!-- TestCase -->
 								<logic:equal value="TestCase" name="record_sort" property="kind">
-								<option value="TestCase" selected>TestCase</option>
+								<option value="TestCase" selected>Thiết kế</option>
 								<option value="Test" >Test</option>
-								<option value="UseCase" >UseCase</option>
-								<option value="BanGiao" >BanGiao</option>
+								<option value="UseCase" >Phân tích</option>
+								<option value="BanGiao" >Bàn Giao</option>
 								<option value="Code" >Code</option>
 								</logic:equal>
 								<!-- UseCase -->
 								<logic:equal value="UseCase" name="record_sort" property="kind">
-								<option value="UseCase" selected>UseCase</option>
-								<option value="TestCase" >TestCase</option>
+								<option value="UseCase" selected>Phân tích</option>
+								<option value="TestCase" >Thiết kế</option>
 								<option value="Test" >Test</option>
-								<option value="BanGiao" >BanGiao</option>
+								<option value="BanGiao" >Bàn Giao</option>
 								<option value="Code" >Code</option>
 								</logic:equal>
 								<!-- BanGiao -->
 								<logic:equal value="BanGiao" name="record_sort" property="kind">
-								<option value="BanGiao" selected>BanGiao</option>
+								<option value="BanGiao" selected>Bàn Giao</option>
 								<option value="UseCase" >UseCase</option>
 								<option value="TestCase" >TestCase</option>
 								<option value="Test" >Test</option>
@@ -112,10 +112,10 @@
 								<!-- Code -->
 								<logic:equal value="Code" name="record_sort" property="kind">
 								<option value="Code" selected>Code</option>
-								<option value="UseCase" >UseCase</option>
-								<option value="TestCase" >TestCase</option>
+								<option value="UseCase" >Phân tích</option>
+								<option value="TestCase" >Thiết kế</option>
 								<option value="Test" >Test</option>
-								<option value="BanGiao" >BanGiao</option>
+								<option value="BanGiao" >Bàn Giao</option>
 								</logic:equal>
 							</select><br>
 						Trạng thái: <select name="status" id="box"
@@ -207,37 +207,37 @@ Loại công việc:<br>
                                    <logic:equal value="3" name="record_sort" property="level">
                                       <logic:equal value="Test" name="record_sort" property="kind">
                                        <html:option value="Test" >Test</html:option>
-                                       <html:option value="TestCase" >TestCase</html:option>
-                                       <html:option value="UseCase" >UseCase</html:option>
-                                       <html:option value="BanGiao" >BanGiao</html:option>
+                                       <html:option value="TestCase" >Thiết kế</html:option>
+                                       <html:option value="UseCase" >Phân Tích</html:option>
+                                       <html:option value="BanGiao" >Bàn giao</html:option>
                                        <html:option value="Code" >Code</html:option>
                                    	  </logic:equal>
                                    	  <logic:equal value="TestCase" name="record_sort" property="kind">
                                        <html:option value="Test" >Test</html:option>
-                                       <html:option value="TestCase" >TestCase</html:option>
-                                       <html:option value="UseCase" >UseCase</html:option>
+                                       <html:option value="TestCase" >Thiết kế</html:option>
+                                       <html:option value="UseCase" >Phân tích</html:option>
                                        <html:option value="BanGiao" >BanGiao</html:option>
                                        <html:option value="Code" >Code</html:option>
                                    	  </logic:equal>
                                    	  <logic:equal value="UseCase" name="record_sort" property="kind">
-                                   	  <html:option value="UseCase" >UseCase</html:option>
+                                   	  <html:option value="UseCase" >Phân tích</html:option>
                                        <html:option value="Test" >Test</html:option>
-                                       <html:option value="TestCase" >TestCase</html:option>
-                                       <html:option value="BanGiao" >BanGiao</html:option>
+                                       <html:option value="TestCase" >Thiết kế</html:option>
+                                       <html:option value="BanGiao" >Bàn giao</html:option>
                                        <html:option value="Code" >Code</html:option>
                                    	  </logic:equal>
                                    	   <logic:equal value="BanGiao" name="record_sort" property="kind">
-                                   	   <html:option value="BanGiao" >BanGiao</html:option>
+                                   	   <html:option value="BanGiao" >Bàn giao</html:option>
                                        <html:option value="Test" >Test</html:option>
-                                       <html:option value="TestCase" >TestCase</html:option>
-                                       <html:option value="UseCase" >UseCase</html:option>
+                                       <html:option value="TestCase" >Thiết kế</html:option>
+                                       <html:option value="UseCase" >Phân tích</html:option>
                                        <html:option value="Code" >Code</html:option>
                                    	  </logic:equal>
                                    	   <logic:equal value="Code" name="record_sort" property="kind">
                                    	    <html:option value="Code" >Code</html:option>
                                        <html:option value="Test" >Test</html:option>
-                                       <html:option value="UseCase" >UseCase</html:option>
-                                       <html:option value="BanGiao" >BanGiao</html:option>
+                                       <html:option value="UseCase" >Phân tích</html:option>
+                                       <html:option value="BanGiao" >Bàn giao</html:option>
                                    	  </logic:equal>
                                     </logic:equal>
                                     </html:select><br>

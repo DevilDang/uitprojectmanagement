@@ -18,6 +18,7 @@
 <script src="javascripts/check.js" type="text/javascript"></script>
 <script src="javascripts/SpryMenuBar.js" type="text/javascript"></script>
 <script src="javascripts/quanlyyeucauscripts.js" type="text/javascript"></script>
+<script type="text/javascript"src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 	 $(document).ready(function() {
 		$("#idSubmit").click(function() {
