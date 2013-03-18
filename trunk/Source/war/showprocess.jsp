@@ -44,7 +44,7 @@ response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
 	});
 </script>
 </head>
-<body onload="getListReq(1,1)">
+<body onload="getListReqProcess(1,1)">
 	<div class="BodyContent">
 
 		<div class="BorderBorder">
@@ -101,7 +101,7 @@ response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
 										action="/deleteReq.do">
 
 										Dự án: <select name="project" id="box"
-											onChange="getListReq(1,1)">
+											onChange="getListReqProcess(1,1)">
 											<logic:present name="idProList">
 												<logic:iterate id="element" name="idProList">
 													<option value="<bean:write name="element" property="id"/>">
@@ -112,7 +112,7 @@ response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
 										</select> <br>
 										<logic:notEmpty name="idReqList">
 						
-							Yêu cầu: <select name="req" id="box" onChange="getListReq(2,1)">
+							Yêu cầu: <select name="req" id="box" onChange="getListReqProcess(2,1)">
 												<logic:iterate id="element" name="idReqList">
 													<option value="<bean:write name="element" property="id"/>">
 														<bean:write name="element" property="name"/>
@@ -124,7 +124,7 @@ response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
 										<logic:notEmpty name="idGroupList">
 						
 							Nhóm thực hiện: <select name="group" id="box"
-												onChange="getListReq(3,1)">
+												onChange="getListReqProcess(3,1)">
 												<logic:iterate id="element" name="idGroupList">
 													<option value="<bean:write name="element" property="id"/>">
 														<bean:write name="element" property="name"/>
@@ -135,7 +135,7 @@ response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
 										</logic:notEmpty>
 
 										Trạng thái: <select name="status" id="box"
-											onChange="getListReq(4,1)">
+											onChange="getListReqProcess(4,1)">
 											<logic:present name="record_sort">
 												<logic:equal value="Open" name="record_sort"
 													property="status">
@@ -149,7 +149,7 @@ response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
 												</logic:equal>
 											</logic:present>
 										</select> <br> Trang:<select name="page" id="select_page"
-											onchange="getListReqByPage(this.options[this.selectedIndex].text)">
+											onchange="getListReqByPageProccess(this.options[this.selectedIndex].text)">
 											<logic:present name="record_page_list">
 												<logic:iterate id="item" name="record_page_list">
 													<option value="<bean:write name="item"/>">
@@ -204,7 +204,7 @@ response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
 						</div>
 
 					</div>
-					<div class="Column2">
+					<!-- <div class="Column2">
 
 						<div class="BlockBorder">
 							<div class="BlockBL">
@@ -245,6 +245,7 @@ response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
 										<html:errors />
 										<logic:messagesPresent message="true">
 											<!-- display message return by action-->
+											<!-- 
 											<html:messages id="message" message="true">
 												<bean:write name="message" />
 											</html:messages>
@@ -382,13 +383,14 @@ Trạng thái:<br>
 
 
 									<!-- <span class="ButtonInput"><span><input type="button" value="Thực hiện" /></span></span> -->
+									<!-- 
 									<div class="BlockContentBorder"></div>
 
 								</div>
 
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<div class="MainColumn">
 						<div class="ArticleBorder">
 							<div class="ArticleBL">
@@ -435,6 +437,8 @@ Trạng thái:<br>
 												<td width="70"><b>Mã</b></td>
 												<td width="130"><b>Tên</b></td>
 												<td width="130"><b>Nhóm</b></td>
+												<td width="130"><b>Ngày bắt đầu</b></td>
+												<td width="130"><b>Ngày kết thúc</b></td>
 												<td width="70"><b>Tiến độ</b></td>
 												<td width="70"><b>Tình trạng</b></td>
 												<td width="70"><b>Số ngày trễ</b></td>
@@ -454,6 +458,13 @@ Trạng thái:<br>
 																	property="nameReq" /> </b></td>
 														<td width="130"><b><bean:write name="item"
 																	property="nameGroup" /> </b></td>
+																	
+														<td width="130"><b><bean:write name="item"
+																	property="startDate" /> </b></td>
+																	
+														<td width="130"><b><bean:write name="item"
+																	property="endDate" /> </b></td>
+																																																				
 														<td width="70"><b><bean:write name="item"
 																	property="process" />%</b></td>
 														<td width="70"><b><bean:write name="item"

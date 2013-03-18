@@ -12,6 +12,8 @@
      <action path="/displayReqList" type="sp.action.requirement.DisplayReqList">  
     	<forward name="success" path="requirement.jsp" redirect="true" />
     	<forward name="failure" path="inform_nothing.jsp" redirect="true" />
+    	<forward name="showprocess" path="showprocess.jsp" redirect="true" />
+    	
     </action>
     
      <!-- display ReqList Paging-->

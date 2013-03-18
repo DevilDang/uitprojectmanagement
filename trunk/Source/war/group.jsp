@@ -206,7 +206,7 @@
 								<div class="BlockContentBorder">
 									<logic:present name="UserLogIN">
 										<ul>
-											<li><bean:write name="UserLogIN" /></li>
+											<li><bean:write name="UserLogIN"/><a href="logout.do"><span>(Đăng Xuất)</span></a></li>
 										</ul>
 									</logic:present>
 								</div>

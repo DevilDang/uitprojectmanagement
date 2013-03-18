@@ -231,16 +231,18 @@ public static JSONObjectList createJSONObjectList(List<RequirementForm> reqList)
  */
 public static JSONObject createJSONObject(RequirementForm req)
 {
-	String keys[] = {"id", "nameReq","nameGroup","process","statusReq", "lateDate", "stage" };
+	String keys[] = {"id", "nameReq","nameGroup","startDate","endDate","process","statusReq", "lateDate", "stage" };
     
 	JSONObject uc = new JSONObject(keys);
     uc.getObject().put(keys[0], String.valueOf(req.getId()));
     uc.getObject().put(keys[1], CommonUtil.convertNVLFor(req.getNameReq()));
     uc.getObject().put(keys[2], req.getNameGroup());
-    uc.getObject().put(keys[3], String.valueOf(req.getProcess()));
-    uc.getObject().put(keys[4], String.valueOf(req.getStatusReq()));
-    uc.getObject().put(keys[5], String.valueOf(req.getLateDate()));
-    uc.getObject().put(keys[6], String.valueOf(req.getStage()));
+    uc.getObject().put(keys[3], req.getStartDate());
+    uc.getObject().put(keys[4], req.getEndDate());
+    uc.getObject().put(keys[5], String.valueOf(req.getProcess()));
+    uc.getObject().put(keys[6], String.valueOf(req.getStatusReq()));
+    uc.getObject().put(keys[7], String.valueOf(req.getLateDate()));
+    uc.getObject().put(keys[8], String.valueOf(req.getStage()));
 
    return uc;     
 }

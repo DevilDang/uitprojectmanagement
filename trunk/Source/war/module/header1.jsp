@@ -46,6 +46,7 @@
             
             <li><a href="/displayReqList.do" class="MenuButton"><span>Yêu cầu</span></a></li>|
             <li><a href="/displayTaskList.do" class="MenuButton"><span>Công việc</span></a></li>|
+            <li><a href="/displayReqList.do?showprocess=process" class="MenuButton"><span>Tiến độ</span></a></li>|           
             <li><a href="/displayOrgList.do" class="MenuButton"><span>Đối Tác</span></a></li>|
             <%
             	if(User.ADMIN.equals(permission))
@@ -68,8 +69,7 @@
             	}
             %>           
             
-            <li><a href="changepassword.jsp"  class="MenuButton"><span>Đổi Mật Khẩu</span></a></li>|         
-            <li><a href="logout.do"  class="MenuButton"><span>Đăng Xuất</span></a></li>
+            <li><a href="changepassword.jsp"  class="MenuButton"><span>Đổi Mật Khẩu</span></a></li>
             </ul>
 </div> <!-- end header-->
 
