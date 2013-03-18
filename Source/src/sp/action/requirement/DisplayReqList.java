@@ -36,6 +36,8 @@ public class DisplayReqList extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
+		String showprocess = request.getParameter("showprocess");
+		System.out.println(" Dang tan loc " + showprocess);
 		// get session
 		HttpSession se = request.getSession();
 		// get user from session
@@ -165,7 +167,10 @@ public class DisplayReqList extends Action {
 			se.setAttribute(Constant.IDREQLIST, idReqList);
 			se.setAttribute(Constant.IDGROUPLIST, idGroupList);
 
-			return mapping.findForward(Constant.SUCCESS);
+			if(!"process".equals(showprocess))
+				return mapping.findForward(Constant.SUCCESS);
+			else
+				return mapping.findForward("showprocess");	
 		}
 		
 		return mapping.findForward(Constant.FAILURE);
