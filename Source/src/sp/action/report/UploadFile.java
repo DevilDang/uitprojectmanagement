@@ -1,4 +1,6 @@
 package sp.action.report;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 
@@ -29,18 +31,18 @@ public class UploadFile extends Action{
             HttpServletResponse response) throws Exception
             {
     
-    	Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);	
+    	Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     	List<BlobKey> blobKey = blobs.get("myFile");	
     	if (blobKey == null) {	
     		return mapping.findForward("success");
     	} else {	
     		//get key cua file upload
-    		System.out.println(blobKey.get(0).getKeyString());
     		HttpSession se = request.getSession();
     		//save name into session
     		BlobInfoFactory bi = new BlobInfoFactory();
-            String fname = bi.loadBlobInfo(blobKey.get(0)).getFilename();
-    		se.setAttribute(Constant.REPORT_FILE_NAME, fname);
+    		String fname = bi.loadBlobInfo(blobKey.get(0)).getFilename();
+    		String in = new String(fname.getBytes("ISO-8859-1"), "UTF-8");
+    		se.setAttribute(Constant.REPORT_FILE_NAME, in) ;
     		//save key into session
     		se.setAttribute(Constant.REPORT_FILE_ID, blobKey.get(0).getKeyString());
     		
