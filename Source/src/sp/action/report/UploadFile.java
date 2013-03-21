@@ -41,8 +41,8 @@ public class UploadFile extends Action{
     		//save name into session
     		BlobInfoFactory bi = new BlobInfoFactory();
     		String fname = bi.loadBlobInfo(blobKey.get(0)).getFilename();
-    		String in = new String(fname.getBytes("ISO-8859-1"), "UTF-8");
-    		se.setAttribute(Constant.REPORT_FILE_NAME, in) ;
+    		String nameFile = new String(fname.getBytes("ISO-8859-1"), "UTF-8");
+    		se.setAttribute(Constant.REPORT_FILE_NAME, nameFile) ;
     		//save key into session
     		se.setAttribute(Constant.REPORT_FILE_ID, blobKey.get(0).getKeyString());
     		
